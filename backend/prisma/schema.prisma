@@ -1,0 +1,237 @@
+datasource db {
+  provider = "mysql"
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+// -------------------------------------------------------------
+// Módulo: Seguridad / Admin (Un solo usuario)
+// -------------------------------------------------------------
+model Usuario {
+  id        String   @id @default(uuid())
+  username  String   @unique
+  password  String
+  nombre    String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+// -------------------------------------------------------------
+// Módulo: Clientes y Proveedores
+// -------------------------------------------------------------
+model Cliente {
+  id             String         @id @default(uuid())
+  nombre         String
+  identificacion String?        @unique // DNI / RUT / RFC
+  telefono       String?
+  email          String?
+  direccion      String?
+  notas          String?        @db.Text
+  createdAt      DateTime       @default(now())
+  updatedAt      DateTime       @updatedAt
+  
+  // Relaciones
+  cotizaciones   Cotizacion[]
+  instalaciones  Instalacion[]
+}
+
+model Proveedor {
+  id             String    @id @default(uuid())
+  nombre         String
+  contactoNombre String?
+  telefono       String?
+  email          String?
+  direccion      String?
+  notas          String?   @db.Text
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+
+  // Relaciones
+  compras        Compra[]
+}
+
+// -------------------------------------------------------------
+// Módulo: Catálogo (Marcas, Categorías, Productos)
+// -------------------------------------------------------------
+model Marca {
+  id          String      @id @default(uuid())
+  nombre      String      @unique
+  descripcion String?     @db.Text
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+  
+  productos   Producto[]
+}
+
+model Categoria {
+  id          String      @id @default(uuid())
+  nombre      String      @unique
+  descripcion String?     @db.Text
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+  
+  productos   Producto[]
+}
+
+model Producto {
+  id          String      @id @default(uuid())
+  sku         String      @unique // Código de barra o SKU único
+  nombre      String
+  descripcion String?     @db.Text
+  precioCosto Decimal     @db.Decimal(10, 2)
+  precioVenta Decimal     @db.Decimal(10, 2)
+  stock       Int         @default(0)
+  stockMinimo Int         @default(0)
+  marcaId     String
+  categoriaId String
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+
+  // Relaciones
+  marca       Marca       @relation(fields: [marcaId], references: [id])
+  categoria   Categoria   @relation(fields: [categoriaId], references: [id])
+  
+  cotizacionesDetalle CotizacionDetalle[]
+  comprasDetalle      CompraDetalle[]
+}
+
+// -------------------------------------------------------------
+// Módulo: Cotizaciones y Ventas
+// -------------------------------------------------------------
+enum CotizacionEstado {
+  PENDIENTE
+  APROBADA
+  RECHAZADA
+  FACTURADA
+}
+
+model Cotizacion {
+  id          String            @id @default(uuid())
+  folio       String            @unique // Número correlativo de cotización
+  clienteId   String
+  fecha       DateTime          @default(now())
+  estado      CotizacionEstado  @default(PENDIENTE)
+  notas       String?           @db.Text
+  descuento   Decimal           @default(0.00) @db.Decimal(10, 2)
+  subtotal    Decimal           @db.Decimal(10, 2)
+  total       Decimal           @db.Decimal(10, 2)
+  createdAt   DateTime          @default(now())
+  updatedAt   DateTime          @updatedAt
+
+  // Relaciones
+  cliente       Cliente             @relation(fields: [clienteId], references: [id])
+  detalles      CotizacionDetalle[]
+  instalaciones Instalacion[]
+}
+
+model CotizacionDetalle {
+  id           String     @id @default(uuid())
+  cotizacionId String
+  productoId   String
+  cantidad     Int
+  precioUnit   Decimal    @db.Decimal(10, 2)
+  descuento    Decimal    @default(0.00) @db.Decimal(10, 2)
+  subtotal     Decimal    @db.Decimal(10, 2)
+
+  // Relaciones
+  cotizacion   Cotizacion @relation(fields: [cotizacionId], references: [id], onDelete: Cascade)
+  producto     Producto   @relation(fields: [productoId], references: [id])
+}
+
+// -------------------------------------------------------------
+// Módulo: Compras (Abastecimiento de inventario)
+// -------------------------------------------------------------
+enum CompraEstado {
+  PENDIENTE
+  RECIBIDA
+  CANCELADA
+}
+
+model Compra {
+  id          String        @id @default(uuid())
+  folio       String        @unique // Número de factura o remisión del proveedor
+  proveedorId String
+  fecha       DateTime      @default(now())
+  estado      CompraEstado  @default(PENDIENTE)
+  total       Decimal       @db.Decimal(10, 2)
+  notas       String?       @db.Text
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+
+  // Relaciones
+  proveedor   Proveedor     @relation(fields: [proveedorId], references: [id])
+  detalles    CompraDetalle[]
+  transaccion Transaccion?  // Finanzas vinculada
+}
+
+model CompraDetalle {
+  id         String   @id @default(uuid())
+  compraId   String
+  productoId String
+  cantidad   Int
+  costoUnit  Decimal  @db.Decimal(10, 2)
+  subtotal   Decimal  @db.Decimal(10, 2)
+
+  // Relaciones
+  compra     Compra   @relation(fields: [compraId], references: [id], onDelete: Cascade)
+  producto   Producto @relation(fields: [productoId], references: [id])
+}
+
+// -------------------------------------------------------------
+// Módulo: Instalaciones (Servicio Técnico)
+// -------------------------------------------------------------
+enum InstalacionEstado {
+  PROGRAMADA
+  EN_PROGRESO
+  COMPLETADA
+  CANCELADA
+}
+
+model Instalacion {
+  id           String            @id @default(uuid())
+  clienteId    String
+  cotizacionId String?
+  fechaHora    DateTime
+  estado       InstalacionEstado @default(PROGRAMADA)
+  direccion    String            // Lugar físico de instalación
+  detalles     String?           @db.Text
+  notasTecnico String?           @db.Text
+  createdAt    DateTime          @default(now())
+  updatedAt    DateTime          @updatedAt
+
+  // Relaciones
+  cliente      Cliente     @relation(fields: [clienteId], references: [id])
+  cotizacion   Cotizacion? @relation(fields: [cotizacionId], references: [id])
+}
+
+// -------------------------------------------------------------
+// Módulo: Finanzas (Flujo de Caja)
+// -------------------------------------------------------------
+enum TransaccionTipo {
+  INGRESO
+  EGRESO
+}
+
+enum TransaccionCategoria {
+  VENTA
+  COMPRA
+  GASTO_OPERATIVO
+  OTROS
+}
+
+model Transaccion {
+  id          String               @id @default(uuid())
+  tipo        TransaccionTipo
+  categoria   TransaccionCategoria
+  monto       Decimal              @db.Decimal(10, 2)
+  fecha       DateTime             @default(now())
+  descripcion String?              @db.Text
+  compraId    String?              @unique
+  createdAt   DateTime             @default(now())
+  updatedAt   DateTime             @updatedAt
+
+  // Relaciones
+  compra      Compra?              @relation(fields: [compraId], references: [id])
+}
