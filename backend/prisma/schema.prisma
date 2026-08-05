@@ -10,12 +10,13 @@ generator client {
 // Módulo: Seguridad / Admin (Un solo usuario)
 // -------------------------------------------------------------
 model Usuario {
-  id        String   @id @default(uuid())
-  username  String   @unique
-  password  String
-  nombre    String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id           String   @id @default(uuid())
+  email        String   @unique
+  password     String
+  nombre       String
+  refreshToken String?  @db.Text
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
 }
 
 // -------------------------------------------------------------

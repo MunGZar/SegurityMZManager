@@ -13,8 +13,10 @@ import {
   ShoppingBag,
   Wrench,
   DollarSign,
+  LogOut,
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { useAuth } from '@/context/AuthContext';
 
 const menuItems = [
   { name: 'Dashboard', href: '/', icon: LayoutDashboard },
@@ -31,6 +33,7 @@ const menuItems = [
 
 export function Sidebar() {
   const pathname = usePathname();
+  const { user, logout } = useAuth();
 
   return (
     <aside className="fixed inset-y-0 left-0 z-20 flex w-64 flex-col border-r border-zinc-800 bg-zinc-950 text-zinc-100">
@@ -68,16 +71,24 @@ export function Sidebar() {
         })}
       </nav>
 
-      <div className="p-4 border-t border-zinc-900 bg-zinc-950/50">
+      <div className="p-4 border-t border-zinc-900 bg-zinc-950/50 space-y-3">
         <div className="flex items-center gap-3 rounded-lg p-2 bg-zinc-900/30 border border-zinc-900/60">
           <div className="h-8 w-8 rounded-full bg-zinc-800 flex items-center justify-center font-bold text-zinc-300 text-xs">
-            AD
+            {user?.nombre?.substring(0, 2).toUpperCase() || 'AD'}
           </div>
-          <div className="overflow-hidden">
-            <p className="text-xs font-semibold text-zinc-200 truncate">Administrador</p>
-            <p className="text-[10px] text-zinc-500 truncate">MZ Cámaras</p>
+          <div className="overflow-hidden flex-1">
+            <p className="text-xs font-semibold text-zinc-200 truncate">{user?.nombre || 'Administrador'}</p>
+            <p className="text-[10px] text-zinc-500 truncate">{user?.email || 'admin@seguritymz.com'}</p>
           </div>
         </div>
+
+        <button
+          onClick={logout}
+          className="flex w-full items-center justify-center gap-2 px-3 py-2 rounded-lg text-xs font-medium text-red-400 border border-red-500/20 hover:bg-red-500/10 active:bg-red-500/20 transition-all duration-200"
+        >
+          <LogOut className="h-3.5 w-3.5" />
+          <span>Cerrar sesión</span>
+        </button>
       </div>
     </aside>
   );
