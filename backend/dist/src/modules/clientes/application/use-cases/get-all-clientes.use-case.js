@@ -20,8 +20,16 @@ let GetAllClientesUseCase = class GetAllClientesUseCase {
     constructor(clientesRepository) {
         this.clientesRepository = clientesRepository;
     }
-    async execute(search) {
-        return this.clientesRepository.findAll(search);
+    async execute(query) {
+        return this.clientesRepository.findAll({
+            search: query.search,
+            page: query.page,
+            limit: query.limit,
+            sortBy: query.sortBy,
+            sortOrder: query.sortOrder,
+            status: query.status,
+            includeDeleted: query.includeDeleted,
+        });
     }
 };
 exports.GetAllClientesUseCase = GetAllClientesUseCase;

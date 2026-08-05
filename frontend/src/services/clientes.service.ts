@@ -1,5 +1,7 @@
 import { fetchApi } from '@/lib/api';
 
+export type ClienteStatus = 'PROSPECTO' | 'ACTIVO' | 'INACTIVO';
+
 export interface Cliente {
   id: string;
   nombre: string;
@@ -8,8 +10,10 @@ export interface Cliente {
   email: string | null;
   direccion: string | null;
   notas: string | null;
+  status: ClienteStatus;
   createdAt: string;
   updatedAt: string;
+  deletedAt?: string | null;
 }
 
 export interface CreateClienteInput {
@@ -19,6 +23,7 @@ export interface CreateClienteInput {
   email?: string;
   direccion?: string;
   notas?: string;
+  status?: ClienteStatus;
 }
 
 export interface UpdateClienteInput {
@@ -28,12 +33,38 @@ export interface UpdateClienteInput {
   email?: string;
   direccion?: string;
   notas?: string;
+  status?: ClienteStatus;
+}
+
+export interface GetClientesParams {
+  search?: string;
+  page?: number;
+  limit?: number;
+  sortBy?: string;
+  sortOrder?: 'asc' | 'desc';
+  status?: ClienteStatus;
+  includeDeleted?: boolean;
+}
+
+export interface ClientesPaginatedResponse {
+  data: Cliente[];
+  total: number;
 }
 
 export const clientesService = {
-  getAll: (search?: string) => {
-    const query = search ? `?q=${encodeURIComponent(search)}` : '';
-    return fetchApi<Cliente[]>(`/clientes${query}`);
+  getAll: (params?: GetClientesParams) => {
+    const queryParts: string[] = [];
+    if (params) {
+      if (params.search) queryParts.push(`search=${encodeURIComponent(params.search)}`);
+      if (params.page !== undefined) queryParts.push(`page=${params.page}`);
+      if (params.limit !== undefined) queryParts.push(`limit=${params.limit}`);
+      if (params.sortBy) queryParts.push(`sortBy=${params.sortBy}`);
+      if (params.sortOrder) queryParts.push(`sortOrder=${params.sortOrder}`);
+      if (params.status) queryParts.push(`status=${params.status}`);
+      if (params.includeDeleted) queryParts.push(`includeDeleted=${params.includeDeleted}`);
+    }
+    const query = queryParts.length > 0 ? `?${queryParts.join('&')}` : '';
+    return fetchApi<ClientesPaginatedResponse>(`/clientes${query}`);
   },
 
   getById: (id: string) => {
@@ -57,6 +88,12 @@ export const clientesService = {
   delete: (id: string) => {
     return fetchApi<void>(`/clientes/${id}`, {
       method: 'DELETE',
+    });
+  },
+
+  restore: (id: string) => {
+    return fetchApi<Cliente>(`/clientes/${id}/restore`, {
+      method: 'POST',
     });
   },
 };

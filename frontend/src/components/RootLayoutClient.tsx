@@ -4,6 +4,7 @@ import { usePathname } from 'next/navigation';
 import { Sidebar } from "@/components/Sidebar";
 import { AuthProvider } from "@/context/AuthContext";
 import { AuthGuard } from "@/components/AuthGuard";
+import { Toaster } from 'sonner';
 
 export function RootLayoutClient({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
@@ -11,6 +12,7 @@ export function RootLayoutClient({ children }: { children: React.ReactNode }) {
 
   return (
     <AuthProvider>
+      <Toaster richColors theme="dark" closeButton position="top-right" />
       {isLoginPage ? (
         <div className="min-h-screen w-full bg-slate-950 text-white">
           {children}

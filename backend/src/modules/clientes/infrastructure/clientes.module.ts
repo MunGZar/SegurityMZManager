@@ -7,6 +7,7 @@ import { GetAllClientesUseCase } from '../application/use-cases/get-all-clientes
 import { GetClienteByIdUseCase } from '../application/use-cases/get-cliente-by-id.use-case';
 import { UpdateClienteUseCase } from '../application/use-cases/update-cliente.use-case';
 import { DeleteClienteUseCase } from '../application/use-cases/delete-cliente.use-case';
+import { RestoreClienteUseCase } from '../application/use-cases/restore-cliente.use-case';
 
 @Module({
   controllers: [ClientesController],
@@ -16,6 +17,7 @@ import { DeleteClienteUseCase } from '../application/use-cases/delete-cliente.us
     GetClienteByIdUseCase,
     UpdateClienteUseCase,
     DeleteClienteUseCase,
+    RestoreClienteUseCase,
     {
       provide: IClientesRepository,
       useClass: PrismaClientesRepository,
@@ -27,6 +29,7 @@ import { DeleteClienteUseCase } from '../application/use-cases/delete-cliente.us
     GetClienteByIdUseCase,
     UpdateClienteUseCase,
     DeleteClienteUseCase,
+    RestoreClienteUseCase,
   ],
 })
 export class ClientesModule {}

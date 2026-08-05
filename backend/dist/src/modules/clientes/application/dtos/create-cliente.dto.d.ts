@@ -1,3 +1,8 @@
+export declare enum ClienteStatusDto {
+    PROSPECTO = "PROSPECTO",
+    ACTIVO = "ACTIVO",
+    INACTIVO = "INACTIVO"
+}
 export declare class CreateClienteDto {
     nombre: string;
     identificacion?: string;
@@ -5,4 +10,5 @@ export declare class CreateClienteDto {
     email?: string;
     direccion?: string;
     notas?: string;
+    status?: ClienteStatusDto;
 }

@@ -38,6 +38,7 @@ let UpdateClienteUseCase = class UpdateClienteUseCase {
             email: dto.email !== undefined ? dto.email : undefined,
             direccion: dto.direccion !== undefined ? dto.direccion : undefined,
             notas: dto.notas !== undefined ? dto.notas : undefined,
+            status: dto.status,
         });
     }
 };

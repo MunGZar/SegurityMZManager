@@ -25,10 +25,6 @@ let DeleteClienteUseCase = class DeleteClienteUseCase {
         if (!existing) {
             throw new common_1.NotFoundException(`Cliente con ID '${id}' no encontrado`);
         }
-        const hasAssociations = await this.clientesRepository.hasAssociations(id);
-        if (hasAssociations) {
-            throw new common_1.BadRequestException('No se puede eliminar el cliente porque tiene cotizaciones o instalaciones asociadas');
-        }
         await this.clientesRepository.delete(id);
     }
 };

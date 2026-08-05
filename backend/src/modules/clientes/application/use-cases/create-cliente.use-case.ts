@@ -25,6 +25,7 @@ export class CreateClienteUseCase {
       email: dto.email || null,
       direccion: dto.direccion || null,
       notas: dto.notas || null,
+      status: dto.status as any,
     });
   }
 }

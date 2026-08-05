@@ -16,6 +16,7 @@ const get_all_clientes_use_case_1 = require("../application/use-cases/get-all-cl
 const get_cliente_by_id_use_case_1 = require("../application/use-cases/get-cliente-by-id.use-case");
 const update_cliente_use_case_1 = require("../application/use-cases/update-cliente.use-case");
 const delete_cliente_use_case_1 = require("../application/use-cases/delete-cliente.use-case");
+const restore_cliente_use_case_1 = require("../application/use-cases/restore-cliente.use-case");
 let ClientesModule = class ClientesModule {
 };
 exports.ClientesModule = ClientesModule;
@@ -28,6 +29,7 @@ exports.ClientesModule = ClientesModule = __decorate([
             get_cliente_by_id_use_case_1.GetClienteByIdUseCase,
             update_cliente_use_case_1.UpdateClienteUseCase,
             delete_cliente_use_case_1.DeleteClienteUseCase,
+            restore_cliente_use_case_1.RestoreClienteUseCase,
             {
                 provide: clientes_repository_interface_1.IClientesRepository,
                 useClass: prisma_clientes_repository_1.PrismaClientesRepository,
@@ -39,6 +41,7 @@ exports.ClientesModule = ClientesModule = __decorate([
             get_cliente_by_id_use_case_1.GetClienteByIdUseCase,
             update_cliente_use_case_1.UpdateClienteUseCase,
             delete_cliente_use_case_1.DeleteClienteUseCase,
+            restore_cliente_use_case_1.RestoreClienteUseCase,
         ],
     })
 ], ClientesModule);

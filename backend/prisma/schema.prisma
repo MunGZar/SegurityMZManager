@@ -22,6 +22,12 @@ model Usuario {
 // -------------------------------------------------------------
 // Módulo: Clientes y Proveedores
 // -------------------------------------------------------------
+enum ClienteStatus {
+  PROSPECTO
+  ACTIVO
+  INACTIVO
+}
+
 model Cliente {
   id             String         @id @default(uuid())
   nombre         String
@@ -30,6 +36,8 @@ model Cliente {
   email          String?
   direccion      String?
   notas          String?        @db.Text
+  status         ClienteStatus  @default(PROSPECTO)
+  deletedAt      DateTime?
   createdAt      DateTime       @default(now())
   updatedAt      DateTime       @updatedAt
   
@@ -41,11 +49,15 @@ model Cliente {
 model Proveedor {
   id             String    @id @default(uuid())
   nombre         String
-  contactoNombre String?
+  contacto       String?
   telefono       String?
-  email          String?
+  whatsapp       String?
+  correo         String?
+  ciudad         String?
   direccion      String?
-  notas          String?   @db.Text
+  observaciones  String?   @db.Text
+  activo         Boolean   @default(true)
+  deletedAt      DateTime?
   createdAt      DateTime  @default(now())
   updatedAt      DateTime  @updatedAt
 

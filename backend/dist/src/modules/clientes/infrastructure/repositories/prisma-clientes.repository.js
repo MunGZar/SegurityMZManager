@@ -19,35 +19,65 @@ let PrismaClientesRepository = class PrismaClientesRepository {
         this.prisma = prisma;
     }
     mapToDomain(prismaCliente) {
-        return new cliente_entity_1.Cliente(prismaCliente.id, prismaCliente.nombre, prismaCliente.identificacion, prismaCliente.telefono, prismaCliente.email, prismaCliente.direccion, prismaCliente.notas, prismaCliente.createdAt, prismaCliente.updatedAt);
+        return new cliente_entity_1.Cliente(prismaCliente.id, prismaCliente.nombre, prismaCliente.identificacion, prismaCliente.telefono, prismaCliente.email, prismaCliente.direccion, prismaCliente.notas, prismaCliente.status, prismaCliente.createdAt, prismaCliente.updatedAt, prismaCliente.deletedAt);
     }
-    async findAll(search) {
-        const records = await this.prisma.cliente.findMany({
-            where: search
-                ? {
-                    OR: [
-                        { nombre: { contains: search } },
-                        { identificacion: { contains: search } },
-                        { email: { contains: search } },
-                        { telefono: { contains: search } },
-                    ],
-                }
-                : {},
-            orderBy: { nombre: 'asc' },
-        });
-        return records.map((record) => this.mapToDomain(record));
+    async findAll(options) {
+        const page = options?.page ?? 1;
+        const limit = options?.limit ?? 10;
+        const skip = (page - 1) * limit;
+        const where = {};
+        if (!options?.includeDeleted) {
+            where.deletedAt = null;
+        }
+        if (options?.status) {
+            where.status = options.status;
+        }
+        if (options?.search) {
+            where.OR = [
+                { nombre: { contains: options.search } },
+                { telefono: { contains: options.search } },
+                { direccion: { contains: options.search } },
+                { identificacion: { contains: options.search } },
+                { email: { contains: options.search } },
+            ];
+        }
+        const sortBy = options?.sortBy ?? 'nombre';
+        const sortOrder = options?.sortOrder ?? 'asc';
+        const orderBy = {
+            [sortBy]: sortOrder,
+        };
+        const [records, total] = await Promise.all([
+            this.prisma.cliente.findMany({
+                where,
+                take: limit,
+                skip,
+                orderBy,
+            }),
+            this.prisma.cliente.count({ where }),
+        ]);
+        return {
+            data: records.map((record) => this.mapToDomain(record)),
+            total,
+        };
     }
-    async findById(id) {
+    async findById(id, includeDeleted = false) {
+        const where = { id };
+        if (!includeDeleted) {
+            const record = await this.prisma.cliente.findFirst({
+                where: { id, deletedAt: null },
+            });
+            return record ? this.mapToDomain(record) : null;
+        }
         const record = await this.prisma.cliente.findUnique({
-            where: { id },
+            where,
         });
         return record ? this.mapToDomain(record) : null;
     }
     async findByIdentificacion(identificacion) {
         if (!identificacion)
             return null;
-        const record = await this.prisma.cliente.findUnique({
-            where: { identificacion },
+        const record = await this.prisma.cliente.findFirst({
+            where: { identificacion, deletedAt: null },
         });
         return record ? this.mapToDomain(record) : null;
     }
@@ -60,6 +90,7 @@ let PrismaClientesRepository = class PrismaClientesRepository {
                 email: cliente.email || null,
                 direccion: cliente.direccion || null,
                 notas: cliente.notas || null,
+                status: cliente.status || 'PROSPECTO',
             },
         });
         return this.mapToDomain(record);
@@ -74,14 +105,23 @@ let PrismaClientesRepository = class PrismaClientesRepository {
                 email: cliente.email,
                 direccion: cliente.direccion,
                 notas: cliente.notas,
+                status: cliente.status,
             },
         });
         return this.mapToDomain(record);
     }
     async delete(id) {
-        await this.prisma.cliente.delete({
+        await this.prisma.cliente.update({
             where: { id },
+            data: { deletedAt: new Date() },
         });
+    }
+    async restore(id) {
+        const record = await this.prisma.cliente.update({
+            where: { id },
+            data: { deletedAt: null },
+        });
+        return this.mapToDomain(record);
     }
     async hasAssociations(id) {
         const counts = await this.prisma.cliente.findUnique({

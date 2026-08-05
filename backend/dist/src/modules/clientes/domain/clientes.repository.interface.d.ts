@@ -1,7 +1,18 @@
-import { Cliente } from './cliente.entity';
+import { Cliente, ClienteStatus } from './cliente.entity';
 export interface IClientesRepository {
-    findAll(search?: string): Promise<Cliente[]>;
-    findById(id: string): Promise<Cliente | null>;
+    findAll(options?: {
+        search?: string;
+        page?: number;
+        limit?: number;
+        sortBy?: string;
+        sortOrder?: 'asc' | 'desc';
+        status?: ClienteStatus;
+        includeDeleted?: boolean;
+    }): Promise<{
+        data: Cliente[];
+        total: number;
+    }>;
+    findById(id: string, includeDeleted?: boolean): Promise<Cliente | null>;
     findByIdentificacion(identificacion: string): Promise<Cliente | null>;
     create(cliente: {
         nombre: string;
@@ -10,6 +21,7 @@ export interface IClientesRepository {
         email?: string | null;
         direccion?: string | null;
         notas?: string | null;
+        status?: ClienteStatus;
     }): Promise<Cliente>;
     update(id: string, cliente: {
         nombre?: string;
@@ -18,8 +30,10 @@ export interface IClientesRepository {
         email?: string | null;
         direccion?: string | null;
         notas?: string | null;
+        status?: ClienteStatus;
     }): Promise<Cliente>;
     delete(id: string): Promise<void>;
+    restore(id: string): Promise<Cliente>;
     hasAssociations(id: string): Promise<boolean>;
 }
 export declare const IClientesRepository: unique symbol;

@@ -9,9 +9,11 @@ class Cliente {
     email;
     direccion;
     notas;
+    status;
     createdAt;
     updatedAt;
-    constructor(id, nombre, identificacion, telefono, email, direccion, notas, createdAt, updatedAt) {
+    deletedAt;
+    constructor(id, nombre, identificacion, telefono, email, direccion, notas, status, createdAt, updatedAt, deletedAt = null) {
         this.id = id;
         this.nombre = nombre;
         this.identificacion = identificacion;
@@ -19,8 +21,10 @@ class Cliente {
         this.email = email;
         this.direccion = direccion;
         this.notas = notas;
+        this.status = status;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
+        this.deletedAt = deletedAt;
     }
 }
 exports.Cliente = Cliente;
