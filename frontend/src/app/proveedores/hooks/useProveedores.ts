@@ -1,17 +1,28 @@
 import { useState, useEffect, useCallback } from 'react';
 import { toast } from 'sonner';
 import { proveedoresService, Proveedor, CreateProveedorInput, UpdateProveedorInput } from '@/services/proveedores.service';
+import { useTableState } from '@/hooks/useTableState';
 
 export function useProveedores() {
   const [proveedores, setProveedores] = useState<Proveedor[]>([]);
   const [total, setTotal] = useState(0);
   const [loading, setLoading] = useState(true);
-  const [search, setSearch] = useState('');
-  const [page, setPage] = useState(1);
-  const [limit, setLimit] = useState(10);
-  const [sortBy, setSortBy] = useState<string>('nombre');
-  const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('asc');
-  const [includeDeleted, setIncludeDeleted] = useState(false);
+
+  const {
+    search,
+    setSearch,
+    page,
+    setPage,
+    limit,
+    setLimit,
+    sortBy,
+    setSortBy,
+    sortOrder,
+    setSortOrder,
+    includeDeleted,
+    setIncludeDeleted,
+    toggleSort,
+  } = useTableState({ initialSortBy: 'nombre' });
 
   const loadProveedores = useCallback(async () => {
     setLoading(true);
@@ -96,16 +107,6 @@ export function useProveedores() {
     }
   };
 
-  const toggleSort = (field: string) => {
-    if (sortBy === field) {
-      setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc');
-    } else {
-      setSortBy(field);
-      setSortOrder('asc');
-    }
-    setPage(1);
-  };
-
   return {
     proveedores,
     total,
@@ -117,7 +118,9 @@ export function useProveedores() {
     limit,
     setLimit,
     sortBy,
+    setSortBy,
     sortOrder,
+    setSortOrder,
     includeDeleted,
     setIncludeDeleted,
     toggleSort,

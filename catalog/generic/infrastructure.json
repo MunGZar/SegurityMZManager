@@ -1,0 +1,138 @@
+[
+  {
+    "reference": "RACK-29X52X40-5RU",
+    "officialName": "Gabinete Rack Metálico 5RU 29x52x40 cm",
+    "brand": "Genérico",
+    "category": "Infraestructura",
+    "family": "Rack",
+    "description": "Gabinete rack metálico de pared de 5RU para alojar equipos de videovigilancia y redes.",
+    "specifications": {
+      "rackUnits": 5,
+      "dimensions": "29 x 52 x 40 cm",
+      "mounting": "Pared",
+      "material": "Acero",
+      "application": [
+        "DVR",
+        "NVR",
+        "Switch",
+        "Patch Panel",
+        "Equipos de Red"
+      ]
+    },
+    "unit": "Unidad",
+    "resources": {
+      "productPage": "",
+      "datasheet": "",
+      "manual": "",
+      "image": ""
+    },
+    "commercial": {
+      "purchasePrice": null,
+      "marginPercentage": 30,
+      "salePrice": null
+    },
+    "createdFrom": "CATALOG",
+    "isOfficial": false,
+    "status": "ACTIVE"
+  },
+  {
+    "reference": "RACK-50X50",
+    "officialName": "Gabinete Rack Metálico 50x50 cm",
+    "brand": "Genérico",
+    "category": "Infraestructura",
+    "family": "Rack",
+    "description": "Gabinete rack metálico para instalación de equipos de videovigilancia y comunicaciones.",
+    "specifications": {
+      "dimensions": "50 x 50 cm",
+      "mounting": "Pared",
+      "material": "Acero",
+      "application": [
+        "DVR",
+        "NVR",
+        "Switch",
+        "Patch Panel",
+        "Equipos de Red"
+      ]
+    },
+    "unit": "Unidad",
+    "resources": {
+      "productPage": "",
+      "datasheet": "",
+      "manual": "",
+      "image": ""
+    },
+    "commercial": {
+      "purchasePrice": null,
+      "marginPercentage": 30,
+      "salePrice": null
+    },
+    "createdFrom": "CATALOG",
+    "isOfficial": false,
+    "status": "ACTIVE"
+  },
+  {
+    "reference": "CANALETA-13X7",
+    "officialName": "Canaleta PVC 13x7 mm",
+    "brand": "Genérico",
+    "category": "Infraestructura",
+    "family": "Canaleta",
+    "description": "Canaleta de PVC para la organización y protección del cableado en instalaciones de videovigilancia.",
+    "specifications": {
+      "dimensions": "13 x 7 mm",
+      "material": "PVC",
+      "color": "Blanco",
+      "application": [
+        "Cableado CCTV",
+        "Cableado Eléctrico",
+        "Cableado de Red"
+      ]
+    },
+    "unit": "Metro",
+    "resources": {
+      "productPage": "",
+      "datasheet": "",
+      "manual": "",
+      "image": ""
+    },
+    "commercial": {
+      "purchasePrice": null,
+      "marginPercentage": 30,
+      "salePrice": null
+    },
+    "createdFrom": "CATALOG",
+    "isOfficial": false,
+    "status": "ACTIVE"
+  },
+  {
+    "reference": "CAJILLA-UNIVERSAL",
+    "officialName": "Caja de Paso para Cámaras",
+    "brand": "Genérico",
+    "category": "Infraestructura",
+    "family": "Caja de Paso",
+    "description": "Caja de paso utilizada para proteger conexiones y facilitar la instalación de cámaras de videovigilancia.",
+    "specifications": {
+      "material": "PVC",
+      "application": [
+        "Cámaras Bullet",
+        "Cámaras Domo",
+        "Cámaras Eyeball"
+      ],
+      "installation": "Exterior / Interior"
+    },
+    "unit": "Unidad",
+    "resources": {
+      "productPage": "",
+      "datasheet": "",
+      "manual": "",
+      "image": ""
+    },
+    "commercial": {
+      "purchasePrice": null,
+      "marginPercentage": 30,
+      "salePrice": null
+    },
+    "createdFrom": "CATALOG",
+    "isOfficial": false,
+    "status": "ACTIVE"
+  }
+]

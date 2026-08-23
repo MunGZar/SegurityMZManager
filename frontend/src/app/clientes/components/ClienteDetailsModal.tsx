@@ -20,6 +20,8 @@ import {
   DialogDescription,
   DialogFooter,
 } from '@/components/ui/dialog';
+import { StatusBadge } from '@/components/shared';
+import { formatDate } from '@/lib/utils';
 
 interface ClienteDetailsModalProps {
   open: boolean;
@@ -36,32 +38,16 @@ export function ClienteDetailsModal({
 
   const getStatusBadge = (status: string, deletedAt?: string | null) => {
     if (deletedAt) {
-      return (
-        <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-red-950/40 border border-red-500/30 text-red-400">
-          Eliminado Lógicamente
-        </span>
-      );
+      return <StatusBadge variant="deleted" label="Eliminado Lógicamente" />;
     }
 
     switch (status) {
       case 'PROSPECTO':
-        return (
-          <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-blue-950/40 border border-blue-500/30 text-blue-400">
-            Prospecto
-          </span>
-        );
+        return <StatusBadge variant="prospect" label="Prospecto" />;
       case 'ACTIVO':
-        return (
-          <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-emerald-950/40 border border-emerald-500/30 text-emerald-400">
-            Cliente Activo
-          </span>
-        );
+        return <StatusBadge variant="active" label="Cliente Activo" />;
       case 'INACTIVO':
-        return (
-          <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-zinc-800 border border-zinc-700 text-zinc-400">
-            Inactivo
-          </span>
-        );
+        return <StatusBadge variant="inactive" label="Inactivo" />;
       default:
         return null;
     }
@@ -119,13 +105,7 @@ export function ClienteDetailsModal({
               <span className="text-xs text-zinc-500 font-semibold uppercase tracking-wider">Registrado El</span>
               <p className="text-sm text-zinc-200 font-medium flex items-center gap-1.5">
                 <Calendar className="h-3.5 w-3.5 text-zinc-500" />
-                {new Date(cliente.createdAt).toLocaleDateString('es-ES', {
-                  day: '2-digit',
-                  month: '2-digit',
-                  year: 'numeric',
-                  hour: '2-digit',
-                  minute: '2-digit'
-                })}
+                {formatDate(cliente.createdAt, true)}
               </p>
             </div>
           </div>

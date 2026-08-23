@@ -1,0 +1,143 @@
+[
+  {
+    "reference": "DH-XVR5232AN-I3/T",
+    "officialName": "32-Channel WizSense Penta-brid XVR",
+    "brand": "Dahua",
+    "category": "XVR",
+    "family": "WizSense",
+    "description": "Grabador pentahíbrido de 32 canales compatible con cámaras HDCVI, AHD, TVI, CVBS e IP. Incorpora funciones de inteligencia artificial WizSense para aplicaciones profesionales de videovigilancia.",
+    "specifications": {
+      "analogChannels": 32,
+      "maxIpChannels": 48,
+      "videoCompression": [
+        "Smart H.265+",
+        "H.265",
+        "Smart H.264+",
+        "H.264"
+      ],
+      "videoOutputs": [
+        "HDMI",
+        "VGA",
+        "CVBS"
+      ],
+      "hardDriveBays": 2,
+      "maxCapacityPerDisk": "16 TB",
+      "networkInterface": "1 x RJ45 Gigabit Ethernet",
+      "usbPorts": [
+        "USB 2.0",
+        "USB 3.0"
+      ],
+      "aiFunctions": [
+        "SMD Plus",
+        "Perimeter Protection",
+        "Face Detection",
+        "Face Recognition",
+        "AcuPick"
+      ]
+    },
+    "resources": {
+      "productPage": "https://www.dahuasecurity.com/products/hdcvi-products/hdcvi-recorders/5mp-value-1080p-series/xvr5232an-i3/t",
+      "datasheet": "https://materialfile.dahuasecurity.com/uploads/cpq/prm-os-srv-res/smart/datasheetzipfiles/XVR5232AN-I3_V2_datasheet_20241114.pdf",
+      "manual": "",
+      "image": ""
+    },
+    "commercial": {
+      "purchasePrice": null,
+      "marginPercentage": 30,
+      "salePrice": null
+    },
+    "createdFrom": "CATALOG",
+    "isOfficial": true,
+    "status": "ACTIVE"
+  },
+  {
+    "reference": "DH-XVR1B08H-I-V2",
+    "officialName": "8-Channel Cooper Penta-brid XVR",
+    "brand": "Dahua",
+    "category": "XVR",
+    "family": "Cooper",
+    "description": "Grabador pentahíbrido de 8 canales para sistemas de videovigilancia HDCVI, AHD, TVI, CVBS e IP. Diseñado para instalaciones residenciales y comerciales.",
+    "specifications": {
+      "analogChannels": 8,
+      "maxIpChannels": 12,
+      "videoCompression": [
+        "Smart H.265+",
+        "H.265",
+        "Smart H.264+",
+        "H.264"
+      ],
+      "videoOutputs": [
+        "HDMI",
+        "VGA"
+      ],
+      "hardDriveBays": 1,
+      "maxCapacityPerDisk": "16 TB",
+      "networkInterface": "1 x RJ45",
+      "usbPorts": [
+        "USB 2.0"
+      ],
+      "aiFunctions": [
+        "SMD Plus"
+      ]
+    },
+    "resources": {
+      "productPage": "https://www.dahuasecurity.com/products/hdcvi-products/hdcvi-recorders/cooper-i-series/xvr1b08h-i=v2",
+      "datasheet": "",
+      "manual": "",
+      "image": ""
+    },
+    "commercial": {
+      "purchasePrice": null,
+      "marginPercentage": 30,
+      "salePrice": null
+    },
+    "createdFrom": "CATALOG",
+    "isOfficial": true,
+    "status": "ACTIVE"
+  },
+  {
+    "reference": "DH-XVR1B04H-I",
+    "officialName": "4-Channel Cooper Penta-brid XVR",
+    "brand": "Dahua",
+    "category": "XVR",
+    "family": "Cooper",
+    "description": "Grabador pentahíbrido de 4 canales compatible con tecnologías HDCVI, AHD, TVI, CVBS e IP para sistemas de videovigilancia.",
+    "specifications": {
+      "analogChannels": 4,
+      "maxIpChannels": 6,
+      "videoCompression": [
+        "Smart H.265+",
+        "H.265",
+        "Smart H.264+",
+        "H.264"
+      ],
+      "videoOutputs": [
+        "HDMI",
+        "VGA"
+      ],
+      "hardDriveBays": 1,
+      "maxCapacityPerDisk": "16 TB",
+      "networkInterface": "1 x RJ45",
+      "usbPorts": [
+        "USB 2.0"
+      ],
+      "aiFunctions": [
+        "SMD Plus"
+      ]
+    },
+    "resources": {
+      "productPage": "https://www.dahuasecurity.com/products/hdcvi-products/hdcvi-recorders/cooper-i-series/xvr1b04h-i=v2",
+      "datasheet": "",
+      "manual": "",
+      "image": ""
+    },
+    "commercial": {
+      "purchasePrice": null,
+      "marginPercentage": 30,
+      "salePrice": null
+    },
+    "createdFrom": "CATALOG",
+    "isOfficial": true,
+    "status": "ACTIVE"
+  }
+]

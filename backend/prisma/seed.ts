@@ -1,7 +1,8 @@
 import 'dotenv/config';
 import { PrismaClient } from '@prisma/client';
 import { PrismaMariaDb } from '@prisma/adapter-mariadb';
-import * as bcrypt from 'bcrypt';
+import { seedAdmin } from './seeds/admin.seed';
+import { seedCatalog } from './seeds/catalog.seed';
 
 const databaseUrl = process.env.DATABASE_URL;
 if (!databaseUrl) {
@@ -20,31 +21,20 @@ const adapter = new PrismaMariaDb({
 const prisma = new PrismaClient({ adapter });
 
 async function main() {
-  const adminEmail = 'admin@seguritymz.com';
-  const existingUser = await prisma.usuario.findUnique({
-    where: { email: adminEmail },
-  });
+  console.log('🌱 Ejecutando Orquestador de Seeders...');
+  
+  // 1. Crear usuario administrador
+  await seedAdmin(prisma);
 
-  if (!existingUser) {
-    const saltRounds = 10;
-    const hashedPassword = await bcrypt.hash('admin123', saltRounds);
+  // 2. Importar Catálogo Maestro (Dahua, Imou, Genéricos)
+  await seedCatalog(prisma);
 
-    await prisma.usuario.create({
-      data: {
-        email: adminEmail,
-        password: hashedPassword,
-        nombre: 'Administrador',
-      },
-    });
-    console.log('Usuario administrador semilla creado exitosamente.');
-  } else {
-    console.log('El usuario administrador ya existe.');
-  }
+  console.log('🏁 Proceso de Seeder finalizado.');
 }
 
 main()
   .catch((e) => {
-    console.error(e);
+    console.error('❌ Error fatal en proceso de seeder:', e);
     process.exit(1);
   })
   .finally(async () => {

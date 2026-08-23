@@ -1,0 +1,42 @@
+import { CreateOrdenTrabajoUseCase } from '../application/use-cases/create-orden-trabajo.use-case';
+import { GetAllOrdenesTrabajoUseCase } from '../application/use-cases/get-all-ordenes-trabajo.use-case';
+import { GetOrdenTrabajoByIdUseCase } from '../application/use-cases/get-orden-trabajo-by-id.use-case';
+import { UpdateOrdenTrabajoUseCase } from '../application/use-cases/update-orden-trabajo.use-case';
+import { ChangeEstadoOrdenTrabajoUseCase } from '../application/use-cases/change-estado-orden-trabajo.use-case';
+import { AddEvidenciaUseCase } from '../application/use-cases/add-evidencia.use-case';
+import { DeleteEvidenciaUseCase } from '../application/use-cases/delete-evidencia.use-case';
+import { DeleteOrdenTrabajoUseCase } from '../application/use-cases/delete-orden-trabajo.use-case';
+import { RestoreOrdenTrabajoUseCase } from '../application/use-cases/restore-orden-trabajo.use-case';
+import { CreateOrdenTrabajoDto } from '../application/dtos/create-orden-trabajo.dto';
+import { UpdateOrdenTrabajoDto } from '../application/dtos/update-orden-trabajo.dto';
+import { ChangeEstadoOrdenTrabajoDto } from '../application/dtos/change-estado-orden-trabajo.dto';
+import { AddEvidenciaDto } from '../application/dtos/add-evidencia.dto';
+import { GetOrdenesTrabajoQueryDto } from '../application/dtos/get-ordenes-trabajo-query.dto';
+export declare class OrdenesTrabajoController {
+    private readonly createOrdenTrabajoUseCase;
+    private readonly getAllOrdenesTrabajoUseCase;
+    private readonly getOrdenTrabajoByIdUseCase;
+    private readonly updateOrdenTrabajoUseCase;
+    private readonly changeEstadoOrdenTrabajoUseCase;
+    private readonly addEvidenciaUseCase;
+    private readonly deleteEvidenciaUseCase;
+    private readonly deleteOrdenTrabajoUseCase;
+    private readonly restoreOrdenTrabajoUseCase;
+    constructor(createOrdenTrabajoUseCase: CreateOrdenTrabajoUseCase, getAllOrdenesTrabajoUseCase: GetAllOrdenesTrabajoUseCase, getOrdenTrabajoByIdUseCase: GetOrdenTrabajoByIdUseCase, updateOrdenTrabajoUseCase: UpdateOrdenTrabajoUseCase, changeEstadoOrdenTrabajoUseCase: ChangeEstadoOrdenTrabajoUseCase, addEvidenciaUseCase: AddEvidenciaUseCase, deleteEvidenciaUseCase: DeleteEvidenciaUseCase, deleteOrdenTrabajoUseCase: DeleteOrdenTrabajoUseCase, restoreOrdenTrabajoUseCase: RestoreOrdenTrabajoUseCase);
+    create(dto: CreateOrdenTrabajoDto): Promise<import("../domain/ordenes-trabajo.repository.interface").OrdenTrabajoCompleta>;
+    findAll(query: GetOrdenesTrabajoQueryDto): Promise<import("../domain/ordenes-trabajo.repository.interface").PaginatedOrdenesTrabajo>;
+    findOne(id: string): Promise<import("../domain/ordenes-trabajo.repository.interface").OrdenTrabajoCompleta>;
+    update(id: string, dto: UpdateOrdenTrabajoDto): Promise<import("../domain/ordenes-trabajo.repository.interface").OrdenTrabajoCompleta>;
+    changeEstado(id: string, dto: ChangeEstadoOrdenTrabajoDto): Promise<import("../domain/ordenes-trabajo.repository.interface").OrdenTrabajoCompleta>;
+    addEvidencia(id: string, dto: AddEvidenciaDto): Promise<{
+        url: string;
+        id: string;
+        createdAt: Date;
+        descripcion: string | null;
+        tipo: import("@prisma/client").$Enums.TipoEvidencia;
+        ordenTrabajoId: string;
+    }>;
+    deleteEvidencia(evidenciaId: string): Promise<boolean>;
+    delete(id: string): Promise<import("../domain/ordenes-trabajo.repository.interface").OrdenTrabajoCompleta>;
+    restore(id: string): Promise<import("../domain/ordenes-trabajo.repository.interface").OrdenTrabajoCompleta>;
+}

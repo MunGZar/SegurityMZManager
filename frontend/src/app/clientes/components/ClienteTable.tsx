@@ -1,8 +1,5 @@
 import React from 'react';
 import { 
-  ArrowUpDown, 
-  ChevronLeft, 
-  ChevronRight, 
   Eye, 
   Edit, 
   Trash2, 
@@ -19,6 +16,13 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
+import { 
+  TablePagination, 
+  TableSortHeader, 
+  TableLoadingState, 
+  TableEmptyState,
+  StatusBadge 
+} from '@/components/shared';
 
 interface ClienteTableProps {
   clientes: Cliente[];
@@ -53,70 +57,34 @@ export function ClienteTable({
   onDelete,
   onRestore,
 }: ClienteTableProps) {
-  const totalPages = Math.ceil(total / limit) || 1;
-  const startItem = (page - 1) * limit + 1;
-  const endItem = Math.min(page * limit, total);
-
   const getStatusBadge = (status: ClienteStatus, deletedAt?: string | null) => {
     if (deletedAt) {
-      return (
-        <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-red-950/40 border border-red-500/30 text-red-400">
-          Eliminado
-        </span>
-      );
+      return <StatusBadge variant="deleted" />;
     }
 
     switch (status) {
       case 'PROSPECTO':
-        return (
-          <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-950/40 border border-blue-500/30 text-blue-400">
-            Prospecto
-          </span>
-        );
+        return <StatusBadge variant="prospect" label="Prospecto" />;
       case 'ACTIVO':
-        return (
-          <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-emerald-950/40 border border-emerald-500/30 text-emerald-400">
-            Cliente Activo
-          </span>
-        );
+        return <StatusBadge variant="active" label="Cliente Activo" />;
       case 'INACTIVO':
-        return (
-          <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-zinc-800 border border-zinc-700 text-zinc-400">
-            Inactivo
-          </span>
-        );
+        return <StatusBadge variant="inactive" label="Inactivo" />;
       default:
         return null;
     }
   };
 
-  const renderSortIcon = (field: string) => {
-    const active = sortBy === field;
-    return (
-      <ArrowUpDown 
-        className={`ml-1 h-3.5 w-3.5 inline-block transition-colors ${
-          active ? 'text-indigo-400' : 'text-zinc-500 group-hover:text-zinc-300'
-        }`} 
-      />
-    );
-  };
-
   if (loading) {
-    return (
-      <div className="py-20 flex flex-col items-center justify-center gap-4 text-zinc-500">
-        <div className="h-8 w-8 animate-spin rounded-full border-4 border-indigo-600 border-t-transparent"></div>
-        <p className="text-sm font-medium">Cargando clientes...</p>
-      </div>
-    );
+    return <TableLoadingState message="Cargando clientes..." />;
   }
 
   if (clientes.length === 0) {
     return (
-      <div className="py-20 text-center text-zinc-500">
-        <Users className="h-12 w-12 mx-auto stroke-1 mb-3 text-zinc-600" />
-        <p className="text-base font-semibold text-zinc-400">No se encontraron clientes</p>
-        <p className="text-xs text-zinc-500 mt-1">Prueba con otra búsqueda o agrega un nuevo cliente.</p>
-      </div>
+      <TableEmptyState
+        icon={Users}
+        title="No se encontraron clientes"
+        description="Prueba con otra búsqueda o agrega un nuevo cliente."
+      />
     );
   }
 
@@ -126,26 +94,17 @@ export function ClienteTable({
         <Table>
           <TableHeader className="bg-zinc-950/60 border-b border-zinc-800">
             <TableRow className="border-b border-zinc-800 hover:bg-transparent">
-              <TableHead 
-                className="text-zinc-400 font-semibold h-11 px-4 cursor-pointer select-none group"
-                onClick={() => onSort('nombre')}
-              >
-                Nombre {renderSortIcon('nombre')}
-              </TableHead>
-              <TableHead 
-                className="text-zinc-400 font-semibold h-11 px-4 cursor-pointer select-none group"
-                onClick={() => onSort('identificacion')}
-              >
-                Identificación {renderSortIcon('identificacion')}
-              </TableHead>
+              <TableSortHeader field="nombre" sortBy={sortBy} onSort={onSort}>
+                Nombre
+              </TableSortHeader>
+              <TableSortHeader field="identificacion" sortBy={sortBy} onSort={onSort}>
+                Identificación
+              </TableSortHeader>
               <TableHead className="text-zinc-400 font-semibold h-11 px-4">Teléfono</TableHead>
               <TableHead className="text-zinc-400 font-semibold h-11 px-4">Email</TableHead>
-              <TableHead 
-                className="text-zinc-400 font-semibold h-11 px-4 cursor-pointer select-none group"
-                onClick={() => onSort('status')}
-              >
-                Estado {renderSortIcon('status')}
-              </TableHead>
+              <TableSortHeader field="status" sortBy={sortBy} onSort={onSort}>
+                Estado
+              </TableSortHeader>
               <TableHead className="text-zinc-400 font-semibold h-11 px-4 text-right">Acciones</TableHead>
             </TableRow>
           </TableHeader>
@@ -223,57 +182,13 @@ export function ClienteTable({
         </Table>
       </div>
 
-      {/* Pagination Footer */}
-      <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between px-2 py-2">
-        <div className="flex items-center gap-4">
-          <p className="text-xs text-zinc-500">
-            Mostrando <span className="font-semibold text-zinc-300">{total > 0 ? startItem : 0}</span> a{' '}
-            <span className="font-semibold text-zinc-300">{endItem}</span> de{' '}
-            <span className="font-semibold text-zinc-300">{total}</span> registros
-          </p>
-
-          <div className="flex items-center gap-1.5">
-            <span className="text-xs text-zinc-500">Filas por página:</span>
-            <select
-              value={limit}
-              onChange={(e) => onLimitChange(Number(e.target.value))}
-              className="bg-zinc-950 border border-zinc-800 text-zinc-300 rounded px-1.5 py-0.5 text-xs focus:outline-none focus:ring-1 focus:ring-indigo-500"
-            >
-              {[5, 10, 20, 50].map((pageSize) => (
-                <option key={pageSize} value={pageSize}>
-                  {pageSize}
-                </option>
-              ))}
-            </select>
-          </div>
-        </div>
-
-        <div className="flex items-center justify-end gap-1.5">
-          <Button
-            variant="ghost"
-            size="sm"
-            onClick={() => onPageChange(page - 1)}
-            disabled={page === 1}
-            className="border border-zinc-800 text-zinc-400 hover:bg-zinc-800 hover:text-zinc-200 gap-1 h-8 cursor-pointer disabled:opacity-50"
-          >
-            <ChevronLeft className="h-4 w-4" />
-            Anterior
-          </Button>
-          <div className="flex items-center justify-center px-3 text-xs font-medium text-zinc-300 h-8 border border-zinc-800 rounded bg-zinc-950">
-            Pág. {page} de {totalPages}
-          </div>
-          <Button
-            variant="ghost"
-            size="sm"
-            onClick={() => onPageChange(page + 1)}
-            disabled={page >= totalPages}
-            className="border border-zinc-800 text-zinc-400 hover:bg-zinc-800 hover:text-zinc-200 gap-1 h-8 cursor-pointer disabled:opacity-50"
-          >
-            Siguiente
-            <ChevronRight className="h-4 w-4" />
-          </Button>
-        </div>
-      </div>
+      <TablePagination
+        page={page}
+        limit={limit}
+        total={total}
+        onPageChange={onPageChange}
+        onLimitChange={onLimitChange}
+      />
     </div>
   );
 }

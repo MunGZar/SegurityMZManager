@@ -1,0 +1,184 @@
+[
+  {
+    "reference": "IMOU-RANGER-3",
+    "officialName": "IMOU Ranger 3",
+    "brand": "IMOU",
+    "category": "Camera",
+    "family": "Ranger",
+    "description": "Cámara Wi-Fi PT con movimiento horizontal y vertical, detección inteligente y monitoreo para interiores.",
+    "specifications": {
+      "cameraType": "PT",
+      "technology": "IP Wi-Fi",
+      "resolution": "3 MP",
+      "lens": "3.6 mm",
+      "nightVision": "30 m",
+      "microphone": true,
+      "speaker": true,
+      "twoWayAudio": true,
+      "motionDetection": true,
+      "humanDetection": true,
+      "wifi": "IEEE 802.11 b/g/n",
+      "storage": [
+        "MicroSD",
+        "Imou Cloud"
+      ],
+      "powerSupply": "5V DC"
+    },
+    "resources": {
+      "productPage": "",
+      "datasheet": "",
+      "manual": "",
+      "image": ""
+    },
+    "commercial": {
+      "purchasePrice": null,
+      "marginPercentage": 30,
+      "salePrice": null
+    },
+    "createdFrom": "CATALOG",
+    "isOfficial": true,
+    "status": "ACTIVE"
+  },
+  {
+    "reference": "IMOU-CRUISER",
+    "officialName": "IMOU Cruiser",
+    "brand": "IMOU",
+    "category": "Camera",
+    "family": "Cruiser",
+    "description": "Cámara Wi-Fi PT para exteriores con visión nocturna, detección inteligente y audio bidireccional.",
+    "specifications": {
+      "cameraType": "PT",
+      "technology": "IP Wi-Fi",
+      "resolution": "5 MP",
+      "lens": "3.6 mm",
+      "nightVision": "30 m",
+      "microphone": true,
+      "speaker": true,
+      "twoWayAudio": true,
+      "motionDetection": true,
+      "humanDetection": true,
+      "activeDeterrence": true,
+      "wifi": "IEEE 802.11 b/g/n",
+      "protection": "IP66",
+      "storage": [
+        "MicroSD",
+        "Imou Cloud",
+        "NVR"
+      ],
+      "powerSupply": "12V DC"
+    },
+    "resources": {
+      "productPage": "",
+      "datasheet": "",
+      "manual": "",
+      "image": ""
+    },
+    "commercial": {
+      "purchasePrice": null,
+      "marginPercentage": 30,
+      "salePrice": null
+    },
+    "createdFrom": "CATALOG",
+    "isOfficial": true,
+    "status": "ACTIVE"
+  },
+  {
+    "reference": "IPC-S2EN-5R1S",
+    "officialName": "Ranger 2 Pro 5MP",
+    "brand": "IMOU",
+    "category": "Camera",
+    "family": "Ranger",
+    "description": "Cámara PT Wi-Fi para interiores con seguimiento inteligente, detección de personas, audio bidireccional y resolución de 5 MP.",
+    "specifications": {
+      "cameraType": "PT",
+      "technology": "IP Wi-Fi",
+      "resolution": "5 MP",
+      "imageSensor": "1/3 Progressive CMOS",
+      "lens": "3.6 mm",
+      "videoCompression": [
+        "H.265",
+        "H.264"
+      ],
+      "nightVision": "10 m",
+      "pan": "355°",
+      "tilt": "-5° a 80°",
+      "microphone": true,
+      "speaker": true,
+      "twoWayAudio": true,
+      "motionDetection": true,
+      "humanDetection": true,
+      "petDetection": true,
+      "soundDetection": true,
+      "wifi": "Wi-Fi 6 IEEE 802.11 a/b/g/n/ac/ax",
+      "storage": [
+        "MicroSD hasta 512 GB",
+        "Imou Cloud"
+      ],
+      "powerSupply": "5V DC"
+    },
+    "unit": "Unidad",
+    "resources": {
+      "productPage": "https://www.imou.com/en/product/specs/ranger2c-pro-5mp",
+      "datasheet": "https://static-website.imou.com/2f6e2d0f-4606-4ca2-9e0c-7650eaa46bca.pdf",
+      "manual": "https://www.imou.com/en/support/product-support/ranger2c-pro-5mp",
+      "image": ""
+    },
+    "commercial": {
+      "purchasePrice": null,
+      "marginPercentage": 30,
+      "salePrice": null
+    },
+    "createdFrom": "CATALOG",
+    "isOfficial": true,
+    "status": "ACTIVE"
+  },
+  {
+    "reference": "IPC-C22FN-C0",
+    "officialName": "VERSA",
+    "brand": "IMOU",
+    "category": "Camera",
+    "family": "Bullet",
+    "description": "Cámara Wi-Fi para exteriores con resolución Full HD, detección de personas, visión nocturna y micrófono integrado.",
+    "specifications": {
+      "cameraType": "Bullet",
+      "technology": "IP Wi-Fi",
+      "resolution": "2 MP",
+      "imageSensor": "1/2.8 Progressive CMOS",
+      "lens": "2.8 mm",
+      "videoCompression": [
+        "H.265",
+        "H.264"
+      ],
+      "nightVision": "30 m",
+      "microphone": true,
+      "speaker": false,
+      "twoWayAudio": false,
+      "motionDetection": true,
+      "humanDetection": true,
+      "wifi": "IEEE 802.11 b/g/n",
+      "ethernet": true,
+      "storage": [
+        "MicroSD",
+        "NVR",
+        "Imou Cloud"
+      ],
+      "weatherProtection": "IP67",
+      "powerSupply": "12V DC"
+    },
+    "unit": "Unidad",
+    "resources": {
+      "productPage": "",
+      "datasheet": "",
+      "manual": "",
+      "image": ""
+    },
+    "commercial": {
+      "purchasePrice": null,
+      "marginPercentage": 30,
+      "salePrice": null
+    },
+    "createdFrom": "CATALOG",
+    "isOfficial": true,
+    "status": "ACTIVE"
+  }
+]

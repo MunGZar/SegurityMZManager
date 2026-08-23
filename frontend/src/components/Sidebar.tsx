@@ -26,8 +26,8 @@ const menuItems = [
   { name: 'Categorías', href: '/categorias', icon: Folder },
   { name: 'Productos', href: '/productos', icon: Package },
   { name: 'Cotizaciones', href: '/cotizaciones', icon: FileText },
+  { name: 'Órdenes de Trabajo', href: '/ordenes-trabajo', icon: Wrench },
   { name: 'Compras', href: '/compras', icon: ShoppingBag },
-  { name: 'Instalaciones', href: '/instalaciones', icon: Wrench },
   { name: 'Finanzas', href: '/finanzas', icon: DollarSign },
 ];
 

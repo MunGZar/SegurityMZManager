@@ -1,0 +1,206 @@
+[
+  {
+    "reference": "HAC-B1A51-0360B",
+    "officialName": "5MP HDCVI Bullet Camera",
+    "brand": "Dahua",
+    "category": "Camera",
+    "family": "Cooper",
+    "description": "Cámara bala HDCVI de 5 MP para aplicaciones residenciales y comerciales con imagen de alta definición.",
+
+    "specifications": {
+      "cameraType": "Bullet",
+      "technology": "HDCVI",
+      "resolution": "5 MP",
+      "lens": "3.6 mm",
+      "dayNight": "ICR",
+      "irDistance": "20 m",
+      "microphone": false,
+      "audio": false,
+      "wdr": "DWDR",
+      "noiseReduction": "2D NR",
+      "protection": "IP67",
+      "powerSupply": "12V DC"
+    },
+
+    "resources": {
+      "productPage": "",
+      "datasheet": "",
+      "manual": "",
+      "image": ""
+    },
+
+    "commercial": {
+      "purchasePrice": null,
+      "marginPercentage": 30,
+      "salePrice": null
+    },
+
+    "createdFrom": "CATALOG",
+    "isOfficial": true,
+    "status": "ACTIVE"
+  },
+
+  {
+    "reference": "DH-HAC-HFW1500R-Z-IRE6(-A)",
+    "officialName": "5MP HDCVI Motorized IR Bullet Camera",
+    "brand": "Dahua",
+    "category": "Camera",
+    "family": "Lite",
+    "description": "Cámara bala HDCVI de 5 MP con lente varifocal motorizado y visión infrarroja de largo alcance.",
+
+    "specifications": {
+      "cameraType": "Bullet",
+      "technology": "HDCVI",
+      "resolution": "5 MP",
+      "lens": "Motorized Varifocal",
+      "dayNight": "ICR",
+      "irDistance": "60 m",
+      "microphone": true,
+      "audio": true,
+      "wdr": "120 dB True WDR",
+      "noiseReduction": "3D NR",
+      "protection": "IP67",
+      "powerSupply": "12V DC"
+    },
+
+    "resources": {
+      "productPage": "",
+      "datasheet": "",
+      "manual": "",
+      "image": ""
+    },
+
+    "commercial": {
+      "purchasePrice": null,
+      "marginPercentage": 30,
+      "salePrice": null
+    },
+
+    "createdFrom": "CATALOG",
+    "isOfficial": true,
+    "status": "ACTIVE"
+  },
+
+  {
+    "reference": "DH-HAC-T2A51",
+    "officialName": "5MP HDCVI Eyeball Camera",
+    "brand": "Dahua",
+    "category": "Camera",
+    "family": "Cooper",
+    "description": "Cámara tipo Eyeball HDCVI de 5 MP para instalaciones interiores y exteriores.",
+
+    "specifications": {
+      "cameraType": "Eyeball",
+      "technology": "HDCVI",
+      "resolution": "5 MP",
+      "lens": "3.6 mm",
+      "dayNight": "ICR",
+      "irDistance": "20 m",
+      "microphone": false,
+      "audio": false,
+      "wdr": "DWDR",
+      "noiseReduction": "2D NR",
+      "protection": "IP67",
+      "powerSupply": "12V DC"
+    },
+
+    "resources": {
+      "productPage": "",
+      "datasheet": "",
+      "manual": "",
+      "image": ""
+    },
+
+    "commercial": {
+      "purchasePrice": null,
+      "marginPercentage": 30,
+      "salePrice": null
+    },
+
+    "createdFrom": "CATALOG",
+    "isOfficial": true,
+    "status": "ACTIVE"
+  },
+
+  {
+    "reference": "DH-HAC-T1A21N-0280B",
+    "officialName": "2MP HDCVI Eyeball Camera",
+    "brand": "Dahua",
+    "category": "Camera",
+    "family": "Cooper",
+    "description": "Cámara Eyeball HDCVI de 2 MP para aplicaciones básicas de videovigilancia.",
+
+    "specifications": {
+      "cameraType": "Eyeball",
+      "technology": "HDCVI",
+      "resolution": "2 MP",
+      "lens": "2.8 mm",
+      "dayNight": "ICR",
+      "irDistance": "20 m",
+      "microphone": false,
+      "audio": false,
+      "wdr": "DWDR",
+      "noiseReduction": "2D NR",
+      "protection": "IP67",
+      "powerSupply": "12V DC"
+    },
+
+    "resources": {
+      "productPage": "",
+      "datasheet": "",
+      "manual": "",
+      "image": ""
+    },
+
+    "commercial": {
+      "purchasePrice": null,
+      "marginPercentage": 30,
+      "salePrice": null
+    },
+
+    "createdFrom": "CATALOG",
+    "isOfficial": true,
+    "status": "ACTIVE"
+  },
+
+  {
+    "reference": "DH-HAC-B1A21N-U-0360B",
+    "officialName": "2MP HDCVI Bullet Camera with Built-in Microphone",
+    "brand": "Dahua",
+    "category": "Camera",
+    "family": "Cooper",
+    "description": "Cámara bala HDCVI de 2 MP con micrófono integrado para transmisión de video y audio por coaxial.",
+
+    "specifications": {
+      "cameraType": "Bullet",
+      "technology": "HDCVI",
+      "resolution": "2 MP",
+      "lens": "3.6 mm",
+      "dayNight": "ICR",
+      "irDistance": "20 m",
+      "microphone": true,
+      "audio": true,
+      "wdr": "DWDR",
+      "noiseReduction": "2D NR",
+      "protection": "IP67",
+      "powerSupply": "12V DC"
+    },
+
+    "resources": {
+      "productPage": "",
+      "datasheet": "",
+      "manual": "",
+      "image": ""
+    },
+
+    "commercial": {
+      "purchasePrice": null,
+      "marginPercentage": 30,
+      "salePrice": null
+    },
+
+    "createdFrom": "CATALOG",
+    "isOfficial": true,
+    "status": "ACTIVE"
+  }
+]

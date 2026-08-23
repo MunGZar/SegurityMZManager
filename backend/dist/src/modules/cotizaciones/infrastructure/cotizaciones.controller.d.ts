@@ -1,0 +1,31 @@
+import { CreateCotizacionUseCase } from '../application/use-cases/create-cotizacion.use-case';
+import { GetAllCotizacionesUseCase } from '../application/use-cases/get-all-cotizaciones.use-case';
+import { GetCotizacionByIdUseCase } from '../application/use-cases/get-cotizacion-by-id.use-case';
+import { UpdateCotizacionUseCase } from '../application/use-cases/update-cotizacion.use-case';
+import { ChangeEstadoCotizacionUseCase } from '../application/use-cases/change-estado-cotizacion.use-case';
+import { DuplicateCotizacionUseCase } from '../application/use-cases/duplicate-cotizacion.use-case';
+import { DeleteCotizacionUseCase } from '../application/use-cases/delete-cotizacion.use-case';
+import { RestoreCotizacionUseCase } from '../application/use-cases/restore-cotizacion.use-case';
+import { CreateCotizacionDto } from '../application/dtos/create-cotizacion.dto';
+import { UpdateCotizacionDto } from '../application/dtos/update-cotizacion.dto';
+import { ChangeEstadoCotizacionDto } from '../application/dtos/change-estado-cotizacion.dto';
+import { GetCotizacionesQueryDto } from '../application/dtos/get-cotizaciones-query.dto';
+export declare class CotizacionesController {
+    private readonly createCotizacionUseCase;
+    private readonly getAllCotizacionesUseCase;
+    private readonly getCotizacionByIdUseCase;
+    private readonly updateCotizacionUseCase;
+    private readonly changeEstadoCotizacionUseCase;
+    private readonly duplicateCotizacionUseCase;
+    private readonly deleteCotizacionUseCase;
+    private readonly restoreCotizacionUseCase;
+    constructor(createCotizacionUseCase: CreateCotizacionUseCase, getAllCotizacionesUseCase: GetAllCotizacionesUseCase, getCotizacionByIdUseCase: GetCotizacionByIdUseCase, updateCotizacionUseCase: UpdateCotizacionUseCase, changeEstadoCotizacionUseCase: ChangeEstadoCotizacionUseCase, duplicateCotizacionUseCase: DuplicateCotizacionUseCase, deleteCotizacionUseCase: DeleteCotizacionUseCase, restoreCotizacionUseCase: RestoreCotizacionUseCase);
+    create(dto: CreateCotizacionDto): Promise<import("../domain/cotizaciones.repository.interface").CotizacionConDetalles>;
+    findAll(query: GetCotizacionesQueryDto): Promise<import("../domain/cotizaciones.repository.interface").PaginatedCotizaciones>;
+    findOne(id: string): Promise<import("../domain/cotizaciones.repository.interface").CotizacionConDetalles>;
+    update(id: string, dto: UpdateCotizacionDto): Promise<import("../domain/cotizaciones.repository.interface").CotizacionConDetalles>;
+    changeEstado(id: string, dto: ChangeEstadoCotizacionDto): Promise<import("../domain/cotizaciones.repository.interface").CotizacionConDetalles>;
+    duplicate(id: string): Promise<import("../domain/cotizaciones.repository.interface").CotizacionConDetalles>;
+    delete(id: string): Promise<import("../domain/cotizaciones.repository.interface").CotizacionConDetalles>;
+    restore(id: string): Promise<import("../domain/cotizaciones.repository.interface").CotizacionConDetalles>;
+}

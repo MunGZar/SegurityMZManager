@@ -1,6 +1,5 @@
 import React from 'react';
 import { 
-  Info, 
   Phone, 
   Mail, 
   MapPin, 
@@ -21,6 +20,8 @@ import {
   DialogDescription,
   DialogFooter,
 } from '@/components/ui/dialog';
+import { StatusBadge } from '@/components/shared';
+import { formatDate } from '@/lib/utils';
 
 interface ProveedorDetailsModalProps {
   open: boolean;
@@ -37,25 +38,13 @@ export function ProveedorDetailsModal({
 
   const getStatusBadge = (activo: boolean, deletedAt?: string | null) => {
     if (deletedAt) {
-      return (
-        <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-red-950/40 border border-red-500/30 text-red-400">
-          Eliminado Lógicamente
-        </span>
-      );
+      return <StatusBadge variant="deleted" label="Eliminado Lógicamente" />;
     }
 
     if (activo) {
-      return (
-        <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-emerald-950/40 border border-emerald-500/30 text-emerald-400">
-          Activo
-        </span>
-      );
+      return <StatusBadge variant="active" label="Activo" />;
     } else {
-      return (
-        <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-zinc-800 border border-zinc-700 text-zinc-400">
-          Inactivo
-        </span>
-      );
+      return <StatusBadge variant="inactive" label="Inactivo" />;
     }
   };
 
@@ -122,11 +111,7 @@ export function ProveedorDetailsModal({
               <span className="text-xs text-zinc-500 font-semibold uppercase tracking-wider">Registrado El</span>
               <p className="text-sm text-zinc-200 font-medium flex items-center gap-1.5">
                 <Calendar className="h-3.5 w-3.5 text-zinc-500" />
-                {new Date(proveedor.createdAt).toLocaleDateString('es-ES', {
-                  day: '2-digit',
-                  month: '2-digit',
-                  year: 'numeric'
-                })}
+                {formatDate(proveedor.createdAt)}
               </p>
             </div>
           </div>

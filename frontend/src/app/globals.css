@@ -128,3 +128,43 @@
     @apply font-sans;
   }
 }
+
+/* Reglas de impresión profesional optimizadas para Hoja Carta (1 sola página sin desfasamientos) */
+@media print {
+  body {
+    background-color: #ffffff !important;
+    color: #0f172a !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  @page {
+    margin: 5mm 8mm;
+    size: letter portrait; /* Tamaño Carta Exacto (8.5 x 11 pulgadas) */
+  }
+
+  /* Ocultar elementos de navegación e interfaz */
+  nav, sidebar, header, button, .print\:hidden {
+    display: none !important;
+  }
+
+  /* Contenedor principal de la cotización optimizado para 1 hoja Carta */
+  #quotation-pdf-document {
+    padding: 0 !important;
+    margin: 0 !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+  }
+
+  tr, td, th, div {
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+  }
+
+  * {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+}

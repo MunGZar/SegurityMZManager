@@ -29,128 +29,183 @@ enum ClienteStatus {
 }
 
 model Cliente {
-  id             String         @id @default(uuid())
+  id             String        @id @default(uuid())
   nombre         String
-  identificacion String?        @unique // DNI / RUT / RFC
+  identificacion String?       @unique // DNI / RUT / RFC
   telefono       String?
   email          String?
   direccion      String?
-  notas          String?        @db.Text
-  status         ClienteStatus  @default(PROSPECTO)
+  notas          String?       @db.Text
+  status         ClienteStatus @default(PROSPECTO)
   deletedAt      DateTime?
-  createdAt      DateTime       @default(now())
-  updatedAt      DateTime       @updatedAt
-  
+  createdAt      DateTime      @default(now())
+  updatedAt      DateTime      @updatedAt
+
   // Relaciones
-  cotizaciones   Cotizacion[]
-  instalaciones  Instalacion[]
+  cotizaciones  Cotizacion[]
+  instalaciones Instalacion[]
+  ordenTrabajos OrdenTrabajo[]
 }
 
 model Proveedor {
-  id             String    @id @default(uuid())
-  nombre         String
-  contacto       String?
-  telefono       String?
-  whatsapp       String?
-  correo         String?
-  ciudad         String?
-  direccion      String?
-  observaciones  String?   @db.Text
-  activo         Boolean   @default(true)
-  deletedAt      DateTime?
-  createdAt      DateTime  @default(now())
-  updatedAt      DateTime  @updatedAt
+  id            String    @id @default(uuid())
+  nombre        String
+  contacto      String?
+  telefono      String?
+  whatsapp      String?
+  correo        String?
+  ciudad        String?
+  direccion     String?
+  observaciones String?   @db.Text
+  activo        Boolean   @default(true)
+  deletedAt     DateTime?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
 
   // Relaciones
-  compras        Compra[]
+  compras   Compra[]
+  productos Producto[]
 }
 
 // -------------------------------------------------------------
 // Módulo: Catálogo (Marcas, Categorías, Productos)
 // -------------------------------------------------------------
 model Marca {
-  id          String      @id @default(uuid())
-  nombre      String      @unique
-  descripcion String?     @db.Text
-  createdAt   DateTime    @default(now())
-  updatedAt   DateTime    @updatedAt
-  
-  productos   Producto[]
+  id          String    @id @default(uuid())
+  nombre      String    @unique
+  descripcion String?   @db.Text
+  activo      Boolean   @default(true)
+  deletedAt   DateTime?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  productos Producto[]
 }
 
 model Categoria {
-  id          String      @id @default(uuid())
-  nombre      String      @unique
-  descripcion String?     @db.Text
-  createdAt   DateTime    @default(now())
-  updatedAt   DateTime    @updatedAt
-  
-  productos   Producto[]
+  id          String    @id @default(uuid())
+  nombre      String    @unique
+  descripcion String?   @db.Text
+  activo      Boolean   @default(true)
+  deletedAt   DateTime?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  productos Producto[]
+}
+
+enum CreatedFrom {
+  CATALOG
+  MANUAL
 }
 
 model Producto {
-  id          String      @id @default(uuid())
-  sku         String      @unique // Código de barra o SKU único
-  nombre      String
-  descripcion String?     @db.Text
-  precioCosto Decimal     @db.Decimal(10, 2)
-  precioVenta Decimal     @db.Decimal(10, 2)
-  stock       Int         @default(0)
-  stockMinimo Int         @default(0)
+  id            String      @id @default(uuid())
+  codigoInterno String      @unique
+  referencia    String?     @unique
+  nombre        String
+  nombreOficial String?
+  modelo        String?
+  descripcion   String?     @db.Text
+  imagenUrl     String?     @db.Text
+  datasheet     String?     @db.Text
+  manual        String?     @db.Text
+  especificaciones Json?
+  activo        Boolean     @default(true)
+
+  // Origen del Producto
+  createdFrom   CreatedFrom @default(MANUAL)
+  isOfficial    Boolean     @default(false)
+
+  // Relaciones (FKs)
   marcaId     String
   categoriaId String
-  createdAt   DateTime    @default(now())
-  updatedAt   DateTime    @updatedAt
+  proveedorId String
+
+  // Información Comercial
+  precioCompra     Decimal @db.Decimal(10, 2)
+  margenPorcentaje Decimal @db.Decimal(5, 2)
+  precioVenta      Decimal @db.Decimal(10, 2)
+  garantiaMeses    Int     @default(12)
+
+  // Información Técnica (Ficha Técnica)
+  resolucion     String?
+  tecnologia     String?
+  tipo           String?
+  lente          String?
+  audio          String?
+  visionNocturna String?
+  alimentacion   String?
+  proteccionIP   String?
+
+  // Control
+  deletedAt DateTime?
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
 
   // Relaciones
-  marca       Marca       @relation(fields: [marcaId], references: [id])
-  categoria   Categoria   @relation(fields: [categoriaId], references: [id])
-  
+  marca     Marca     @relation(fields: [marcaId], references: [id])
+  categoria Categoria @relation(fields: [categoriaId], references: [id])
+  proveedor Proveedor @relation(fields: [proveedorId], references: [id])
+
   cotizacionesDetalle CotizacionDetalle[]
   comprasDetalle      CompraDetalle[]
+
+  @@unique([nombre, marcaId, modelo])
 }
 
 // -------------------------------------------------------------
 // Módulo: Cotizaciones y Ventas
 // -------------------------------------------------------------
 enum CotizacionEstado {
-  PENDIENTE
+  BORRADOR
+  ENVIADA
   APROBADA
   RECHAZADA
-  FACTURADA
+  VENCIDA
+}
+
+enum CotizacionDetalleTipo {
+  PRODUCTO
+  SERVICIO
 }
 
 model Cotizacion {
-  id          String            @id @default(uuid())
-  folio       String            @unique // Número correlativo de cotización
-  clienteId   String
-  fecha       DateTime          @default(now())
-  estado      CotizacionEstado  @default(PENDIENTE)
-  notas       String?           @db.Text
-  descuento   Decimal           @default(0.00) @db.Decimal(10, 2)
-  subtotal    Decimal           @db.Decimal(10, 2)
-  total       Decimal           @db.Decimal(10, 2)
-  createdAt   DateTime          @default(now())
-  updatedAt   DateTime          @updatedAt
+  id            String           @id @default(uuid())
+  folio         String           @unique // Número correlativo de cotización (ej: COT-2026-0001)
+  clienteId     String
+  fecha         DateTime         @default(now())
+  estado        CotizacionEstado @default(BORRADOR)
+  observaciones String?          @db.Text
+  subtotal      Decimal          @db.Decimal(10, 2)
+  descuento     Decimal          @default(0.00) @db.Decimal(10, 2)
+  total         Decimal          @db.Decimal(10, 2)
+  deletedAt     DateTime?
+  createdAt     DateTime         @default(now())
+  updatedAt     DateTime         @updatedAt
 
   // Relaciones
   cliente       Cliente             @relation(fields: [clienteId], references: [id])
   detalles      CotizacionDetalle[]
   instalaciones Instalacion[]
+  ordenTrabajo  OrdenTrabajo?
 }
 
 model CotizacionDetalle {
-  id           String     @id @default(uuid())
+  id           String                @id @default(uuid())
   cotizacionId String
-  productoId   String
-  cantidad     Int
-  precioUnit   Decimal    @db.Decimal(10, 2)
-  descuento    Decimal    @default(0.00) @db.Decimal(10, 2)
-  subtotal     Decimal    @db.Decimal(10, 2)
+  productoId   String? // Nullable para ítems manuales/servicio
+  tipo         CotizacionDetalleTipo @default(PRODUCTO)
+  nombre       String // Snapshot histórico del concepto
+  descripcion  String?               @db.Text
+  cantidad     Int                   @default(1)
+  orden        Int                   @default(0)
+  precioUnit   Decimal               @db.Decimal(10, 2) // Precio histórico
+  subtotal     Decimal               @db.Decimal(10, 2)
 
   // Relaciones
-  cotizacion   Cotizacion @relation(fields: [cotizacionId], references: [id], onDelete: Cascade)
-  producto     Producto   @relation(fields: [productoId], references: [id])
+  cotizacion Cotizacion @relation(fields: [cotizacionId], references: [id], onDelete: Cascade)
+  producto   Producto?  @relation(fields: [productoId], references: [id], onDelete: SetNull)
 }
 
 // -------------------------------------------------------------
@@ -163,33 +218,33 @@ enum CompraEstado {
 }
 
 model Compra {
-  id          String        @id @default(uuid())
-  folio       String        @unique // Número de factura o remisión del proveedor
+  id          String       @id @default(uuid())
+  folio       String       @unique // Número de factura o remisión del proveedor
   proveedorId String
-  fecha       DateTime      @default(now())
-  estado      CompraEstado  @default(PENDIENTE)
-  total       Decimal       @db.Decimal(10, 2)
-  notas       String?       @db.Text
-  createdAt   DateTime      @default(now())
-  updatedAt   DateTime      @updatedAt
+  fecha       DateTime     @default(now())
+  estado      CompraEstado @default(PENDIENTE)
+  total       Decimal      @db.Decimal(10, 2)
+  notas       String?      @db.Text
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
 
   // Relaciones
-  proveedor   Proveedor     @relation(fields: [proveedorId], references: [id])
+  proveedor   Proveedor       @relation(fields: [proveedorId], references: [id])
   detalles    CompraDetalle[]
-  transaccion Transaccion?  // Finanzas vinculada
+  transaccion Transaccion? // Finanzas vinculada
 }
 
 model CompraDetalle {
-  id         String   @id @default(uuid())
+  id         String  @id @default(uuid())
   compraId   String
   productoId String
   cantidad   Int
-  costoUnit  Decimal  @db.Decimal(10, 2)
-  subtotal   Decimal  @db.Decimal(10, 2)
+  costoUnit  Decimal @db.Decimal(10, 2)
+  subtotal   Decimal @db.Decimal(10, 2)
 
   // Relaciones
-  compra     Compra   @relation(fields: [compraId], references: [id], onDelete: Cascade)
-  producto   Producto @relation(fields: [productoId], references: [id])
+  compra   Compra   @relation(fields: [compraId], references: [id], onDelete: Cascade)
+  producto Producto @relation(fields: [productoId], references: [id])
 }
 
 // -------------------------------------------------------------
@@ -208,15 +263,15 @@ model Instalacion {
   cotizacionId String?
   fechaHora    DateTime
   estado       InstalacionEstado @default(PROGRAMADA)
-  direccion    String            // Lugar físico de instalación
+  direccion    String // Lugar físico de instalación
   detalles     String?           @db.Text
   notasTecnico String?           @db.Text
   createdAt    DateTime          @default(now())
   updatedAt    DateTime          @updatedAt
 
   // Relaciones
-  cliente      Cliente     @relation(fields: [clienteId], references: [id])
-  cotizacion   Cotizacion? @relation(fields: [cotizacionId], references: [id])
+  cliente    Cliente     @relation(fields: [clienteId], references: [id])
+  cotizacion Cotizacion? @relation(fields: [cotizacionId], references: [id])
 }
 
 // -------------------------------------------------------------
@@ -246,5 +301,73 @@ model Transaccion {
   updatedAt   DateTime             @updatedAt
 
   // Relaciones
-  compra      Compra?              @relation(fields: [compraId], references: [id])
+  compra Compra? @relation(fields: [compraId], references: [id])
+}
+
+// -------------------------------------------------------------
+// Módulo: Órdenes de Trabajo (Operaciones & Instalaciones)
+// -------------------------------------------------------------
+enum OrdenTrabajoEstado {
+  PENDIENTE
+  PROGRAMADA
+  EN_PROCESO
+  FINALIZADA
+  CANCELADA
+}
+
+enum OrdenTrabajoPrioridad {
+  BAJA
+  MEDIA
+  ALTA
+  URGENTE
+}
+
+enum TipoEvidencia {
+  ANTES
+  DESPUES
+  ACTA_ENTREGA
+  OTRO
+}
+
+model OrdenTrabajo {
+  id              String                @id @default(uuid())
+  folio           String                @unique // ej: OT-2026-0001
+  cotizacionId    String                @unique
+  clienteId       String
+  fechaProgramada DateTime?
+  horaProgramada  String?
+  estado          OrdenTrabajoEstado    @default(PENDIENTE)
+  prioridad       OrdenTrabajoPrioridad @default(MEDIA)
+  observaciones   String?               @db.Text
+  direccion       String?
+
+  // Información Técnica y Evidencias
+  observacionesTecnicas String?   @db.Text
+  serialesEquipos       String?   @db.Text
+  usuarioDvr            String?
+  passwordDvrEncrypted  String?
+  direccionIp           String?
+  garantiaMeses         Int       @default(12)
+  fechaEntrega          DateTime?
+
+  deletedAt DateTime?
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+
+  // Relaciones
+  cotizacion Cotizacion              @relation(fields: [cotizacionId], references: [id])
+  cliente    Cliente                 @relation(fields: [clienteId], references: [id])
+  evidencias OrdenTrabajoEvidencia[]
+}
+
+model OrdenTrabajoEvidencia {
+  id             String        @id @default(uuid())
+  ordenTrabajoId String
+  tipo           TipoEvidencia @default(ANTES)
+  url            String
+  descripcion    String?
+  createdAt      DateTime      @default(now())
+
+  // Relaciones
+  ordenTrabajo OrdenTrabajo @relation(fields: [ordenTrabajoId], references: [id], onDelete: Cascade)
 }

@@ -1,18 +1,29 @@
 import { useState, useEffect, useCallback } from 'react';
 import { toast } from 'sonner';
 import { clientesService, Cliente, ClienteStatus, CreateClienteInput, UpdateClienteInput } from '@/services/clientes.service';
+import { useTableState } from '@/hooks/useTableState';
 
 export function useClientes() {
   const [clientes, setClientes] = useState<Cliente[]>([]);
   const [total, setTotal] = useState(0);
   const [loading, setLoading] = useState(true);
-  const [search, setSearch] = useState('');
-  const [page, setPage] = useState(1);
-  const [limit, setLimit] = useState(10);
-  const [sortBy, setSortBy] = useState<string>('nombre');
-  const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('asc');
   const [statusFilter, setStatusFilter] = useState<ClienteStatus | undefined>(undefined);
-  const [includeDeleted, setIncludeDeleted] = useState(false);
+
+  const {
+    search,
+    setSearch,
+    page,
+    setPage,
+    limit,
+    setLimit,
+    sortBy,
+    setSortBy,
+    sortOrder,
+    setSortOrder,
+    includeDeleted,
+    setIncludeDeleted,
+    toggleSort,
+  } = useTableState({ initialSortBy: 'nombre' });
 
   const loadClientes = useCallback(async () => {
     setLoading(true);
@@ -38,7 +49,6 @@ export function useClientes() {
   // Debounced search trigger
   useEffect(() => {
     const delayDebounce = setTimeout(() => {
-      // Reset to page 1 on search change
       setPage(1);
       loadClientes();
     }, 400);
@@ -99,16 +109,6 @@ export function useClientes() {
     }
   };
 
-  const toggleSort = (field: string) => {
-    if (sortBy === field) {
-      setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc');
-    } else {
-      setSortBy(field);
-      setSortOrder('asc');
-    }
-    setPage(1);
-  };
-
   return {
     clientes,
     total,
@@ -120,7 +120,9 @@ export function useClientes() {
     limit,
     setLimit,
     sortBy,
+    setSortBy,
     sortOrder,
+    setSortOrder,
     statusFilter,
     setStatusFilter,
     includeDeleted,

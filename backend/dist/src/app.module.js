@@ -15,6 +15,11 @@ const prisma_module_1 = require("./prisma/prisma.module");
 const clientes_module_1 = require("./modules/clientes/infrastructure/clientes.module");
 const auth_module_1 = require("./modules/auth/infrastructure/auth.module");
 const proveedores_module_1 = require("./modules/proveedores/infrastructure/proveedores.module");
+const marcas_module_1 = require("./modules/marcas/infrastructure/marcas.module");
+const categorias_module_1 = require("./modules/categorias/infrastructure/categorias.module");
+const productos_module_1 = require("./modules/productos/infrastructure/productos.module");
+const cotizaciones_module_1 = require("./modules/cotizaciones/infrastructure/cotizaciones.module");
+const ordenes_trabajo_module_1 = require("./modules/ordenes-trabajo/infrastructure/ordenes-trabajo.module");
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
@@ -28,6 +33,11 @@ exports.AppModule = AppModule = __decorate([
             clientes_module_1.ClientesModule,
             auth_module_1.AuthModule,
             proveedores_module_1.ProveedoresModule,
+            marcas_module_1.MarcasModule,
+            categorias_module_1.CategoriasModule,
+            productos_module_1.ProductosModule,
+            cotizaciones_module_1.CotizacionesModule,
+            ordenes_trabajo_module_1.OrdenesTrabajoModule,
         ],
         controllers: [app_controller_1.AppController],
         providers: [

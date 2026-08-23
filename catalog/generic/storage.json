@@ -1,0 +1,102 @@
+[
+  {
+    "reference": "HDD-1TB",
+    "officialName": "Disco Duro para Videovigilancia 1TB",
+    "brand": "Generic",
+    "category": "Storage",
+    "family": "Hard Drive",
+    "description": "Disco duro interno de 1 TB recomendado para sistemas de videovigilancia DVR y NVR.",
+    "specifications": {
+      "storageType": "HDD",
+      "capacity": "1 TB",
+      "interface": "SATA III",
+      "application": "Videovigilancia",
+      "compatibleWith": [
+        "DVR",
+        "XVR",
+        "NVR"
+      ]
+    },
+    "resources": {
+      "productPage": "",
+      "datasheet": "",
+      "manual": "",
+      "image": ""
+    },
+    "commercial": {
+      "purchasePrice": null,
+      "marginPercentage": 30,
+      "salePrice": null
+    },
+    "createdFrom": "CATALOG",
+    "isOfficial": false,
+    "status": "ACTIVE"
+  },
+  {
+    "reference": "HDD-4TB",
+    "officialName": "Disco Duro para Videovigilancia 4TB",
+    "brand": "Generic",
+    "category": "Storage",
+    "family": "Hard Drive",
+    "description": "Disco duro interno de 4 TB recomendado para sistemas de videovigilancia DVR y NVR.",
+    "specifications": {
+      "storageType": "HDD",
+      "capacity": "4 TB",
+      "interface": "SATA III",
+      "application": "Videovigilancia",
+      "compatibleWith": [
+        "DVR",
+        "XVR",
+        "NVR"
+      ]
+    },
+    "resources": {
+      "productPage": "",
+      "datasheet": "",
+      "manual": "",
+      "image": ""
+    },
+    "commercial": {
+      "purchasePrice": null,
+      "marginPercentage": 30,
+      "salePrice": null
+    },
+    "createdFrom": "CATALOG",
+    "isOfficial": false,
+    "status": "ACTIVE"
+  },
+  {
+    "reference": "MICROSD-64GB",
+    "officialName": "Memoria MicroSD 64GB",
+    "brand": "Generic",
+    "category": "Storage",
+    "family": "MicroSD",
+    "description": "Tarjeta MicroSD de 64 GB compatible con cámaras IP y dispositivos de videovigilancia.",
+    "specifications": {
+      "storageType": "MicroSD",
+      "capacity": "64 GB",
+      "speedClass": "Class 10 / UHS-I",
+      "application": "Videovigilancia",
+      "compatibleWith": [
+        "Cámaras IP",
+        "Cámaras WiFi",
+        "IMOU",
+        "Dahua IP"
+      ]
+    },
+    "resources": {
+      "productPage": "",
+      "datasheet": "",
+      "manual": "",
+      "image": ""
+    },
+    "commercial": {
+      "purchasePrice": null,
+      "marginPercentage": 30,
+      "salePrice": null
+    },
+    "createdFrom": "CATALOG",
+    "isOfficial": false,
+    "status": "ACTIVE"
+  }
+]

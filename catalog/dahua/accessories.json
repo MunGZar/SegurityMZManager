@@ -1,0 +1,19 @@
+[
+  {
+    "referencia": "DH-PFM800-4MP",
+    "nombreOficial": "Dahua Balun Pasivo PFM800-4MP HDCVI/AHD/TVI 4MP",
+    "modelo": "DH-PFM800-4MP",
+    "descripcion": "Par de Transmisores Pasivos Balun Coaxial a UTP con Protección Anti-interferencia y Rayos",
+    "categoria": "Accesorios y Conectores",
+    "marca": "Dahua",
+    "imagenUrl": "https://www.dahuasecurity.com/asset/upload/uploads/soft/20180910/DH-PFM800-4MP.png",
+    "datasheet": "https://material.dahuasecurity.com/uploads/cp/PFM800-4MP_datasheet.pdf",
+    "tecnologia": "Pasivo HDCVI / TVI / AHD",
+    "resolucion": "Hasta 4K / 8MP",
+    "proteccionIP": "N/A",
+    "especificaciones": {
+      "distanciaMaxima": "400 metros (720P) / 250 metros (1080P)",
+      "conector": "BNC Macho a Bornera a Presión"
+    }
+  }
+]

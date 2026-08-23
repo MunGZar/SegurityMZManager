@@ -1,0 +1,158 @@
+[
+  {
+    "reference": "PSU-12V-2A",
+    "officialName": "Fuente de Alimentación 12V 2A",
+    "brand": "Genérico",
+    "category": "Energía",
+    "family": "Fuente",
+    "description": "Fuente de alimentación regulada de 12V DC y 2A para cámaras de videovigilancia y accesorios.",
+    "specifications": {
+      "inputVoltage": "100-240V AC",
+      "outputVoltage": "12V DC",
+      "outputCurrent": "2A",
+      "connector": "Plug DC 5.5 x 2.1 mm",
+      "application": [
+        "Cámaras CCTV",
+        "Cámaras IP",
+        "Accesorios"
+      ]
+    },
+    "unit": "Unidad",
+    "resources": {
+      "productPage": "",
+      "datasheet": "",
+      "manual": "",
+      "image": ""
+    },
+    "commercial": {
+      "purchasePrice": null,
+      "marginPercentage": 30,
+      "salePrice": null
+    },
+    "createdFrom": "CATALOG",
+    "isOfficial": false,
+    "status": "ACTIVE"
+  },
+  {
+    "reference": "DC-PAIR",
+    "officialName": "Terminal DC Macho/Hembra",
+    "brand": "Genérico",
+    "category": "Energía",
+    "family": "Conector",
+    "description": "Par de conectores DC macho y hembra para alimentación de cámaras de videovigilancia.",
+    "specifications": {
+      "connectorType": "DC 5.5 x 2.1 mm",
+      "connection": "Bornera",
+      "application": [
+        "CCTV",
+        "Fuentes 12V",
+        "Cámaras"
+      ]
+    },
+    "unit": "Par",
+    "resources": {
+      "productPage": "",
+      "datasheet": "",
+      "manual": "",
+      "image": ""
+    },
+    "commercial": {
+      "purchasePrice": null,
+      "marginPercentage": 30,
+      "salePrice": null
+    },
+    "createdFrom": "CATALOG",
+    "isOfficial": false,
+    "status": "ACTIVE"
+  },
+  {
+    "reference": "TOMA-AEREA",
+    "officialName": "Toma Aérea",
+    "brand": "Genérico",
+    "category": "Energía",
+    "family": "Conector Eléctrico",
+    "description": "Toma aérea para conexiones eléctricas de equipos y fuentes de alimentación.",
+    "specifications": {
+      "voltage": "110V-250V AC",
+      "application": [
+        "Instalaciones eléctricas",
+        "Videovigilancia"
+      ]
+    },
+    "unit": "Unidad",
+    "resources": {
+      "productPage": "",
+      "datasheet": "",
+      "manual": "",
+      "image": ""
+    },
+    "commercial": {
+      "purchasePrice": null,
+      "marginPercentage": 30,
+      "salePrice": null
+    },
+    "createdFrom": "CATALOG",
+    "isOfficial": false,
+    "status": "ACTIVE"
+  },
+  {
+    "reference": "MULTITOMA",
+    "officialName": "Multitoma Eléctrica",
+    "brand": "Genérico",
+    "category": "Energía",
+    "family": "Extensión",
+    "description": "Multitoma para distribución de energía en instalaciones eléctricas y sistemas de videovigilancia.",
+    "specifications": {
+      "voltage": "110V-250V AC",
+      "application": [
+        "Equipos electrónicos",
+        "Videovigilancia"
+      ]
+    },
+    "unit": "Unidad",
+    "resources": {
+      "productPage": "",
+      "datasheet": "",
+      "manual": "",
+      "image": ""
+    },
+    "commercial": {
+      "purchasePrice": null,
+      "marginPercentage": 30,
+      "salePrice": null
+    },
+    "createdFrom": "CATALOG",
+    "isOfficial": false,
+    "status": "ACTIVE"
+  },
+  {
+    "reference": "DUPLEX",
+    "officialName": "Tomacorriente Dúplex",
+    "brand": "Genérico",
+    "category": "Energía",
+    "family": "Tomacorriente",
+    "description": "Tomacorriente dúplex para instalaciones eléctricas residenciales y comerciales.",
+    "specifications": {
+      "voltage": "110V-250V AC",
+      "application": [
+        "Instalaciones eléctricas",
+        "Videovigilancia"
+      ]
+    },
+    "unit": "Unidad",
+    "resources": {
+      "productPage": "",
+      "datasheet": "",
+      "manual": "",
+      "image": ""
+    },
+    "commercial": {
+      "purchasePrice": null,
+      "marginPercentage": 30,
+      "salePrice": null
+    },
+    "createdFrom": "CATALOG",
+    "isOfficial": false,
+    "status": "ACTIVE"
+  }
+]

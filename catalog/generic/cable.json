@@ -1,0 +1,105 @@
+[
+  {
+    "reference": "VIDEO-BALUN",
+    "officialName": "Video Balun Pasivo",
+    "brand": "Genérico",
+    "category": "Cableado",
+    "family": "Balun",
+    "description": "Transceptor pasivo para transmisión de video HDCVI, HDTVI, AHD y CVBS mediante cable UTP.",
+    "specifications": {
+      "technology": [
+        "HDCVI",
+        "HDTVI",
+        "AHD",
+        "CVBS"
+      ],
+      "connectorVideo": "BNC Macho",
+      "connectorCable": "Bornera",
+      "transmissionMedium": "Cable UTP Cat5e/Cat6",
+      "application": "Videovigilancia"
+    },
+    "unit": "Par",
+    "resources": {
+      "productPage": "",
+      "datasheet": "",
+      "manual": "",
+      "image": ""
+    },
+    "commercial": {
+      "purchasePrice": null,
+      "marginPercentage": 30,
+      "salePrice": null
+    },
+    "createdFrom": "CATALOG",
+    "isOfficial": false,
+    "status": "ACTIVE"
+  },
+  {
+    "reference": "VIDEO-BALUN-RJ45",
+    "officialName": "Video Balun Pasivo con RJ45",
+    "brand": "Genérico",
+    "category": "Cableado",
+    "family": "Balun",
+    "description": "Video Balun con conector RJ45 para transmisión de video analógico HD mediante cable UTP.",
+    "specifications": {
+      "technology": [
+        "HDCVI",
+        "HDTVI",
+        "AHD",
+        "CVBS"
+      ],
+      "connectorVideo": "BNC Macho",
+      "connectorCable": "RJ45",
+      "transmissionMedium": "Cable UTP Cat5e/Cat6",
+      "application": "Videovigilancia"
+    },
+    "unit": "Par",
+    "resources": {
+      "productPage": "",
+      "datasheet": "",
+      "manual": "",
+      "image": ""
+    },
+    "commercial": {
+      "purchasePrice": null,
+      "marginPercentage": 30,
+      "salePrice": null
+    },
+    "createdFrom": "CATALOG",
+    "isOfficial": false,
+    "status": "ACTIVE"
+  },
+  {
+    "reference": "UTP-CAT5E",
+    "officialName": "Cable UTP Categoría 5e",
+    "brand": "Genérico",
+    "category": "Cableado",
+    "family": "UTP",
+    "description": "Cable UTP de categoría 5e para transmisión de datos y sistemas de videovigilancia IP y analógica mediante balunes.",
+    "specifications": {
+      "category": "Cat5e",
+      "conductor": "Cobre / CCA",
+      "pairs": 4,
+      "application": [
+        "Redes",
+        "Videovigilancia",
+        "PoE"
+      ]
+    },
+    "unit": "Metro",
+    "resources": {
+      "productPage": "",
+      "datasheet": "",
+      "manual": "",
+      "image": ""
+    },
+    "commercial": {
+      "purchasePrice": null,
+      "marginPercentage": 30,
+      "salePrice": null
+    },
+    "createdFrom": "CATALOG",
+    "isOfficial": false,
+    "status": "ACTIVE"
+  }
+]
