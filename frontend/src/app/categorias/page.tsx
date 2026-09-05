@@ -76,7 +76,7 @@ export default function CategoriasPage() {
   };
 
   return (
-    <div className="space-y-6">
+          <div className="space-y-6">
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
@@ -131,7 +131,7 @@ export default function CategoriasPage() {
           </Button>
         </div>
       </div>
-
+        /* Tabla de Categorías modificacion en las categorias las que probocaba el bug */
       {/* Tabla de Categorías */}
       <CategoriaTable
         categorias={categorias}
