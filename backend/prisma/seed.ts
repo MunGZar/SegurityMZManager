@@ -26,7 +26,7 @@ async function main() {
   // 1. Crear usuario administrador
   await seedAdmin(prisma);
 
-  // 2. Importar Catálogo Maestro (Dahua, Imou, Genéricos)
+  // 2. Importar Catálogo Maestro
   await seedCatalog(prisma);
 
   console.log('🏁 Proceso de Seeder finalizado.');
