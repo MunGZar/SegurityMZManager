@@ -1,6 +1,10 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../../../../prisma/prisma.service';
-import { IProductosRepository, PaginatedProductos, ProductoConRelaciones } from '../../domain/productos.repository.interface';
+import {
+  IProductosRepository,
+  PaginatedProductos,
+  ProductoConRelaciones,
+} from '../../domain/productos.repository.interface';
 import { CreateProductoDto } from '../../application/dtos/create-producto.dto';
 import { UpdateProductoDto } from '../../application/dtos/update-producto.dto';
 import { GetProductosQueryDto } from '../../application/dtos/get-productos-query.dto';
@@ -16,7 +20,9 @@ export class PrismaProductosRepository implements IProductosRepository {
     proveedor: true,
   };
 
-  async create(data: CreateProductoDto & { precioVenta: number }): Promise<ProductoConRelaciones> {
+  async create(
+    data: CreateProductoDto & { precioVenta: number },
+  ): Promise<ProductoConRelaciones> {
     return this.prisma.producto.create({
       data: {
         codigoInterno: data.codigoInterno,
@@ -76,7 +82,14 @@ export class PrismaProductosRepository implements IProductosRepository {
         : {}),
     };
 
-    const allowedSortFields = ['nombre', 'codigoInterno', 'modelo', 'precioVenta', 'createdAt', 'activo'];
+    const allowedSortFields = [
+      'nombre',
+      'codigoInterno',
+      'modelo',
+      'precioVenta',
+      'createdAt',
+      'activo',
+    ];
     const validSortBy = allowedSortFields.includes(sortBy) ? sortBy : 'nombre';
 
     const [data, total] = await Promise.all([
@@ -112,7 +125,11 @@ export class PrismaProductosRepository implements IProductosRepository {
     });
   }
 
-  async findByNombreMarcaModelo(nombre: string, marcaId: string, modelo?: string | null): Promise<Producto | null> {
+  async findByNombreMarcaModelo(
+    nombre: string,
+    marcaId: string,
+    modelo?: string | null,
+  ): Promise<Producto | null> {
     return this.prisma.producto.findFirst({
       where: {
         nombre: { equals: nombre },
@@ -122,7 +139,10 @@ export class PrismaProductosRepository implements IProductosRepository {
     });
   }
 
-  async update(id: string, data: UpdateProductoDto & { precioVenta?: number }): Promise<ProductoConRelaciones> {
+  async update(
+    id: string,
+    data: UpdateProductoDto & { precioVenta?: number },
+  ): Promise<ProductoConRelaciones> {
     return this.prisma.producto.update({
       where: { id },
       data,

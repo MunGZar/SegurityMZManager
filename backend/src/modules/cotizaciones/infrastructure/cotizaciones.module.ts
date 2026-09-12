@@ -28,9 +28,6 @@ import { RestoreCotizacionUseCase } from '../application/use-cases/restore-cotiz
     DeleteCotizacionUseCase,
     RestoreCotizacionUseCase,
   ],
-  exports: [
-    ICotizacionesRepository,
-    GetCotizacionByIdUseCase,
-  ],
+  exports: [ICotizacionesRepository, GetCotizacionByIdUseCase],
 })
 export class CotizacionesModule {}

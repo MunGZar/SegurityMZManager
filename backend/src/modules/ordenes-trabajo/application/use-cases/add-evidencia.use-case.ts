@@ -7,10 +7,15 @@ import { OrdenTrabajoEvidencia } from '@prisma/client';
 export class AddEvidenciaUseCase {
   constructor(private readonly repository: IOrdenesTrabajoRepository) {}
 
-  async execute(ordenTrabajoId: string, dto: AddEvidenciaDto): Promise<OrdenTrabajoEvidencia> {
+  async execute(
+    ordenTrabajoId: string,
+    dto: AddEvidenciaDto,
+  ): Promise<OrdenTrabajoEvidencia> {
     const orden = await this.repository.findById(ordenTrabajoId);
     if (!orden) {
-      throw new NotFoundException(`La Orden de Trabajo con ID '${ordenTrabajoId}' no fue encontrada.`);
+      throw new NotFoundException(
+        `La Orden de Trabajo con ID '${ordenTrabajoId}' no fue encontrada.`,
+      );
     }
 
     return this.repository.addEvidencia(ordenTrabajoId, dto);

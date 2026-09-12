@@ -32,7 +32,9 @@ __decorate([
     __metadata("design:type", String)
 ], AddEvidenciaDto.prototype, "url", void 0);
 __decorate([
-    (0, swagger_1.ApiPropertyOptional)({ description: 'Descripción o nota sobre la fotografía / evidencia' }),
+    (0, swagger_1.ApiPropertyOptional)({
+        description: 'Descripción o nota sobre la fotografía / evidencia',
+    }),
     (0, class_validator_1.IsOptional)(),
     (0, class_validator_1.IsString)(),
     __metadata("design:type", String)

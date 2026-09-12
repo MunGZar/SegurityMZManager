@@ -103,7 +103,10 @@ __decorate([
 __decorate([
     (0, common_1.Put)(':id'),
     (0, swagger_1.ApiOperation)({ summary: 'Actualizar una cotización existente' }),
-    (0, swagger_1.ApiResponse)({ status: 200, description: 'Cotización actualizada exitosamente' }),
+    (0, swagger_1.ApiResponse)({
+        status: 200,
+        description: 'Cotización actualizada exitosamente',
+    }),
     __param(0, (0, common_1.Param)('id')),
     __param(1, (0, common_1.Body)()),
     __metadata("design:type", Function),
@@ -112,7 +115,9 @@ __decorate([
 ], CotizacionesController.prototype, "update", null);
 __decorate([
     (0, common_1.Patch)(':id/estado'),
-    (0, swagger_1.ApiOperation)({ summary: 'Cambiar el estado de una cotización (Borrador, Enviada, Aprobada, Rechazada, Vencida)' }),
+    (0, swagger_1.ApiOperation)({
+        summary: 'Cambiar el estado de una cotización (Borrador, Enviada, Aprobada, Rechazada, Vencida)',
+    }),
     (0, swagger_1.ApiResponse)({ status: 200, description: 'Estado actualizado exitosamente' }),
     __param(0, (0, common_1.Param)('id')),
     __param(1, (0, common_1.Body)()),
@@ -122,8 +127,13 @@ __decorate([
 ], CotizacionesController.prototype, "changeEstado", null);
 __decorate([
     (0, common_1.Post)(':id/duplicar'),
-    (0, swagger_1.ApiOperation)({ summary: 'Duplicar una cotización existente (Copia en estado Borrador)' }),
-    (0, swagger_1.ApiResponse)({ status: 201, description: 'Cotización duplicada exitosamente' }),
+    (0, swagger_1.ApiOperation)({
+        summary: 'Duplicar una cotización existente (Copia en estado Borrador)',
+    }),
+    (0, swagger_1.ApiResponse)({
+        status: 201,
+        description: 'Cotización duplicada exitosamente',
+    }),
     __param(0, (0, common_1.Param)('id')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
@@ -132,8 +142,13 @@ __decorate([
 __decorate([
     (0, common_1.Delete)(':id'),
     (0, common_1.HttpCode)(common_1.HttpStatus.OK),
-    (0, swagger_1.ApiOperation)({ summary: 'Eliminar de forma lógica (Soft Delete) una cotización' }),
-    (0, swagger_1.ApiResponse)({ status: 200, description: 'Cotización eliminada de forma lógica' }),
+    (0, swagger_1.ApiOperation)({
+        summary: 'Eliminar de forma lógica (Soft Delete) una cotización',
+    }),
+    (0, swagger_1.ApiResponse)({
+        status: 200,
+        description: 'Cotización eliminada de forma lógica',
+    }),
     __param(0, (0, common_1.Param)('id')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
@@ -142,7 +157,10 @@ __decorate([
 __decorate([
     (0, common_1.Patch)(':id/restaurar'),
     (0, swagger_1.ApiOperation)({ summary: 'Restaurar una cotización eliminada' }),
-    (0, swagger_1.ApiResponse)({ status: 200, description: 'Cotización restaurada exitosamente' }),
+    (0, swagger_1.ApiResponse)({
+        status: 200,
+        description: 'Cotización restaurada exitosamente',
+    }),
     __param(0, (0, common_1.Param)('id')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),

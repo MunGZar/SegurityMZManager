@@ -45,9 +45,14 @@ let UpdateProductoUseCase = class UpdateProductoUseCase {
                 throw new common_1.ConflictException(`Ya existe un producto registrado con el nombre "${nextNombre}" para la misma marca y modelo.`);
             }
         }
-        const finalPrecioCompra = dto.precioCompra !== undefined ? Number(dto.precioCompra) : Number(existing.precioCompra);
-        const finalMargenPorcentaje = dto.margenPorcentaje !== undefined ? Number(dto.margenPorcentaje) : Number(existing.margenPorcentaje);
-        const precioVenta = Number((finalPrecioCompra + (finalPrecioCompra * (finalMargenPorcentaje / 100))).toFixed(2));
+        const finalPrecioCompra = dto.precioCompra !== undefined
+            ? Number(dto.precioCompra)
+            : Number(existing.precioCompra);
+        const finalMargenPorcentaje = dto.margenPorcentaje !== undefined
+            ? Number(dto.margenPorcentaje)
+            : Number(existing.margenPorcentaje);
+        const precioVenta = Number((finalPrecioCompra +
+            finalPrecioCompra * (finalMargenPorcentaje / 100)).toFixed(2));
         return this.productosRepository.update(id, {
             ...dto,
             precioVenta,

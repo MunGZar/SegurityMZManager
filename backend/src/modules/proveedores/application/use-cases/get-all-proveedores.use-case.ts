@@ -10,7 +10,9 @@ export class GetAllProveedoresUseCase {
     private readonly proveedoresRepository: IProveedoresRepository,
   ) {}
 
-  async execute(query: GetProveedoresQueryDto): Promise<{ data: Proveedor[]; total: number }> {
+  async execute(
+    query: GetProveedoresQueryDto,
+  ): Promise<{ data: Proveedor[]; total: number }> {
     return this.proveedoresRepository.findAll({
       search: query.search,
       page: query.page,

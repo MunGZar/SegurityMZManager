@@ -1,15 +1,20 @@
-import { 
-  Controller, 
-  Get, 
-  Post, 
-  Body, 
-  Patch, 
-  Param, 
-  Delete, 
-  Query, 
-  UseGuards 
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+  Query,
+  UseGuards,
 } from '@nestjs/common';
-import { ApiTags, ApiOperation, ApiResponse, ApiBearerAuth } from '@nestjs/swagger';
+import {
+  ApiTags,
+  ApiOperation,
+  ApiResponse,
+  ApiBearerAuth,
+} from '@nestjs/swagger';
 import { JwtAuthGuard } from '../../../auth/infrastructure/guards/jwt-auth.guard';
 import { CreateProductoDto } from '../../application/dtos/create-producto.dto';
 import { UpdateProductoDto } from '../../application/dtos/update-producto.dto';
@@ -39,13 +44,19 @@ export class ProductosController {
   @ApiOperation({ summary: 'Crear un nuevo producto' })
   @ApiResponse({ status: 201, description: 'Producto creado exitosamente' })
   @ApiResponse({ status: 400, description: 'Datos o importes inválidos' })
-  @ApiResponse({ status: 409, description: 'Código interno o combinación (nombre, marca, modelo) duplicado' })
+  @ApiResponse({
+    status: 409,
+    description:
+      'Código interno o combinación (nombre, marca, modelo) duplicado',
+  })
   create(@Body() createProductoDto: CreateProductoDto) {
     return this.createProductoUseCase.execute(createProductoDto);
   }
 
   @Get()
-  @ApiOperation({ summary: 'Obtener productos con paginación, filtros y orden' })
+  @ApiOperation({
+    summary: 'Obtener productos con paginación, filtros y orden',
+  })
   @ApiResponse({ status: 200, description: 'Listado de productos obtenido' })
   findAll(@Query() query: GetProductosQueryDto) {
     return this.getAllProductosUseCase.execute(query);
@@ -61,16 +72,25 @@ export class ProductosController {
 
   @Patch(':id')
   @ApiOperation({ summary: 'Actualizar un producto por su ID' })
-  @ApiResponse({ status: 200, description: 'Producto actualizado exitosamente' })
+  @ApiResponse({
+    status: 200,
+    description: 'Producto actualizado exitosamente',
+  })
   @ApiResponse({ status: 404, description: 'Producto no encontrado' })
   @ApiResponse({ status: 409, description: 'Código o combinación duplicado' })
-  update(@Param('id') id: string, @Body() updateProductoDto: UpdateProductoDto) {
+  update(
+    @Param('id') id: string,
+    @Body() updateProductoDto: UpdateProductoDto,
+  ) {
     return this.updateProductoUseCase.execute(id, updateProductoDto);
   }
 
   @Delete(':id')
   @ApiOperation({ summary: 'Eliminar un producto (Soft Delete)' })
-  @ApiResponse({ status: 200, description: 'Producto desactivado y eliminado lógicamente' })
+  @ApiResponse({
+    status: 200,
+    description: 'Producto desactivado y eliminado lógicamente',
+  })
   @ApiResponse({ status: 404, description: 'Producto no encontrado' })
   remove(@Param('id') id: string) {
     return this.deleteProductoUseCase.execute(id);
@@ -80,7 +100,10 @@ export class ProductosController {
   @ApiOperation({ summary: 'Restaurar un producto eliminado lógicamente' })
   @ApiResponse({ status: 200, description: 'Producto restaurado exitosamente' })
   @ApiResponse({ status: 404, description: 'Producto no encontrado' })
-  @ApiResponse({ status: 409, description: 'El producto ya está activo o conflicto de código' })
+  @ApiResponse({
+    status: 409,
+    description: 'El producto ya está activo o conflicto de código',
+  })
   restore(@Param('id') id: string) {
     return this.restoreProductoUseCase.execute(id);
   }

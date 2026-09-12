@@ -40,9 +40,7 @@ exports.AppModule = AppModule = __decorate([
             ordenes_trabajo_module_1.OrdenesTrabajoModule,
         ],
         controllers: [app_controller_1.AppController],
-        providers: [
-            app_service_1.AppService,
-        ],
+        providers: [app_service_1.AppService],
     })
 ], AppModule);
 //# sourceMappingURL=app.module.js.map

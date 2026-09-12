@@ -1,6 +1,13 @@
 import { ApiPropertyOptional } from '@nestjs/swagger';
 import { Type, Transform } from 'class-transformer';
-import { IsOptional, IsInt, Min, IsString, IsEnum, IsBoolean } from 'class-validator';
+import {
+  IsOptional,
+  IsInt,
+  Min,
+  IsString,
+  IsEnum,
+  IsBoolean,
+} from 'class-validator';
 import { OrdenTrabajoEstado, OrdenTrabajoPrioridad } from '@prisma/client';
 
 export class GetOrdenesTrabajoQueryDto {
@@ -18,7 +25,9 @@ export class GetOrdenesTrabajoQueryDto {
   @Min(1)
   limit?: number = 10;
 
-  @ApiPropertyOptional({ description: 'Búsqueda por folio, cliente, dirección' })
+  @ApiPropertyOptional({
+    description: 'Búsqueda por folio, cliente, dirección',
+  })
   @IsOptional()
   @IsString()
   search?: string;
@@ -38,7 +47,9 @@ export class GetOrdenesTrabajoQueryDto {
   @IsEnum(OrdenTrabajoPrioridad)
   prioridad?: OrdenTrabajoPrioridad;
 
-  @ApiPropertyOptional({ description: 'Filtrar por fecha programada (YYYY-MM-DD)' })
+  @ApiPropertyOptional({
+    description: 'Filtrar por fecha programada (YYYY-MM-DD)',
+  })
   @IsOptional()
   @IsString()
   fechaProgramada?: string;

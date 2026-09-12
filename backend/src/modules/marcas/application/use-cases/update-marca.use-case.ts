@@ -1,4 +1,8 @@
-import { Injectable, NotFoundException, ConflictException } from '@nestjs/common';
+import {
+  Injectable,
+  NotFoundException,
+  ConflictException,
+} from '@nestjs/common';
 import { IMarcasRepository } from '../../domain/marcas.repository.interface';
 import { UpdateMarcaDto } from '../dtos/update-marca.dto';
 
@@ -12,10 +16,15 @@ export class UpdateMarcaUseCase {
       throw new NotFoundException(`Marca con ID "${id}" no encontrada`);
     }
 
-    if (dto.nombre && dto.nombre.toLowerCase() !== existing.nombre.toLowerCase()) {
+    if (
+      dto.nombre &&
+      dto.nombre.toLowerCase() !== existing.nombre.toLowerCase()
+    ) {
       const duplicate = await this.marcasRepository.findByNombre(dto.nombre);
       if (duplicate) {
-        throw new ConflictException(`Ya existe una marca registrada con el nombre "${dto.nombre}"`);
+        throw new ConflictException(
+          `Ya existe una marca registrada con el nombre "${dto.nombre}"`,
+        );
       }
     }
 

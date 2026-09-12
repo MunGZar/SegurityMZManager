@@ -10,10 +10,10 @@ export interface IClientesRepository {
     status?: ClienteStatus;
     includeDeleted?: boolean;
   }): Promise<{ data: Cliente[]; total: number }>;
-  
+
   findById(id: string, includeDeleted?: boolean): Promise<Cliente | null>;
   findByIdentificacion(identificacion: string): Promise<Cliente | null>;
-  
+
   create(cliente: {
     nombre: string;
     identificacion?: string | null;
@@ -23,7 +23,7 @@ export interface IClientesRepository {
     notas?: string | null;
     status?: ClienteStatus;
   }): Promise<Cliente>;
-  
+
   update(
     id: string,
     cliente: {
@@ -36,7 +36,7 @@ export interface IClientesRepository {
       status?: ClienteStatus;
     },
   ): Promise<Cliente>;
-  
+
   delete(id: string): Promise<void>;
   restore(id: string): Promise<Cliente>;
   hasAssociations(id: string): Promise<boolean>;

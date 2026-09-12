@@ -61,7 +61,9 @@ let ClientesController = class ClientesController {
 exports.ClientesController = ClientesController;
 __decorate([
     (0, common_1.Get)(),
-    (0, swagger_1.ApiOperation)({ summary: 'Obtener listado de clientes paginado, ordenado y filtrado' }),
+    (0, swagger_1.ApiOperation)({
+        summary: 'Obtener listado de clientes paginado, ordenado y filtrado',
+    }),
     (0, swagger_1.ApiOkResponse)({
         description: 'Listado de clientes obtenido exitosamente',
         schema: {
@@ -79,16 +81,23 @@ __decorate([
                             email: { type: 'string', nullable: true },
                             direccion: { type: 'string', nullable: true },
                             notas: { type: 'string', nullable: true },
-                            status: { type: 'string', enum: ['PROSPECTO', 'ACTIVO', 'INACTIVO'] },
+                            status: {
+                                type: 'string',
+                                enum: ['PROSPECTO', 'ACTIVO', 'INACTIVO'],
+                            },
                             createdAt: { type: 'string', format: 'date-time' },
                             updatedAt: { type: 'string', format: 'date-time' },
-                            deletedAt: { type: 'string', format: 'date-time', nullable: true },
-                        }
-                    }
+                            deletedAt: {
+                                type: 'string',
+                                format: 'date-time',
+                                nullable: true,
+                            },
+                        },
+                    },
                 },
-                total: { type: 'number', example: 45 }
-            }
-        }
+                total: { type: 'number', example: 45 },
+            },
+        },
     }),
     __param(0, (0, common_1.Query)()),
     __metadata("design:type", Function),
@@ -109,7 +118,10 @@ __decorate([
     (0, common_1.Post)(),
     (0, swagger_1.ApiOperation)({ summary: 'Crear un nuevo cliente' }),
     (0, swagger_1.ApiCreatedResponse)({ description: 'Cliente creado exitosamente' }),
-    (0, swagger_1.ApiResponse)({ status: 400, description: 'Datos inválidos o identificación ya registrada' }),
+    (0, swagger_1.ApiResponse)({
+        status: 400,
+        description: 'Datos inválidos o identificación ya registrada',
+    }),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [create_cliente_dto_1.CreateClienteDto]),
@@ -119,7 +131,10 @@ __decorate([
     (0, common_1.Put)(':id'),
     (0, swagger_1.ApiOperation)({ summary: 'Actualizar la información de un cliente' }),
     (0, swagger_1.ApiOkResponse)({ description: 'Cliente actualizado exitosamente' }),
-    (0, swagger_1.ApiResponse)({ status: 400, description: 'Datos inválidos o identificación duplicada' }),
+    (0, swagger_1.ApiResponse)({
+        status: 400,
+        description: 'Datos inválidos o identificación duplicada',
+    }),
     (0, swagger_1.ApiResponse)({ status: 404, description: 'Cliente no encontrado' }),
     __param(0, (0, common_1.Param)('id')),
     __param(1, (0, common_1.Body)()),
@@ -131,7 +146,9 @@ __decorate([
     (0, common_1.Delete)(':id'),
     (0, common_1.HttpCode)(common_1.HttpStatus.NO_CONTENT),
     (0, swagger_1.ApiOperation)({ summary: 'Eliminación lógica de un cliente (Soft Delete)' }),
-    (0, swagger_1.ApiNoContentResponse)({ description: 'Cliente eliminado lógicamente exitosamente' }),
+    (0, swagger_1.ApiNoContentResponse)({
+        description: 'Cliente eliminado lógicamente exitosamente',
+    }),
     (0, swagger_1.ApiResponse)({ status: 404, description: 'Cliente no encontrado' }),
     __param(0, (0, common_1.Param)('id')),
     __metadata("design:type", Function),

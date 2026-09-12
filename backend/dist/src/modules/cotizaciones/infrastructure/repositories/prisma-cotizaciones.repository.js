@@ -63,7 +63,7 @@ let PrismaCotizacionesRepository = class PrismaCotizacionesRepository {
         return `${prefix}${paddedNumber}`;
     }
     async create(data) {
-        const { clienteId, observaciones, descuento, estado, folio, subtotal, total, detalles } = data;
+        const { clienteId, observaciones, descuento, estado, folio, subtotal, total, detalles, } = data;
         return this.prisma.cotizacion.create({
             data: {
                 folio,
@@ -90,7 +90,7 @@ let PrismaCotizacionesRepository = class PrismaCotizacionesRepository {
         });
     }
     async findAll(query) {
-        const { page = 1, limit = 10, search, clienteId, estado, sortBy = 'createdAt', sortOrder = 'desc', includeDeleted } = query;
+        const { page = 1, limit = 10, search, clienteId, estado, sortBy = 'createdAt', sortOrder = 'desc', includeDeleted, } = query;
         const where = {};
         if (!includeDeleted) {
             where.deletedAt = null;
@@ -144,7 +144,7 @@ let PrismaCotizacionesRepository = class PrismaCotizacionesRepository {
         return cotizacion;
     }
     async update(id, data) {
-        const { clienteId, observaciones, descuento, estado, subtotal, total, detalles } = data;
+        const { clienteId, observaciones, descuento, estado, subtotal, total, detalles, } = data;
         if (detalles) {
             await this.prisma.cotizacionDetalle.deleteMany({
                 where: { cotizacionId: id },

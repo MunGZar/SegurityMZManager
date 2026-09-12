@@ -26,7 +26,9 @@ let RestoreMarcaUseCase = class RestoreMarcaUseCase {
             throw new common_1.ConflictException(`La marca "${existing.nombre}" no está eliminada`);
         }
         const activeSameName = await this.marcasRepository.findByNombre(existing.nombre);
-        if (activeSameName && activeSameName.id !== id && !activeSameName.deletedAt) {
+        if (activeSameName &&
+            activeSameName.id !== id &&
+            !activeSameName.deletedAt) {
             throw new common_1.ConflictException(`No se puede restaurar. Ya existe otra marca activa registrada con el nombre "${existing.nombre}"`);
         }
         return this.marcasRepository.restore(id);

@@ -1,11 +1,20 @@
-import { IsString, IsOptional, IsInt, Min, Max, IsEnum, IsBoolean } from 'class-validator';
+import {
+  IsString,
+  IsOptional,
+  IsInt,
+  Min,
+  Max,
+  IsEnum,
+  IsBoolean,
+} from 'class-validator';
 import { Type, Transform } from 'class-transformer';
 import { ApiPropertyOptional } from '@nestjs/swagger';
 import { ClienteStatusDto } from './create-cliente.dto';
 
 export class GetClientesQueryDto {
   @ApiPropertyOptional({
-    description: 'Búsqueda por nombre, identificación, teléfono, dirección o correo',
+    description:
+      'Búsqueda por nombre, identificación, teléfono, dirección o correo',
     example: 'Juan',
   })
   @IsString()
@@ -63,7 +72,8 @@ export class GetClientesQueryDto {
   status?: ClienteStatusDto;
 
   @ApiPropertyOptional({
-    description: 'Indica si se deben incluir los registros eliminados de forma lógica (soft deleted)',
+    description:
+      'Indica si se deben incluir los registros eliminados de forma lógica (soft deleted)',
     example: false,
     default: false,
   })

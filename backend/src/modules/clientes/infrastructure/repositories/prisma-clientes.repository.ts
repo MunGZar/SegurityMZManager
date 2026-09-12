@@ -86,7 +86,7 @@ export class PrismaClientesRepository implements IClientesRepository {
   async findById(id: string, includeDeleted = false): Promise<Cliente | null> {
     const where: Prisma.ClienteWhereUniqueInput = { id };
     if (!includeDeleted) {
-      // Because findUnique doesn't accept complex where criteria like `deletedAt: null` in Prisma, 
+      // Because findUnique doesn't accept complex where criteria like `deletedAt: null` in Prisma,
       // we can use findFirst instead.
       const record = await this.prisma.cliente.findFirst({
         where: { id, deletedAt: null },

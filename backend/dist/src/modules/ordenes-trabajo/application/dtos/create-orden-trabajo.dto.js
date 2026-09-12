@@ -31,31 +31,43 @@ class CreateOrdenTrabajoDto {
 }
 exports.CreateOrdenTrabajoDto = CreateOrdenTrabajoDto;
 __decorate([
-    (0, swagger_1.ApiProperty)({ description: 'ID de la Cotización Aprobada que origina la orden' }),
+    (0, swagger_1.ApiProperty)({
+        description: 'ID de la Cotización Aprobada que origina la orden',
+    }),
     (0, class_validator_1.IsString)(),
     (0, class_validator_1.IsNotEmpty)(),
     __metadata("design:type", String)
 ], CreateOrdenTrabajoDto.prototype, "cotizacionId", void 0);
 __decorate([
-    (0, swagger_1.ApiPropertyOptional)({ description: 'Fecha programada para la instalación (YYYY-MM-DD)' }),
+    (0, swagger_1.ApiPropertyOptional)({
+        description: 'Fecha programada para la instalación (YYYY-MM-DD)',
+    }),
     (0, class_validator_1.IsOptional)(),
     (0, class_validator_1.IsDateString)(),
     __metadata("design:type", String)
 ], CreateOrdenTrabajoDto.prototype, "fechaProgramada", void 0);
 __decorate([
-    (0, swagger_1.ApiPropertyOptional)({ description: 'Hora programada (ej: 09:30 AM o 14:00)' }),
+    (0, swagger_1.ApiPropertyOptional)({
+        description: 'Hora programada (ej: 09:30 AM o 14:00)',
+    }),
     (0, class_validator_1.IsOptional)(),
     (0, class_validator_1.IsString)(),
     __metadata("design:type", String)
 ], CreateOrdenTrabajoDto.prototype, "horaProgramada", void 0);
 __decorate([
-    (0, swagger_1.ApiPropertyOptional)({ enum: client_1.OrdenTrabajoEstado, default: client_1.OrdenTrabajoEstado.PENDIENTE }),
+    (0, swagger_1.ApiPropertyOptional)({
+        enum: client_1.OrdenTrabajoEstado,
+        default: client_1.OrdenTrabajoEstado.PENDIENTE,
+    }),
     (0, class_validator_1.IsOptional)(),
     (0, class_validator_1.IsEnum)(client_1.OrdenTrabajoEstado),
     __metadata("design:type", String)
 ], CreateOrdenTrabajoDto.prototype, "estado", void 0);
 __decorate([
-    (0, swagger_1.ApiPropertyOptional)({ enum: client_1.OrdenTrabajoPrioridad, default: client_1.OrdenTrabajoPrioridad.MEDIA }),
+    (0, swagger_1.ApiPropertyOptional)({
+        enum: client_1.OrdenTrabajoPrioridad,
+        default: client_1.OrdenTrabajoPrioridad.MEDIA,
+    }),
     (0, class_validator_1.IsOptional)(),
     (0, class_validator_1.IsEnum)(client_1.OrdenTrabajoPrioridad),
     __metadata("design:type", String)
@@ -67,7 +79,9 @@ __decorate([
     __metadata("design:type", String)
 ], CreateOrdenTrabajoDto.prototype, "observaciones", void 0);
 __decorate([
-    (0, swagger_1.ApiPropertyOptional)({ description: 'Dirección específica de la instalación' }),
+    (0, swagger_1.ApiPropertyOptional)({
+        description: 'Dirección específica de la instalación',
+    }),
     (0, class_validator_1.IsOptional)(),
     (0, class_validator_1.IsString)(),
     __metadata("design:type", String)
@@ -110,7 +124,9 @@ __decorate([
     __metadata("design:type", Number)
 ], CreateOrdenTrabajoDto.prototype, "garantiaMeses", void 0);
 __decorate([
-    (0, swagger_1.ApiPropertyOptional)({ description: 'Fecha de entrega del trabajo (YYYY-MM-DD)' }),
+    (0, swagger_1.ApiPropertyOptional)({
+        description: 'Fecha de entrega del trabajo (YYYY-MM-DD)',
+    }),
     (0, class_validator_1.IsOptional)(),
     (0, class_validator_1.IsDateString)(),
     __metadata("design:type", String)

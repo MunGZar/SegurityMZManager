@@ -26,8 +26,12 @@ let UpdateProveedorUseCase = class UpdateProveedorUseCase {
             throw new common_1.NotFoundException(`Proveedor con ID '${id}' no encontrado o inactivo`);
         }
         if (dto.nombre) {
-            const all = await this.proveedoresRepository.findAll({ search: dto.nombre });
-            const match = all.data.find((p) => p.nombre.toLowerCase().trim() === dto.nombre.toLowerCase().trim() && p.id !== id && !p.deletedAt);
+            const all = await this.proveedoresRepository.findAll({
+                search: dto.nombre,
+            });
+            const match = all.data.find((p) => p.nombre.toLowerCase().trim() === dto.nombre.toLowerCase().trim() &&
+                p.id !== id &&
+                !p.deletedAt);
             if (match) {
                 throw new common_1.BadRequestException(`Ya existe otro proveedor activo registrado con el nombre '${dto.nombre}'`);
             }

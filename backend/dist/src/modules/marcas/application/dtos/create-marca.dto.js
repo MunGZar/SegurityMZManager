@@ -25,13 +25,19 @@ __decorate([
     __metadata("design:type", String)
 ], CreateMarcaDto.prototype, "nombre", void 0);
 __decorate([
-    (0, swagger_1.ApiPropertyOptional)({ description: 'Descripción opcional de la marca', example: 'Fabricante de sistemas de videovigilancia' }),
+    (0, swagger_1.ApiPropertyOptional)({
+        description: 'Descripción opcional de la marca',
+        example: 'Fabricante de sistemas de videovigilancia',
+    }),
     (0, class_validator_1.IsString)(),
     (0, class_validator_1.IsOptional)(),
     __metadata("design:type", String)
 ], CreateMarcaDto.prototype, "descripcion", void 0);
 __decorate([
-    (0, swagger_1.ApiPropertyOptional)({ description: 'Estado activo de la marca', default: true }),
+    (0, swagger_1.ApiPropertyOptional)({
+        description: 'Estado activo de la marca',
+        default: true,
+    }),
     (0, class_validator_1.IsBoolean)(),
     (0, class_validator_1.IsOptional)(),
     __metadata("design:type", Boolean)

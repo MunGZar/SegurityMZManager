@@ -39,10 +39,7 @@ exports.CotizacionesModule = CotizacionesModule = __decorate([
             delete_cotizacion_use_case_1.DeleteCotizacionUseCase,
             restore_cotizacion_use_case_1.RestoreCotizacionUseCase,
         ],
-        exports: [
-            cotizaciones_repository_interface_1.ICotizacionesRepository,
-            get_cotizacion_by_id_use_case_1.GetCotizacionByIdUseCase,
-        ],
+        exports: [cotizaciones_repository_interface_1.ICotizacionesRepository, get_cotizacion_by_id_use_case_1.GetCotizacionByIdUseCase],
     })
 ], CotizacionesModule);
 //# sourceMappingURL=cotizaciones.module.js.map

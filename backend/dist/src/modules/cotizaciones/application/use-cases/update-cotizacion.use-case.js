@@ -23,7 +23,7 @@ let UpdateCotizacionUseCase = class UpdateCotizacionUseCase {
             throw new common_1.NotFoundException(`Cotización con ID '${id}' no encontrada`);
         }
         let subtotal = Number(existing.subtotal);
-        let descuento = dto.descuento !== undefined ? dto.descuento : Number(existing.descuento);
+        const descuento = dto.descuento !== undefined ? dto.descuento : Number(existing.descuento);
         if (dto.detalles) {
             if (dto.detalles.length === 0) {
                 throw new common_1.BadRequestException('La cotización debe incluir al menos un ítem o servicio');

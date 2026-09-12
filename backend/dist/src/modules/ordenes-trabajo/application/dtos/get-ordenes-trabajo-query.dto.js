@@ -44,7 +44,9 @@ __decorate([
     __metadata("design:type", Number)
 ], GetOrdenesTrabajoQueryDto.prototype, "limit", void 0);
 __decorate([
-    (0, swagger_1.ApiPropertyOptional)({ description: 'Búsqueda por folio, cliente, dirección' }),
+    (0, swagger_1.ApiPropertyOptional)({
+        description: 'Búsqueda por folio, cliente, dirección',
+    }),
     (0, class_validator_1.IsOptional)(),
     (0, class_validator_1.IsString)(),
     __metadata("design:type", String)
@@ -68,7 +70,9 @@ __decorate([
     __metadata("design:type", String)
 ], GetOrdenesTrabajoQueryDto.prototype, "prioridad", void 0);
 __decorate([
-    (0, swagger_1.ApiPropertyOptional)({ description: 'Filtrar por fecha programada (YYYY-MM-DD)' }),
+    (0, swagger_1.ApiPropertyOptional)({
+        description: 'Filtrar por fecha programada (YYYY-MM-DD)',
+    }),
     (0, class_validator_1.IsOptional)(),
     (0, class_validator_1.IsString)(),
     __metadata("design:type", String)

@@ -65,7 +65,10 @@ __decorate([
     (0, swagger_1.ApiOperation)({ summary: 'Crear un nuevo producto' }),
     (0, swagger_1.ApiResponse)({ status: 201, description: 'Producto creado exitosamente' }),
     (0, swagger_1.ApiResponse)({ status: 400, description: 'Datos o importes inválidos' }),
-    (0, swagger_1.ApiResponse)({ status: 409, description: 'Código interno o combinación (nombre, marca, modelo) duplicado' }),
+    (0, swagger_1.ApiResponse)({
+        status: 409,
+        description: 'Código interno o combinación (nombre, marca, modelo) duplicado',
+    }),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [create_producto_dto_1.CreateProductoDto]),
@@ -73,7 +76,9 @@ __decorate([
 ], ProductosController.prototype, "create", null);
 __decorate([
     (0, common_1.Get)(),
-    (0, swagger_1.ApiOperation)({ summary: 'Obtener productos con paginación, filtros y orden' }),
+    (0, swagger_1.ApiOperation)({
+        summary: 'Obtener productos con paginación, filtros y orden',
+    }),
     (0, swagger_1.ApiResponse)({ status: 200, description: 'Listado de productos obtenido' }),
     __param(0, (0, common_1.Query)()),
     __metadata("design:type", Function),
@@ -93,7 +98,10 @@ __decorate([
 __decorate([
     (0, common_1.Patch)(':id'),
     (0, swagger_1.ApiOperation)({ summary: 'Actualizar un producto por su ID' }),
-    (0, swagger_1.ApiResponse)({ status: 200, description: 'Producto actualizado exitosamente' }),
+    (0, swagger_1.ApiResponse)({
+        status: 200,
+        description: 'Producto actualizado exitosamente',
+    }),
     (0, swagger_1.ApiResponse)({ status: 404, description: 'Producto no encontrado' }),
     (0, swagger_1.ApiResponse)({ status: 409, description: 'Código o combinación duplicado' }),
     __param(0, (0, common_1.Param)('id')),
@@ -105,7 +113,10 @@ __decorate([
 __decorate([
     (0, common_1.Delete)(':id'),
     (0, swagger_1.ApiOperation)({ summary: 'Eliminar un producto (Soft Delete)' }),
-    (0, swagger_1.ApiResponse)({ status: 200, description: 'Producto desactivado y eliminado lógicamente' }),
+    (0, swagger_1.ApiResponse)({
+        status: 200,
+        description: 'Producto desactivado y eliminado lógicamente',
+    }),
     (0, swagger_1.ApiResponse)({ status: 404, description: 'Producto no encontrado' }),
     __param(0, (0, common_1.Param)('id')),
     __metadata("design:type", Function),
@@ -117,7 +128,10 @@ __decorate([
     (0, swagger_1.ApiOperation)({ summary: 'Restaurar un producto eliminado lógicamente' }),
     (0, swagger_1.ApiResponse)({ status: 200, description: 'Producto restaurado exitosamente' }),
     (0, swagger_1.ApiResponse)({ status: 404, description: 'Producto no encontrado' }),
-    (0, swagger_1.ApiResponse)({ status: 409, description: 'El producto ya está activo o conflicto de código' }),
+    (0, swagger_1.ApiResponse)({
+        status: 409,
+        description: 'El producto ya está activo o conflicto de código',
+    }),
     __param(0, (0, common_1.Param)('id')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),

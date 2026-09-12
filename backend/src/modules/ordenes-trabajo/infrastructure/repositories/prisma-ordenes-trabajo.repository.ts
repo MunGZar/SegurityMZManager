@@ -9,7 +9,11 @@ import { CreateOrdenTrabajoDto } from '../../application/dtos/create-orden-traba
 import { UpdateOrdenTrabajoDto } from '../../application/dtos/update-orden-trabajo.dto';
 import { GetOrdenesTrabajoQueryDto } from '../../application/dtos/get-ordenes-trabajo-query.dto';
 import { AddEvidenciaDto } from '../../application/dtos/add-evidencia.dto';
-import { OrdenTrabajoEstado, OrdenTrabajoEvidencia, Prisma } from '@prisma/client';
+import {
+  OrdenTrabajoEstado,
+  OrdenTrabajoEvidencia,
+  Prisma,
+} from '@prisma/client';
 
 @Injectable()
 export class PrismaOrdenesTrabajoRepository implements IOrdenesTrabajoRepository {
@@ -71,7 +75,7 @@ export class PrismaOrdenesTrabajoRepository implements IOrdenesTrabajoRepository
   }
 
   async create(
-    data: CreateOrdenTrabajoDto & { folio: string; clienteId: string }
+    data: CreateOrdenTrabajoDto & { folio: string; clienteId: string },
   ): Promise<OrdenTrabajoCompleta> {
     const {
       cotizacionId,
@@ -112,10 +116,12 @@ export class PrismaOrdenesTrabajoRepository implements IOrdenesTrabajoRepository
         fechaEntrega: fechaEntrega ? new Date(fechaEntrega) : null,
       },
       include: this.includeRelations,
-    }) as unknown as OrdenTrabajoCompleta;
+    });
   }
 
-  async findAll(query: GetOrdenesTrabajoQueryDto): Promise<PaginatedOrdenesTrabajo> {
+  async findAll(
+    query: GetOrdenesTrabajoQueryDto,
+  ): Promise<PaginatedOrdenesTrabajo> {
     const {
       page = 1,
       limit = 10,
@@ -197,24 +203,25 @@ export class PrismaOrdenesTrabajoRepository implements IOrdenesTrabajoRepository
       include: this.includeRelations,
     });
 
-    return orden as unknown as OrdenTrabajoCompleta | null;
+    return orden;
   }
 
-  async findByCotizacionId(cotizacionId: string): Promise<OrdenTrabajoCompleta | null> {
+  async findByCotizacionId(
+    cotizacionId: string,
+  ): Promise<OrdenTrabajoCompleta | null> {
     const orden = await this.prisma.ordenTrabajo.findUnique({
       where: { cotizacionId },
       include: this.includeRelations,
     });
 
-    return orden as unknown as OrdenTrabajoCompleta | null;
+    return orden;
   }
 
-  async update(id: string, data: UpdateOrdenTrabajoDto): Promise<OrdenTrabajoCompleta> {
-    const {
-      fechaProgramada,
-      fechaEntrega,
-      ...rest
-    } = data;
+  async update(
+    id: string,
+    data: UpdateOrdenTrabajoDto,
+  ): Promise<OrdenTrabajoCompleta> {
+    const { fechaProgramada, fechaEntrega, ...rest } = data;
 
     return this.prisma.ordenTrabajo.update({
       where: { id },
@@ -228,18 +235,24 @@ export class PrismaOrdenesTrabajoRepository implements IOrdenesTrabajoRepository
         }),
       },
       include: this.includeRelations,
-    }) as unknown as OrdenTrabajoCompleta;
+    });
   }
 
-  async changeEstado(id: string, estado: OrdenTrabajoEstado): Promise<OrdenTrabajoCompleta> {
+  async changeEstado(
+    id: string,
+    estado: OrdenTrabajoEstado,
+  ): Promise<OrdenTrabajoCompleta> {
     return this.prisma.ordenTrabajo.update({
       where: { id },
       data: { estado },
       include: this.includeRelations,
-    }) as unknown as OrdenTrabajoCompleta;
+    });
   }
 
-  async addEvidencia(ordenTrabajoId: string, data: AddEvidenciaDto): Promise<OrdenTrabajoEvidencia> {
+  async addEvidencia(
+    ordenTrabajoId: string,
+    data: AddEvidenciaDto,
+  ): Promise<OrdenTrabajoEvidencia> {
     return this.prisma.ordenTrabajoEvidencia.create({
       data: {
         ordenTrabajoId,
@@ -262,7 +275,7 @@ export class PrismaOrdenesTrabajoRepository implements IOrdenesTrabajoRepository
       where: { id },
       data: { deletedAt: new Date() },
       include: this.includeRelations,
-    }) as unknown as OrdenTrabajoCompleta;
+    });
   }
 
   async restore(id: string): Promise<OrdenTrabajoCompleta> {
@@ -270,6 +283,6 @@ export class PrismaOrdenesTrabajoRepository implements IOrdenesTrabajoRepository
       where: { id },
       data: { deletedAt: null },
       include: this.includeRelations,
-    }) as unknown as OrdenTrabajoCompleta;
+    });
   }
 }

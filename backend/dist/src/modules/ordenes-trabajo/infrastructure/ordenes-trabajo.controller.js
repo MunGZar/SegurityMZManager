@@ -82,8 +82,13 @@ let OrdenesTrabajoController = class OrdenesTrabajoController {
 exports.OrdenesTrabajoController = OrdenesTrabajoController;
 __decorate([
     (0, common_1.Post)(),
-    (0, swagger_1.ApiOperation)({ summary: 'Crear una Orden de Trabajo desde una Cotización Aprobada' }),
-    (0, swagger_1.ApiResponse)({ status: 201, description: 'Orden de trabajo creada exitosamente' }),
+    (0, swagger_1.ApiOperation)({
+        summary: 'Crear una Orden de Trabajo desde una Cotización Aprobada',
+    }),
+    (0, swagger_1.ApiResponse)({
+        status: 201,
+        description: 'Orden de trabajo creada exitosamente',
+    }),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [create_orden_trabajo_dto_1.CreateOrdenTrabajoDto]),
@@ -92,7 +97,10 @@ __decorate([
 __decorate([
     (0, common_1.Get)(),
     (0, swagger_1.ApiOperation)({ summary: 'Obtener listado paginado de órdenes de trabajo' }),
-    (0, swagger_1.ApiResponse)({ status: 200, description: 'Lista de órdenes de trabajo obtenida' }),
+    (0, swagger_1.ApiResponse)({
+        status: 200,
+        description: 'Lista de órdenes de trabajo obtenida',
+    }),
     __param(0, (0, common_1.Query)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [get_ordenes_trabajo_query_dto_1.GetOrdenesTrabajoQueryDto]),
@@ -119,7 +127,9 @@ __decorate([
 ], OrdenesTrabajoController.prototype, "update", null);
 __decorate([
     (0, common_1.Patch)(':id/estado'),
-    (0, swagger_1.ApiOperation)({ summary: 'Cambiar el estado de una orden (Pendiente, Programada, En proceso, Finalizada, Cancelada)' }),
+    (0, swagger_1.ApiOperation)({
+        summary: 'Cambiar el estado de una orden (Pendiente, Programada, En proceso, Finalizada, Cancelada)',
+    }),
     (0, swagger_1.ApiResponse)({ status: 200, description: 'Estado actualizado' }),
     __param(0, (0, common_1.Param)('id')),
     __param(1, (0, common_1.Body)()),
@@ -129,8 +139,13 @@ __decorate([
 ], OrdenesTrabajoController.prototype, "changeEstado", null);
 __decorate([
     (0, common_1.Post)(':id/evidencias'),
-    (0, swagger_1.ApiOperation)({ summary: 'Agregar una fotografía o evidencia técnica a la orden' }),
-    (0, swagger_1.ApiResponse)({ status: 201, description: 'Evidencia registrada exitosamente' }),
+    (0, swagger_1.ApiOperation)({
+        summary: 'Agregar una fotografía o evidencia técnica a la orden',
+    }),
+    (0, swagger_1.ApiResponse)({
+        status: 201,
+        description: 'Evidencia registrada exitosamente',
+    }),
     __param(0, (0, common_1.Param)('id')),
     __param(1, (0, common_1.Body)()),
     __metadata("design:type", Function),
@@ -150,8 +165,13 @@ __decorate([
 __decorate([
     (0, common_1.Delete)(':id'),
     (0, common_1.HttpCode)(common_1.HttpStatus.OK),
-    (0, swagger_1.ApiOperation)({ summary: 'Eliminar de forma lógica (Soft Delete) una orden de trabajo' }),
-    (0, swagger_1.ApiResponse)({ status: 200, description: 'Orden de trabajo eliminada lógicamente' }),
+    (0, swagger_1.ApiOperation)({
+        summary: 'Eliminar de forma lógica (Soft Delete) una orden de trabajo',
+    }),
+    (0, swagger_1.ApiResponse)({
+        status: 200,
+        description: 'Orden de trabajo eliminada lógicamente',
+    }),
     __param(0, (0, common_1.Param)('id')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),

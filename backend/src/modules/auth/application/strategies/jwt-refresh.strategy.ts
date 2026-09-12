@@ -5,7 +5,10 @@ import { ConfigService } from '@nestjs/config';
 import type { Request } from 'express';
 
 @Injectable()
-export class JwtRefreshStrategy extends PassportStrategy(Strategy, 'jwt-refresh') {
+export class JwtRefreshStrategy extends PassportStrategy(
+  Strategy,
+  'jwt-refresh',
+) {
   constructor(configService: ConfigService) {
     super({
       jwtFromRequest: ExtractJwt.fromExtractors([
@@ -16,16 +19,20 @@ export class JwtRefreshStrategy extends PassportStrategy(Strategy, 'jwt-refresh'
           }
           if (!token && req && req.headers.cookie) {
             const rawCookies = req.headers.cookie.split(';');
-            const refreshCookie = rawCookies.find(c => c.trim().startsWith('refreshToken='));
+            const refreshCookie = rawCookies.find((c) =>
+              c.trim().startsWith('refreshToken='),
+            );
             if (refreshCookie) {
               token = refreshCookie.split('=')[1];
             }
           }
           return token;
-        }
+        },
       ]),
       ignoreExpiration: false,
-      secretOrKey: configService.get<string>('JWT_REFRESH_SECRET') || 'fallback_refresh_key_54321',
+      secretOrKey:
+        configService.get<string>('JWT_REFRESH_SECRET') ||
+        'fallback_refresh_key_54321',
       passReqToCallback: true,
     });
   }
@@ -34,14 +41,16 @@ export class JwtRefreshStrategy extends PassportStrategy(Strategy, 'jwt-refresh'
     if (!payload || !payload.sub) {
       throw new UnauthorizedException('Refresh Token inválido o expirado');
     }
-    
+
     let refreshToken = null;
     if (req && req.cookies) {
       refreshToken = req.cookies['refreshToken'];
     }
     if (!refreshToken && req && req.headers.cookie) {
       const rawCookies = req.headers.cookie.split(';');
-      const refreshCookie = rawCookies.find(c => c.trim().startsWith('refreshToken='));
+      const refreshCookie = rawCookies.find((c) =>
+        c.trim().startsWith('refreshToken='),
+      );
       if (refreshCookie) {
         refreshToken = refreshCookie.split('=')[1];
       }

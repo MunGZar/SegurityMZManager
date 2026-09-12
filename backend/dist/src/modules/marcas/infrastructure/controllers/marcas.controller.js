@@ -64,7 +64,10 @@ __decorate([
     (0, common_1.Post)(),
     (0, swagger_1.ApiOperation)({ summary: 'Crear una nueva marca' }),
     (0, swagger_1.ApiResponse)({ status: 21, description: 'Marca creada exitosamente' }),
-    (0, swagger_1.ApiResponse)({ status: 409, description: 'Ya existe una marca con el mismo nombre' }),
+    (0, swagger_1.ApiResponse)({
+        status: 409,
+        description: 'Ya existe una marca con el mismo nombre',
+    }),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [create_marca_dto_1.CreateMarcaDto]),
@@ -104,7 +107,10 @@ __decorate([
 __decorate([
     (0, common_1.Delete)(':id'),
     (0, swagger_1.ApiOperation)({ summary: 'Eliminar una marca (Soft Delete)' }),
-    (0, swagger_1.ApiResponse)({ status: 200, description: 'Marca desactivada y eliminada lógicamente' }),
+    (0, swagger_1.ApiResponse)({
+        status: 200,
+        description: 'Marca desactivada y eliminada lógicamente',
+    }),
     (0, swagger_1.ApiResponse)({ status: 404, description: 'Marca no encontrada' }),
     __param(0, (0, common_1.Param)('id')),
     __metadata("design:type", Function),
@@ -116,7 +122,10 @@ __decorate([
     (0, swagger_1.ApiOperation)({ summary: 'Restaurar una marca eliminada lógicamente' }),
     (0, swagger_1.ApiResponse)({ status: 200, description: 'Marca restaurada exitosamente' }),
     (0, swagger_1.ApiResponse)({ status: 404, description: 'Marca no encontrada' }),
-    (0, swagger_1.ApiResponse)({ status: 409, description: 'La marca ya está activa o conflicto de nombre' }),
+    (0, swagger_1.ApiResponse)({
+        status: 409,
+        description: 'La marca ya está activa o conflicto de nombre',
+    }),
     __param(0, (0, common_1.Param)('id')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),

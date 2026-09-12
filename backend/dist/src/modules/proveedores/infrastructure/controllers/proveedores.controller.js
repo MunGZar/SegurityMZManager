@@ -61,7 +61,9 @@ let ProveedoresController = class ProveedoresController {
 exports.ProveedoresController = ProveedoresController;
 __decorate([
     (0, common_1.Get)(),
-    (0, swagger_1.ApiOperation)({ summary: 'Obtener listado de proveedores paginado, ordenado y filtrado' }),
+    (0, swagger_1.ApiOperation)({
+        summary: 'Obtener listado de proveedores paginado, ordenado y filtrado',
+    }),
     (0, swagger_1.ApiOkResponse)({
         description: 'Listado de proveedores obtenido exitosamente',
         schema: {
@@ -84,13 +86,17 @@ __decorate([
                             activo: { type: 'boolean' },
                             createdAt: { type: 'string', format: 'date-time' },
                             updatedAt: { type: 'string', format: 'date-time' },
-                            deletedAt: { type: 'string', format: 'date-time', nullable: true },
-                        }
-                    }
+                            deletedAt: {
+                                type: 'string',
+                                format: 'date-time',
+                                nullable: true,
+                            },
+                        },
+                    },
                 },
-                total: { type: 'number', example: 12 }
-            }
-        }
+                total: { type: 'number', example: 12 },
+            },
+        },
     }),
     __param(0, (0, common_1.Query)()),
     __metadata("design:type", Function),
@@ -111,7 +117,10 @@ __decorate([
     (0, common_1.Post)(),
     (0, swagger_1.ApiOperation)({ summary: 'Crear un nuevo proveedor' }),
     (0, swagger_1.ApiCreatedResponse)({ description: 'Proveedor creado exitosamente' }),
-    (0, swagger_1.ApiResponse)({ status: 400, description: 'Datos inválidos o proveedor ya registrado' }),
+    (0, swagger_1.ApiResponse)({
+        status: 400,
+        description: 'Datos inválidos o proveedor ya registrado',
+    }),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [create_proveedor_dto_1.CreateProveedorDto]),
@@ -121,7 +130,10 @@ __decorate([
     (0, common_1.Put)(':id'),
     (0, swagger_1.ApiOperation)({ summary: 'Actualizar la información de un proveedor' }),
     (0, swagger_1.ApiOkResponse)({ description: 'Proveedor actualizado exitosamente' }),
-    (0, swagger_1.ApiResponse)({ status: 400, description: 'Datos inválidos o nombre duplicado' }),
+    (0, swagger_1.ApiResponse)({
+        status: 400,
+        description: 'Datos inválidos o nombre duplicado',
+    }),
     (0, swagger_1.ApiResponse)({ status: 404, description: 'Proveedor no encontrado' }),
     __param(0, (0, common_1.Param)('id')),
     __param(1, (0, common_1.Body)()),

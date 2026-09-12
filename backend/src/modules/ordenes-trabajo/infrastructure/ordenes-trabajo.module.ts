@@ -32,9 +32,6 @@ import { RestoreOrdenTrabajoUseCase } from '../application/use-cases/restore-ord
     DeleteOrdenTrabajoUseCase,
     RestoreOrdenTrabajoUseCase,
   ],
-  exports: [
-    IOrdenesTrabajoRepository,
-    GetOrdenTrabajoByIdUseCase,
-  ],
+  exports: [IOrdenesTrabajoRepository, GetOrdenTrabajoByIdUseCase],
 })
 export class OrdenesTrabajoModule {}

@@ -1,0 +1,114 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+
+# Cancela ejecuciones pendientes si se hace un nuevo push a la misma rama
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  # -------------------------------------------------------------
+  # paso 1: Verificación y pruebas del Backend (NestJS + Prisma)
+  # -------------------------------------------------------------
+  backend:
+    name: Backend (Test & Build)
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: backend
+
+    steps:
+      - name: Checkout del repositorio
+        uses: actions/checkout@v4
+
+      - name: Configurar Node.js 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+          cache-dependency-path: backend/package-lock.json
+
+      - name: Instalar dependencias
+        run: npm ci
+
+      - name: Generar cliente de Prisma
+        env:
+          DATABASE_URL: "mysql://ci_user:ci_pass@localhost:3306/seguritymz_ci"
+        run: npx prisma generate
+
+      - name: Ejecutar pruebas unitarias (Jest)
+        run: npm run test -- --passWithNoTests
+
+      - name: Compilar aplicación (NestJS)
+        run: npm run build
+
+      - name: Linter (Informativo)
+        run: npm run lint
+        continue-on-error: true
+
+  # -------------------------------------------------------------
+  # paso 2: Verificación y compilación del Frontend (Next.js)
+  # -------------------------------------------------------------
+  frontend:
+    name: Frontend (Build & Types)
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: frontend
+
+    steps:
+      - name: Checkout del repositorio
+        uses: actions/checkout@v4
+
+      - name: Configurar Node.js 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+          cache-dependency-path: frontend/package-lock.json
+
+      - name: Restaurar caché de compilación de Next.js
+        uses: actions/cache@v4
+        with:
+          path: ${{ github.workspace }}/frontend/.next/cache
+          key: ${{ runner.os }}-nextjs-${{ hashFiles('frontend/package-lock.json') }}-${{ hashFiles('frontend/src/**') }}
+          restore-keys: |
+            ${{ runner.os }}-nextjs-${{ hashFiles('frontend/package-lock.json') }}-
+
+      - name: Instalar dependencias
+        run: npm ci
+
+      - name: Compilar Frontend (Next.js con Turbopack)
+        env:
+          NEXT_PUBLIC_API_URL: ${{ vars.NEXT_PUBLIC_API_URL || 'http://localhost:3001/api' }}
+        run: npm run build
+
+      - name: Linter (Informativo)
+        run: npm run lint
+        continue-on-error: true
+
+  # -------------------------------------------------------------
+  # paso 3: Estado de Entrega Continua (CD) al fusionar en main
+  # -------------------------------------------------------------
+  delivery-status:
+    name: Delivery Ready Check
+    needs: [backend, frontend]
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    steps:
+      - name: Resumen de Entrega
+        run: |
+          echo "=========================================="
+          echo "Integración Continua completada con éxito."
+          echo "Backend y Frontend compilados y listos para producción."
+          echo "Commit: ${{ github.sha }}"
+          echo "Rama: ${{ github.ref_name }}"
+          echo "=========================================="

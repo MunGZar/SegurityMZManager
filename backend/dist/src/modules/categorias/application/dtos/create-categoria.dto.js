@@ -19,19 +19,28 @@ class CreateCategoriaDto {
 }
 exports.CreateCategoriaDto = CreateCategoriaDto;
 __decorate([
-    (0, swagger_1.ApiProperty)({ description: 'Nombre único de la categoría', example: 'Cámaras' }),
+    (0, swagger_1.ApiProperty)({
+        description: 'Nombre único de la categoría',
+        example: 'Cámaras',
+    }),
     (0, class_validator_1.IsString)(),
     (0, class_validator_1.IsNotEmpty)({ message: 'El nombre es obligatorio' }),
     __metadata("design:type", String)
 ], CreateCategoriaDto.prototype, "nombre", void 0);
 __decorate([
-    (0, swagger_1.ApiPropertyOptional)({ description: 'Descripción opcional de la categoría', example: 'Cámaras de seguridad IP, HDCVI y Térmicas' }),
+    (0, swagger_1.ApiPropertyOptional)({
+        description: 'Descripción opcional de la categoría',
+        example: 'Cámaras de seguridad IP, HDCVI y Térmicas',
+    }),
     (0, class_validator_1.IsString)(),
     (0, class_validator_1.IsOptional)(),
     __metadata("design:type", String)
 ], CreateCategoriaDto.prototype, "descripcion", void 0);
 __decorate([
-    (0, swagger_1.ApiPropertyOptional)({ description: 'Estado activo de la categoría', default: true }),
+    (0, swagger_1.ApiPropertyOptional)({
+        description: 'Estado activo de la categoría',
+        default: true,
+    }),
     (0, class_validator_1.IsBoolean)(),
     (0, class_validator_1.IsOptional)(),
     __metadata("design:type", Boolean)

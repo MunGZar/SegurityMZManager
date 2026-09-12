@@ -18,12 +18,21 @@ export interface PaginatedProductos {
 }
 
 export abstract class IProductosRepository {
-  abstract create(data: CreateProductoDto & { precioVenta: number }): Promise<ProductoConRelaciones>;
+  abstract create(
+    data: CreateProductoDto & { precioVenta: number },
+  ): Promise<ProductoConRelaciones>;
   abstract findAll(query: GetProductosQueryDto): Promise<PaginatedProductos>;
   abstract findById(id: string): Promise<ProductoConRelaciones | null>;
   abstract findByCodigoInterno(codigoInterno: string): Promise<Producto | null>;
-  abstract findByNombreMarcaModelo(nombre: string, marcaId: string, modelo?: string | null): Promise<Producto | null>;
-  abstract update(id: string, data: UpdateProductoDto & { precioVenta?: number }): Promise<ProductoConRelaciones>;
+  abstract findByNombreMarcaModelo(
+    nombre: string,
+    marcaId: string,
+    modelo?: string | null,
+  ): Promise<Producto | null>;
+  abstract update(
+    id: string,
+    data: UpdateProductoDto & { precioVenta?: number },
+  ): Promise<ProductoConRelaciones>;
   abstract delete(id: string): Promise<ProductoConRelaciones>;
   abstract restore(id: string): Promise<ProductoConRelaciones>;
 }

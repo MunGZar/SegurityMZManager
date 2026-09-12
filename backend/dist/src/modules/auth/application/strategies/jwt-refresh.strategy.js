@@ -25,16 +25,17 @@ let JwtRefreshStrategy = class JwtRefreshStrategy extends (0, passport_1.Passpor
                     }
                     if (!token && req && req.headers.cookie) {
                         const rawCookies = req.headers.cookie.split(';');
-                        const refreshCookie = rawCookies.find(c => c.trim().startsWith('refreshToken='));
+                        const refreshCookie = rawCookies.find((c) => c.trim().startsWith('refreshToken='));
                         if (refreshCookie) {
                             token = refreshCookie.split('=')[1];
                         }
                     }
                     return token;
-                }
+                },
             ]),
             ignoreExpiration: false,
-            secretOrKey: configService.get('JWT_REFRESH_SECRET') || 'fallback_refresh_key_54321',
+            secretOrKey: configService.get('JWT_REFRESH_SECRET') ||
+                'fallback_refresh_key_54321',
             passReqToCallback: true,
         });
     }
@@ -48,7 +49,7 @@ let JwtRefreshStrategy = class JwtRefreshStrategy extends (0, passport_1.Passpor
         }
         if (!refreshToken && req && req.headers.cookie) {
             const rawCookies = req.headers.cookie.split(';');
-            const refreshCookie = rawCookies.find(c => c.trim().startsWith('refreshToken='));
+            const refreshCookie = rawCookies.find((c) => c.trim().startsWith('refreshToken='));
             if (refreshCookie) {
                 refreshToken = refreshCookie.split('=')[1];
             }

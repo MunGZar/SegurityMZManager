@@ -12,7 +12,12 @@ import {
   HttpCode,
   HttpStatus,
 } from '@nestjs/common';
-import { ApiTags, ApiOperation, ApiResponse, ApiBearerAuth } from '@nestjs/swagger';
+import {
+  ApiTags,
+  ApiOperation,
+  ApiResponse,
+  ApiBearerAuth,
+} from '@nestjs/swagger';
 import { JwtAuthGuard } from '../../auth/infrastructure/guards/jwt-auth.guard';
 import { CreateCotizacionUseCase } from '../application/use-cases/create-cotizacion.use-case';
 import { GetAllCotizacionesUseCase } from '../application/use-cases/get-all-cotizaciones.use-case';
@@ -67,36 +72,58 @@ export class CotizacionesController {
 
   @Put(':id')
   @ApiOperation({ summary: 'Actualizar una cotización existente' })
-  @ApiResponse({ status: 200, description: 'Cotización actualizada exitosamente' })
+  @ApiResponse({
+    status: 200,
+    description: 'Cotización actualizada exitosamente',
+  })
   async update(@Param('id') id: string, @Body() dto: UpdateCotizacionDto) {
     return this.updateCotizacionUseCase.execute(id, dto);
   }
 
   @Patch(':id/estado')
-  @ApiOperation({ summary: 'Cambiar el estado de una cotización (Borrador, Enviada, Aprobada, Rechazada, Vencida)' })
+  @ApiOperation({
+    summary:
+      'Cambiar el estado de una cotización (Borrador, Enviada, Aprobada, Rechazada, Vencida)',
+  })
   @ApiResponse({ status: 200, description: 'Estado actualizado exitosamente' })
-  async changeEstado(@Param('id') id: string, @Body() dto: ChangeEstadoCotizacionDto) {
+  async changeEstado(
+    @Param('id') id: string,
+    @Body() dto: ChangeEstadoCotizacionDto,
+  ) {
     return this.changeEstadoCotizacionUseCase.execute(id, dto.estado);
   }
 
   @Post(':id/duplicar')
-  @ApiOperation({ summary: 'Duplicar una cotización existente (Copia en estado Borrador)' })
-  @ApiResponse({ status: 201, description: 'Cotización duplicada exitosamente' })
+  @ApiOperation({
+    summary: 'Duplicar una cotización existente (Copia en estado Borrador)',
+  })
+  @ApiResponse({
+    status: 201,
+    description: 'Cotización duplicada exitosamente',
+  })
   async duplicate(@Param('id') id: string) {
     return this.duplicateCotizacionUseCase.execute(id);
   }
 
   @Delete(':id')
   @HttpCode(HttpStatus.OK)
-  @ApiOperation({ summary: 'Eliminar de forma lógica (Soft Delete) una cotización' })
-  @ApiResponse({ status: 200, description: 'Cotización eliminada de forma lógica' })
+  @ApiOperation({
+    summary: 'Eliminar de forma lógica (Soft Delete) una cotización',
+  })
+  @ApiResponse({
+    status: 200,
+    description: 'Cotización eliminada de forma lógica',
+  })
   async delete(@Param('id') id: string) {
     return this.deleteCotizacionUseCase.execute(id);
   }
 
   @Patch(':id/restaurar')
   @ApiOperation({ summary: 'Restaurar una cotización eliminada' })
-  @ApiResponse({ status: 200, description: 'Cotización restaurada exitosamente' })
+  @ApiResponse({
+    status: 200,
+    description: 'Cotización restaurada exitosamente',
+  })
   async restore(@Param('id') id: string) {
     return this.restoreCotizacionUseCase.execute(id);
   }

@@ -1,16 +1,23 @@
-import { 
-  Controller, 
-  Get, 
-  Post, 
-  Put, 
-  Delete, 
-  Body, 
-  Param, 
-  Query, 
-  HttpCode, 
-  HttpStatus 
+import {
+  Controller,
+  Get,
+  Post,
+  Put,
+  Delete,
+  Body,
+  Param,
+  Query,
+  HttpCode,
+  HttpStatus,
 } from '@nestjs/common';
-import { ApiTags, ApiOperation, ApiResponse, ApiOkResponse, ApiCreatedResponse, ApiNoContentResponse } from '@nestjs/swagger';
+import {
+  ApiTags,
+  ApiOperation,
+  ApiResponse,
+  ApiOkResponse,
+  ApiCreatedResponse,
+  ApiNoContentResponse,
+} from '@nestjs/swagger';
 import { CreateClienteUseCase } from '../../application/use-cases/create-cliente.use-case';
 import { GetAllClientesUseCase } from '../../application/use-cases/get-all-clientes.use-case';
 import { GetClienteByIdUseCase } from '../../application/use-cases/get-cliente-by-id.use-case';
@@ -34,8 +41,10 @@ export class ClientesController {
   ) {}
 
   @Get()
-  @ApiOperation({ summary: 'Obtener listado de clientes paginado, ordenado y filtrado' })
-  @ApiOkResponse({ 
+  @ApiOperation({
+    summary: 'Obtener listado de clientes paginado, ordenado y filtrado',
+  })
+  @ApiOkResponse({
     description: 'Listado de clientes obtenido exitosamente',
     schema: {
       type: 'object',
@@ -52,16 +61,23 @@ export class ClientesController {
               email: { type: 'string', nullable: true },
               direccion: { type: 'string', nullable: true },
               notas: { type: 'string', nullable: true },
-              status: { type: 'string', enum: ['PROSPECTO', 'ACTIVO', 'INACTIVO'] },
+              status: {
+                type: 'string',
+                enum: ['PROSPECTO', 'ACTIVO', 'INACTIVO'],
+              },
               createdAt: { type: 'string', format: 'date-time' },
               updatedAt: { type: 'string', format: 'date-time' },
-              deletedAt: { type: 'string', format: 'date-time', nullable: true },
-            }
-          }
+              deletedAt: {
+                type: 'string',
+                format: 'date-time',
+                nullable: true,
+              },
+            },
+          },
         },
-        total: { type: 'number', example: 45 }
-      }
-    }
+        total: { type: 'number', example: 45 },
+      },
+    },
   })
   async findAll(@Query() query: GetClientesQueryDto) {
     return this.getAllClientesUseCase.execute(query);
@@ -78,7 +94,10 @@ export class ClientesController {
   @Post()
   @ApiOperation({ summary: 'Crear un nuevo cliente' })
   @ApiCreatedResponse({ description: 'Cliente creado exitosamente' })
-  @ApiResponse({ status: 400, description: 'Datos inválidos o identificación ya registrada' })
+  @ApiResponse({
+    status: 400,
+    description: 'Datos inválidos o identificación ya registrada',
+  })
   async create(@Body() createClienteDto: CreateClienteDto) {
     return this.createClienteUseCase.execute(createClienteDto);
   }
@@ -86,16 +105,24 @@ export class ClientesController {
   @Put(':id')
   @ApiOperation({ summary: 'Actualizar la información de un cliente' })
   @ApiOkResponse({ description: 'Cliente actualizado exitosamente' })
-  @ApiResponse({ status: 400, description: 'Datos inválidos o identificación duplicada' })
+  @ApiResponse({
+    status: 400,
+    description: 'Datos inválidos o identificación duplicada',
+  })
   @ApiResponse({ status: 404, description: 'Cliente no encontrado' })
-  async update(@Param('id') id: string, @Body() updateClienteDto: UpdateClienteDto) {
+  async update(
+    @Param('id') id: string,
+    @Body() updateClienteDto: UpdateClienteDto,
+  ) {
     return this.updateClienteUseCase.execute(id, updateClienteDto);
   }
 
   @Delete(':id')
   @HttpCode(HttpStatus.NO_CONTENT)
   @ApiOperation({ summary: 'Eliminación lógica de un cliente (Soft Delete)' })
-  @ApiNoContentResponse({ description: 'Cliente eliminado lógicamente exitosamente' })
+  @ApiNoContentResponse({
+    description: 'Cliente eliminado lógicamente exitosamente',
+  })
   @ApiResponse({ status: 404, description: 'Cliente no encontrado' })
   async remove(@Param('id') id: string) {
     await this.deleteClienteUseCase.execute(id);

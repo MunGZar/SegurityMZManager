@@ -1,16 +1,23 @@
-import { 
-  Controller, 
-  Get, 
-  Post, 
-  Put, 
-  Delete, 
-  Body, 
-  Param, 
-  Query, 
-  HttpCode, 
-  HttpStatus 
+import {
+  Controller,
+  Get,
+  Post,
+  Put,
+  Delete,
+  Body,
+  Param,
+  Query,
+  HttpCode,
+  HttpStatus,
 } from '@nestjs/common';
-import { ApiTags, ApiOperation, ApiResponse, ApiOkResponse, ApiCreatedResponse, ApiNoContentResponse } from '@nestjs/swagger';
+import {
+  ApiTags,
+  ApiOperation,
+  ApiResponse,
+  ApiOkResponse,
+  ApiCreatedResponse,
+  ApiNoContentResponse,
+} from '@nestjs/swagger';
 import { CreateProveedorUseCase } from '../../application/use-cases/create-proveedor.use-case';
 import { GetAllProveedoresUseCase } from '../../application/use-cases/get-all-proveedores.use-case';
 import { GetProveedorByIdUseCase } from '../../application/use-cases/get-proveedor-by-id.use-case';
@@ -34,8 +41,10 @@ export class ProveedoresController {
   ) {}
 
   @Get()
-  @ApiOperation({ summary: 'Obtener listado de proveedores paginado, ordenado y filtrado' })
-  @ApiOkResponse({ 
+  @ApiOperation({
+    summary: 'Obtener listado de proveedores paginado, ordenado y filtrado',
+  })
+  @ApiOkResponse({
     description: 'Listado de proveedores obtenido exitosamente',
     schema: {
       type: 'object',
@@ -57,13 +66,17 @@ export class ProveedoresController {
               activo: { type: 'boolean' },
               createdAt: { type: 'string', format: 'date-time' },
               updatedAt: { type: 'string', format: 'date-time' },
-              deletedAt: { type: 'string', format: 'date-time', nullable: true },
-            }
-          }
+              deletedAt: {
+                type: 'string',
+                format: 'date-time',
+                nullable: true,
+              },
+            },
+          },
         },
-        total: { type: 'number', example: 12 }
-      }
-    }
+        total: { type: 'number', example: 12 },
+      },
+    },
   })
   async findAll(@Query() query: GetProveedoresQueryDto) {
     return this.getAllProveedoresUseCase.execute(query);
@@ -80,7 +93,10 @@ export class ProveedoresController {
   @Post()
   @ApiOperation({ summary: 'Crear un nuevo proveedor' })
   @ApiCreatedResponse({ description: 'Proveedor creado exitosamente' })
-  @ApiResponse({ status: 400, description: 'Datos inválidos o proveedor ya registrado' })
+  @ApiResponse({
+    status: 400,
+    description: 'Datos inválidos o proveedor ya registrado',
+  })
   async create(@Body() createProveedorDto: CreateProveedorDto) {
     return this.createProveedorUseCase.execute(createProveedorDto);
   }
@@ -88,9 +104,15 @@ export class ProveedoresController {
   @Put(':id')
   @ApiOperation({ summary: 'Actualizar la información de un proveedor' })
   @ApiOkResponse({ description: 'Proveedor actualizado exitosamente' })
-  @ApiResponse({ status: 400, description: 'Datos inválidos o nombre duplicado' })
+  @ApiResponse({
+    status: 400,
+    description: 'Datos inválidos o nombre duplicado',
+  })
   @ApiResponse({ status: 404, description: 'Proveedor no encontrado' })
-  async update(@Param('id') id: string, @Body() updateProveedorDto: UpdateProveedorDto) {
+  async update(
+    @Param('id') id: string,
+    @Body() updateProveedorDto: UpdateProveedorDto,
+  ) {
     return this.updateProveedorUseCase.execute(id, updateProveedorDto);
   }
 

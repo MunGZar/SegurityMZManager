@@ -55,7 +55,9 @@ export class UpdateClienteDto {
     description: 'Estado actual del cliente',
     enum: ClienteStatusDto,
   })
-  @IsEnum(ClienteStatusDto, { message: 'El estado del cliente debe ser PROSPECTO, ACTIVO o INACTIVO' })
+  @IsEnum(ClienteStatusDto, {
+    message: 'El estado del cliente debe ser PROSPECTO, ACTIVO o INACTIVO',
+  })
   @IsOptional()
   status?: ClienteStatusDto;
 }

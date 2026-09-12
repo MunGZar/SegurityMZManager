@@ -23,13 +23,19 @@ class GetCategoriasQueryDto {
 }
 exports.GetCategoriasQueryDto = GetCategoriasQueryDto;
 __decorate([
-    (0, swagger_1.ApiPropertyOptional)({ description: 'Término de búsqueda para nombre o descripción' }),
+    (0, swagger_1.ApiPropertyOptional)({
+        description: 'Término de búsqueda para nombre o descripción',
+    }),
     (0, class_validator_1.IsString)(),
     (0, class_validator_1.IsOptional)(),
     __metadata("design:type", String)
 ], GetCategoriasQueryDto.prototype, "search", void 0);
 __decorate([
-    (0, swagger_1.ApiPropertyOptional)({ minimum: 1, default: 1, description: 'Número de página' }),
+    (0, swagger_1.ApiPropertyOptional)({
+        minimum: 1,
+        default: 1,
+        description: 'Número de página',
+    }),
     (0, class_transformer_1.Type)(() => Number),
     (0, class_validator_1.IsInt)(),
     (0, class_validator_1.Min)(1),
@@ -37,7 +43,11 @@ __decorate([
     __metadata("design:type", Number)
 ], GetCategoriasQueryDto.prototype, "page", void 0);
 __decorate([
-    (0, swagger_1.ApiPropertyOptional)({ minimum: 1, default: 10, description: 'Cantidad de registros por página' }),
+    (0, swagger_1.ApiPropertyOptional)({
+        minimum: 1,
+        default: 10,
+        description: 'Cantidad de registros por página',
+    }),
     (0, class_transformer_1.Type)(() => Number),
     (0, class_validator_1.IsInt)(),
     (0, class_validator_1.Min)(1),
@@ -45,19 +55,29 @@ __decorate([
     __metadata("design:type", Number)
 ], GetCategoriasQueryDto.prototype, "limit", void 0);
 __decorate([
-    (0, swagger_1.ApiPropertyOptional)({ default: 'nombre', description: 'Campo por el cual ordenar' }),
+    (0, swagger_1.ApiPropertyOptional)({
+        default: 'nombre',
+        description: 'Campo por el cual ordenar',
+    }),
     (0, class_validator_1.IsString)(),
     (0, class_validator_1.IsOptional)(),
     __metadata("design:type", String)
 ], GetCategoriasQueryDto.prototype, "sortBy", void 0);
 __decorate([
-    (0, swagger_1.ApiPropertyOptional)({ enum: ['asc', 'desc'], default: 'asc', description: 'Dirección del ordenamiento' }),
+    (0, swagger_1.ApiPropertyOptional)({
+        enum: ['asc', 'desc'],
+        default: 'asc',
+        description: 'Dirección del ordenamiento',
+    }),
     (0, class_validator_1.IsEnum)(['asc', 'desc']),
     (0, class_validator_1.IsOptional)(),
     __metadata("design:type", String)
 ], GetCategoriasQueryDto.prototype, "sortOrder", void 0);
 __decorate([
-    (0, swagger_1.ApiPropertyOptional)({ default: false, description: 'Indica si se deben incluir los registros eliminados lógicamente' }),
+    (0, swagger_1.ApiPropertyOptional)({
+        default: false,
+        description: 'Indica si se deben incluir los registros eliminados lógicamente',
+    }),
     (0, class_transformer_1.Type)(() => Boolean),
     (0, class_validator_1.IsBoolean)(),
     (0, class_validator_1.IsOptional)(),

@@ -12,7 +12,12 @@ import {
   HttpCode,
   HttpStatus,
 } from '@nestjs/common';
-import { ApiTags, ApiOperation, ApiResponse, ApiBearerAuth } from '@nestjs/swagger';
+import {
+  ApiTags,
+  ApiOperation,
+  ApiResponse,
+  ApiBearerAuth,
+} from '@nestjs/swagger';
 import { JwtAuthGuard } from '../../auth/infrastructure/guards/jwt-auth.guard';
 import { CreateOrdenTrabajoUseCase } from '../application/use-cases/create-orden-trabajo.use-case';
 import { GetAllOrdenesTrabajoUseCase } from '../application/use-cases/get-all-ordenes-trabajo.use-case';
@@ -48,15 +53,23 @@ export class OrdenesTrabajoController {
   ) {}
 
   @Post()
-  @ApiOperation({ summary: 'Crear una Orden de Trabajo desde una Cotización Aprobada' })
-  @ApiResponse({ status: 201, description: 'Orden de trabajo creada exitosamente' })
+  @ApiOperation({
+    summary: 'Crear una Orden de Trabajo desde una Cotización Aprobada',
+  })
+  @ApiResponse({
+    status: 201,
+    description: 'Orden de trabajo creada exitosamente',
+  })
   async create(@Body() dto: CreateOrdenTrabajoDto) {
     return this.createOrdenTrabajoUseCase.execute(dto);
   }
 
   @Get()
   @ApiOperation({ summary: 'Obtener listado paginado de órdenes de trabajo' })
-  @ApiResponse({ status: 200, description: 'Lista de órdenes de trabajo obtenida' })
+  @ApiResponse({
+    status: 200,
+    description: 'Lista de órdenes de trabajo obtenida',
+  })
   async findAll(@Query() query: GetOrdenesTrabajoQueryDto) {
     return this.getAllOrdenesTrabajoUseCase.execute(query);
   }
@@ -76,15 +89,26 @@ export class OrdenesTrabajoController {
   }
 
   @Patch(':id/estado')
-  @ApiOperation({ summary: 'Cambiar el estado de una orden (Pendiente, Programada, En proceso, Finalizada, Cancelada)' })
+  @ApiOperation({
+    summary:
+      'Cambiar el estado de una orden (Pendiente, Programada, En proceso, Finalizada, Cancelada)',
+  })
   @ApiResponse({ status: 200, description: 'Estado actualizado' })
-  async changeEstado(@Param('id') id: string, @Body() dto: ChangeEstadoOrdenTrabajoDto) {
+  async changeEstado(
+    @Param('id') id: string,
+    @Body() dto: ChangeEstadoOrdenTrabajoDto,
+  ) {
     return this.changeEstadoOrdenTrabajoUseCase.execute(id, dto.estado);
   }
 
   @Post(':id/evidencias')
-  @ApiOperation({ summary: 'Agregar una fotografía o evidencia técnica a la orden' })
-  @ApiResponse({ status: 201, description: 'Evidencia registrada exitosamente' })
+  @ApiOperation({
+    summary: 'Agregar una fotografía o evidencia técnica a la orden',
+  })
+  @ApiResponse({
+    status: 201,
+    description: 'Evidencia registrada exitosamente',
+  })
   async addEvidencia(@Param('id') id: string, @Body() dto: AddEvidenciaDto) {
     return this.addEvidenciaUseCase.execute(id, dto);
   }
@@ -99,8 +123,13 @@ export class OrdenesTrabajoController {
 
   @Delete(':id')
   @HttpCode(HttpStatus.OK)
-  @ApiOperation({ summary: 'Eliminar de forma lógica (Soft Delete) una orden de trabajo' })
-  @ApiResponse({ status: 200, description: 'Orden de trabajo eliminada lógicamente' })
+  @ApiOperation({
+    summary: 'Eliminar de forma lógica (Soft Delete) una orden de trabajo',
+  })
+  @ApiResponse({
+    status: 200,
+    description: 'Orden de trabajo eliminada lógicamente',
+  })
   async delete(@Param('id') id: string) {
     return this.deleteOrdenTrabajoUseCase.execute(id);
   }

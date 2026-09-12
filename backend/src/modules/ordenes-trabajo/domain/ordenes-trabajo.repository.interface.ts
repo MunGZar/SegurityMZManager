@@ -33,13 +33,28 @@ export interface PaginatedOrdenesTrabajo {
 }
 
 export abstract class IOrdenesTrabajoRepository {
-  abstract create(data: CreateOrdenTrabajoDto & { folio: string; clienteId: string }): Promise<OrdenTrabajoCompleta>;
-  abstract findAll(query: GetOrdenesTrabajoQueryDto): Promise<PaginatedOrdenesTrabajo>;
+  abstract create(
+    data: CreateOrdenTrabajoDto & { folio: string; clienteId: string },
+  ): Promise<OrdenTrabajoCompleta>;
+  abstract findAll(
+    query: GetOrdenesTrabajoQueryDto,
+  ): Promise<PaginatedOrdenesTrabajo>;
   abstract findById(id: string): Promise<OrdenTrabajoCompleta | null>;
-  abstract findByCotizacionId(cotizacionId: string): Promise<OrdenTrabajoCompleta | null>;
-  abstract update(id: string, data: UpdateOrdenTrabajoDto): Promise<OrdenTrabajoCompleta>;
-  abstract changeEstado(id: string, estado: OrdenTrabajoEstado): Promise<OrdenTrabajoCompleta>;
-  abstract addEvidencia(ordenTrabajoId: string, data: AddEvidenciaDto): Promise<OrdenTrabajoEvidencia>;
+  abstract findByCotizacionId(
+    cotizacionId: string,
+  ): Promise<OrdenTrabajoCompleta | null>;
+  abstract update(
+    id: string,
+    data: UpdateOrdenTrabajoDto,
+  ): Promise<OrdenTrabajoCompleta>;
+  abstract changeEstado(
+    id: string,
+    estado: OrdenTrabajoEstado,
+  ): Promise<OrdenTrabajoCompleta>;
+  abstract addEvidencia(
+    ordenTrabajoId: string,
+    data: AddEvidenciaDto,
+  ): Promise<OrdenTrabajoEvidencia>;
   abstract deleteEvidencia(evidenciaId: string): Promise<boolean>;
   abstract delete(id: string): Promise<OrdenTrabajoCompleta>;
   abstract restore(id: string): Promise<OrdenTrabajoCompleta>;

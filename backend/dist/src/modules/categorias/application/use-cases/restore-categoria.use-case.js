@@ -26,7 +26,9 @@ let RestoreCategoriaUseCase = class RestoreCategoriaUseCase {
             throw new common_1.ConflictException(`La categoría "${existing.nombre}" no está eliminada`);
         }
         const activeSameName = await this.categoriasRepository.findByNombre(existing.nombre);
-        if (activeSameName && activeSameName.id !== id && !activeSameName.deletedAt) {
+        if (activeSameName &&
+            activeSameName.id !== id &&
+            !activeSameName.deletedAt) {
             throw new common_1.ConflictException(`No se puede restaurar. Ya existe otra categoría activa registrada con el nombre "${existing.nombre}"`);
         }
         return this.categoriasRepository.restore(id);

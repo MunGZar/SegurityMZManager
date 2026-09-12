@@ -11,12 +11,18 @@ export class CreateProveedorUseCase {
   ) {}
 
   async execute(dto: CreateProveedorDto): Promise<Proveedor> {
-    const existing = await this.proveedoresRepository.findAll({ search: dto.nombre });
+    const existing = await this.proveedoresRepository.findAll({
+      search: dto.nombre,
+    });
     const match = existing.data.find(
-      (p) => p.nombre.toLowerCase().trim() === dto.nombre.toLowerCase().trim() && !p.deletedAt
+      (p) =>
+        p.nombre.toLowerCase().trim() === dto.nombre.toLowerCase().trim() &&
+        !p.deletedAt,
     );
     if (match) {
-      throw new BadRequestException(`Ya existe un proveedor activo registrado con el nombre '${dto.nombre}'`);
+      throw new BadRequestException(
+        `Ya existe un proveedor activo registrado con el nombre '${dto.nombre}'`,
+      );
     }
 
     return this.proveedoresRepository.create({

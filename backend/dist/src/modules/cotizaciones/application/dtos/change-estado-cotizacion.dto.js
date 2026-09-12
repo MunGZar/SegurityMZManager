@@ -18,7 +18,10 @@ class ChangeEstadoCotizacionDto {
 }
 exports.ChangeEstadoCotizacionDto = ChangeEstadoCotizacionDto;
 __decorate([
-    (0, swagger_1.ApiProperty)({ enum: client_1.CotizacionEstado, description: 'Nuevo estado de la cotización' }),
+    (0, swagger_1.ApiProperty)({
+        enum: client_1.CotizacionEstado,
+        description: 'Nuevo estado de la cotización',
+    }),
     (0, class_validator_1.IsEnum)(client_1.CotizacionEstado),
     (0, class_validator_1.IsNotEmpty)({ message: 'El estado es obligatorio' }),
     __metadata("design:type", String)

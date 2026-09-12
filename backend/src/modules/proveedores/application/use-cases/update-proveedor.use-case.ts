@@ -1,4 +1,9 @@
-import { Inject, Injectable, NotFoundException, BadRequestException } from '@nestjs/common';
+import {
+  Inject,
+  Injectable,
+  NotFoundException,
+  BadRequestException,
+} from '@nestjs/common';
 import { IProveedoresRepository } from '../../domain/proveedores.repository.interface';
 import { UpdateProveedorDto } from '../dtos/update-proveedor.dto';
 import { Proveedor } from '../../domain/proveedor.entity';
@@ -13,16 +18,25 @@ export class UpdateProveedorUseCase {
   async execute(id: string, dto: UpdateProveedorDto): Promise<Proveedor> {
     const existing = await this.proveedoresRepository.findById(id);
     if (!existing) {
-      throw new NotFoundException(`Proveedor con ID '${id}' no encontrado o inactivo`);
+      throw new NotFoundException(
+        `Proveedor con ID '${id}' no encontrado o inactivo`,
+      );
     }
 
     if (dto.nombre) {
-      const all = await this.proveedoresRepository.findAll({ search: dto.nombre });
+      const all = await this.proveedoresRepository.findAll({
+        search: dto.nombre,
+      });
       const match = all.data.find(
-        (p) => p.nombre.toLowerCase().trim() === dto.nombre!.toLowerCase().trim() && p.id !== id && !p.deletedAt
+        (p) =>
+          p.nombre.toLowerCase().trim() === dto.nombre!.toLowerCase().trim() &&
+          p.id !== id &&
+          !p.deletedAt,
       );
       if (match) {
-        throw new BadRequestException(`Ya existe otro proveedor activo registrado con el nombre '${dto.nombre}'`);
+        throw new BadRequestException(
+          `Ya existe otro proveedor activo registrado con el nombre '${dto.nombre}'`,
+        );
       }
     }
 
@@ -34,7 +48,8 @@ export class UpdateProveedorUseCase {
       correo: dto.correo !== undefined ? dto.correo : undefined,
       ciudad: dto.ciudad !== undefined ? dto.ciudad : undefined,
       direccion: dto.direccion !== undefined ? dto.direccion : undefined,
-      observaciones: dto.observaciones !== undefined ? dto.observaciones : undefined,
+      observaciones:
+        dto.observaciones !== undefined ? dto.observaciones : undefined,
       activo: dto.activo !== undefined ? dto.activo : undefined,
     });
   }

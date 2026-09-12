@@ -12,9 +12,13 @@ export class CreateClienteUseCase {
 
   async execute(dto: CreateClienteDto): Promise<Cliente> {
     if (dto.identificacion) {
-      const existing = await this.clientesRepository.findByIdentificacion(dto.identificacion);
+      const existing = await this.clientesRepository.findByIdentificacion(
+        dto.identificacion,
+      );
       if (existing) {
-        throw new BadRequestException(`Ya existe un cliente con la identificación '${dto.identificacion}'`);
+        throw new BadRequestException(
+          `Ya existe un cliente con la identificación '${dto.identificacion}'`,
+        );
       }
     }
 
@@ -25,7 +29,7 @@ export class CreateClienteUseCase {
       email: dto.email || null,
       direccion: dto.direccion || null,
       notas: dto.notas || null,
-      status: dto.status as any,
+      status: dto.status,
     });
   }
 }

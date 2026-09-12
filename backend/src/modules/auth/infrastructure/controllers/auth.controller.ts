@@ -1,6 +1,21 @@
-import { Controller, Post, Body, Res, Req, UseGuards, Get, HttpCode, HttpStatus } from '@nestjs/common';
+import {
+  Controller,
+  Post,
+  Body,
+  Res,
+  Req,
+  UseGuards,
+  Get,
+  HttpCode,
+  HttpStatus,
+} from '@nestjs/common';
 import type { Response, Request } from 'express';
-import { ApiTags, ApiOperation, ApiResponse, ApiBearerAuth } from '@nestjs/swagger';
+import {
+  ApiTags,
+  ApiOperation,
+  ApiResponse,
+  ApiBearerAuth,
+} from '@nestjs/swagger';
 import { LoginUseCase } from '../../application/use-cases/login.use-case';
 import { LogoutUseCase } from '../../application/use-cases/logout.use-case';
 import { RefreshTokenUseCase } from '../../application/use-cases/refresh-token.use-case';
@@ -20,14 +35,18 @@ export class AuthController {
   @Post('login')
   @HttpCode(HttpStatus.OK)
   @ApiOperation({ summary: 'Iniciar sesión con correo y contraseña' })
-  @ApiResponse({ status: 200, description: 'Inicio de sesión exitoso. Retorna el access token y datos del usuario.' })
+  @ApiResponse({
+    status: 200,
+    description:
+      'Inicio de sesión exitoso. Retorna el access token y datos del usuario.',
+  })
   @ApiResponse({ status: 401, description: 'Credenciales incorrectas' })
   async login(
     @Body() dto: LoginDto,
     @Res({ passthrough: true }) res: Response,
   ) {
     const result = await this.loginUseCase.execute(dto);
-    
+
     // Configurar refresh token en cookie HttpOnly
     res.cookie('refreshToken', result.refreshToken, {
       httpOnly: true,
@@ -45,15 +64,24 @@ export class AuthController {
   @Post('refresh')
   @UseGuards(JwtRefreshGuard)
   @HttpCode(HttpStatus.OK)
-  @ApiOperation({ summary: 'Refrescar el access token usando el refresh token almacenado en cookie' })
+  @ApiOperation({
+    summary:
+      'Refrescar el access token usando el refresh token almacenado en cookie',
+  })
   @ApiResponse({ status: 200, description: 'Token refrescado correctamente.' })
-  @ApiResponse({ status: 401, description: 'Refresh token inválido o expirado' })
+  @ApiResponse({
+    status: 401,
+    description: 'Refresh token inválido o expirado',
+  })
   async refresh(
     @Req() req: Request,
     @Res({ passthrough: true }) res: Response,
   ) {
     const user = req.user as { id: string; refreshToken: string };
-    const result = await this.refreshTokenUseCase.execute(user.id, user.refreshToken);
+    const result = await this.refreshTokenUseCase.execute(
+      user.id,
+      user.refreshToken,
+    );
 
     // Rotar refresh token en la cookie
     res.cookie('refreshToken', result.refreshToken, {
@@ -75,13 +103,10 @@ export class AuthController {
   @ApiOperation({ summary: 'Cerrar sesión e invalidar tokens' })
   @ApiResponse({ status: 204, description: 'Sesión cerrada correctamente.' })
   @ApiResponse({ status: 401, description: 'No autorizado' })
-  async logout(
-    @Req() req: Request,
-    @Res({ passthrough: true }) res: Response,
-  ) {
+  async logout(@Req() req: Request, @Res({ passthrough: true }) res: Response) {
     const user = req.user as { id: string };
     await this.logoutUseCase.execute(user.id);
-    
+
     // Limpiar la cookie del refresh token
     res.clearCookie('refreshToken');
   }
@@ -90,7 +115,10 @@ export class AuthController {
   @UseGuards(JwtAuthGuard)
   @ApiBearerAuth()
   @ApiOperation({ summary: 'Obtener información del usuario autenticado' })
-  @ApiResponse({ status: 200, description: 'Retorna los datos del usuario logueado.' })
+  @ApiResponse({
+    status: 200,
+    description: 'Retorna los datos del usuario logueado.',
+  })
   @ApiResponse({ status: 401, description: 'No autorizado' })
   async getMe(@Req() req: Request) {
     return req.user;

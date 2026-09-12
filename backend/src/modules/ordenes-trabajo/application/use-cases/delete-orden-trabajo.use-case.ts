@@ -1,5 +1,8 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { IOrdenesTrabajoRepository, OrdenTrabajoCompleta } from '../../domain/ordenes-trabajo.repository.interface';
+import {
+  IOrdenesTrabajoRepository,
+  OrdenTrabajoCompleta,
+} from '../../domain/ordenes-trabajo.repository.interface';
 
 @Injectable()
 export class DeleteOrdenTrabajoUseCase {
@@ -8,7 +11,9 @@ export class DeleteOrdenTrabajoUseCase {
   async execute(id: string): Promise<OrdenTrabajoCompleta> {
     const orden = await this.repository.findById(id);
     if (!orden) {
-      throw new NotFoundException(`La Orden de Trabajo con ID '${id}' no fue encontrada.`);
+      throw new NotFoundException(
+        `La Orden de Trabajo con ID '${id}' no fue encontrada.`,
+      );
     }
 
     return this.repository.delete(id);

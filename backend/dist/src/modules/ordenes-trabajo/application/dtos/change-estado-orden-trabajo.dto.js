@@ -18,7 +18,10 @@ class ChangeEstadoOrdenTrabajoDto {
 }
 exports.ChangeEstadoOrdenTrabajoDto = ChangeEstadoOrdenTrabajoDto;
 __decorate([
-    (0, swagger_1.ApiProperty)({ enum: client_1.OrdenTrabajoEstado, description: 'Nuevo estado de la orden de trabajo' }),
+    (0, swagger_1.ApiProperty)({
+        enum: client_1.OrdenTrabajoEstado,
+        description: 'Nuevo estado de la orden de trabajo',
+    }),
     (0, class_validator_1.IsEnum)(client_1.OrdenTrabajoEstado),
     (0, class_validator_1.IsNotEmpty)(),
     __metadata("design:type", String)

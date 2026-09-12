@@ -43,10 +43,7 @@ exports.OrdenesTrabajoModule = OrdenesTrabajoModule = __decorate([
             delete_orden_trabajo_use_case_1.DeleteOrdenTrabajoUseCase,
             restore_orden_trabajo_use_case_1.RestoreOrdenTrabajoUseCase,
         ],
-        exports: [
-            ordenes_trabajo_repository_interface_1.IOrdenesTrabajoRepository,
-            get_orden_trabajo_by_id_use_case_1.GetOrdenTrabajoByIdUseCase,
-        ],
+        exports: [ordenes_trabajo_repository_interface_1.IOrdenesTrabajoRepository, get_orden_trabajo_by_id_use_case_1.GetOrdenTrabajoByIdUseCase],
     })
 ], OrdenesTrabajoModule);
 //# sourceMappingURL=ordenes-trabajo.module.js.map

@@ -68,7 +68,14 @@ let PrismaProductosRepository = class PrismaProductosRepository {
                 }
                 : {}),
         };
-        const allowedSortFields = ['nombre', 'codigoInterno', 'modelo', 'precioVenta', 'createdAt', 'activo'];
+        const allowedSortFields = [
+            'nombre',
+            'codigoInterno',
+            'modelo',
+            'precioVenta',
+            'createdAt',
+            'activo',
+        ];
         const validSortBy = allowedSortFields.includes(sortBy) ? sortBy : 'nombre';
         const [data, total] = await Promise.all([
             this.prisma.producto.findMany({

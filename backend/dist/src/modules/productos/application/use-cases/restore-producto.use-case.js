@@ -26,7 +26,9 @@ let RestoreProductoUseCase = class RestoreProductoUseCase {
             throw new common_1.ConflictException(`El producto "${existing.nombre}" no está eliminado`);
         }
         const activeSameCode = await this.productosRepository.findByCodigoInterno(existing.codigoInterno);
-        if (activeSameCode && activeSameCode.id !== id && !activeSameCode.deletedAt) {
+        if (activeSameCode &&
+            activeSameCode.id !== id &&
+            !activeSameCode.deletedAt) {
             throw new common_1.ConflictException(`No se puede restaurar. Ya existe otro producto activo con el código "${existing.codigoInterno}"`);
         }
         return this.productosRepository.restore(id);

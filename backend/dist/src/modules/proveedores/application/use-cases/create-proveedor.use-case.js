@@ -21,8 +21,11 @@ let CreateProveedorUseCase = class CreateProveedorUseCase {
         this.proveedoresRepository = proveedoresRepository;
     }
     async execute(dto) {
-        const existing = await this.proveedoresRepository.findAll({ search: dto.nombre });
-        const match = existing.data.find((p) => p.nombre.toLowerCase().trim() === dto.nombre.toLowerCase().trim() && !p.deletedAt);
+        const existing = await this.proveedoresRepository.findAll({
+            search: dto.nombre,
+        });
+        const match = existing.data.find((p) => p.nombre.toLowerCase().trim() === dto.nombre.toLowerCase().trim() &&
+            !p.deletedAt);
         if (match) {
             throw new common_1.BadRequestException(`Ya existe un proveedor activo registrado con el nombre '${dto.nombre}'`);
         }

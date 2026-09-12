@@ -1,6 +1,9 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../../../../prisma/prisma.service';
-import { ICategoriasRepository, PaginatedCategorias } from '../../domain/categorias.repository.interface';
+import {
+  ICategoriasRepository,
+  PaginatedCategorias,
+} from '../../domain/categorias.repository.interface';
 import { CreateCategoriaDto } from '../../application/dtos/create-categoria.dto';
 import { UpdateCategoriaDto } from '../../application/dtos/update-categoria.dto';
 import { GetCategoriasQueryDto } from '../../application/dtos/get-categorias-query.dto';
@@ -21,7 +24,14 @@ export class PrismaCategoriasRepository implements ICategoriasRepository {
   }
 
   async findAll(query: GetCategoriasQueryDto): Promise<PaginatedCategorias> {
-    const { search, page = 1, limit = 10, sortBy = 'nombre', sortOrder = 'asc', includeDeleted = false } = query;
+    const {
+      search,
+      page = 1,
+      limit = 10,
+      sortBy = 'nombre',
+      sortOrder = 'asc',
+      includeDeleted = false,
+    } = query;
 
     const where: Prisma.CategoriaWhereInput = {
       ...(includeDeleted ? {} : { deletedAt: null }),

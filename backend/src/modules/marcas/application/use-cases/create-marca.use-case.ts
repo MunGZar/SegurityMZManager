@@ -9,7 +9,9 @@ export class CreateMarcaUseCase {
   async execute(dto: CreateMarcaDto) {
     const existing = await this.marcasRepository.findByNombre(dto.nombre);
     if (existing) {
-      throw new ConflictException(`Ya existe una marca registrada con el nombre "${dto.nombre}"`);
+      throw new ConflictException(
+        `Ya existe una marca registrada con el nombre "${dto.nombre}"`,
+      );
     }
     return this.marcasRepository.create(dto);
   }

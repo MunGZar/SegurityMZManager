@@ -64,9 +64,22 @@ export class PrismaCotizacionesRepository implements ICotizacionesRepository {
   }
 
   async create(
-    data: CreateCotizacionDto & { folio: string; subtotal: number; total: number }
+    data: CreateCotizacionDto & {
+      folio: string;
+      subtotal: number;
+      total: number;
+    },
   ): Promise<CotizacionConDetalles> {
-    const { clienteId, observaciones, descuento, estado, folio, subtotal, total, detalles } = data;
+    const {
+      clienteId,
+      observaciones,
+      descuento,
+      estado,
+      folio,
+      subtotal,
+      total,
+      detalles,
+    } = data;
 
     return this.prisma.cotizacion.create({
       data: {
@@ -91,11 +104,22 @@ export class PrismaCotizacionesRepository implements ICotizacionesRepository {
         },
       },
       include: this.includeRelations,
-    }) as unknown as CotizacionConDetalles;
+    });
   }
 
-  async findAll(query: GetCotizacionesQueryDto): Promise<PaginatedCotizaciones> {
-    const { page = 1, limit = 10, search, clienteId, estado, sortBy = 'createdAt', sortOrder = 'desc', includeDeleted } = query;
+  async findAll(
+    query: GetCotizacionesQueryDto,
+  ): Promise<PaginatedCotizaciones> {
+    const {
+      page = 1,
+      limit = 10,
+      search,
+      clienteId,
+      estado,
+      sortBy = 'createdAt',
+      sortOrder = 'desc',
+      includeDeleted,
+    } = query;
 
     const where: Prisma.CotizacionWhereInput = {};
 
@@ -149,7 +173,7 @@ export class PrismaCotizacionesRepository implements ICotizacionesRepository {
       include: this.includeRelations,
     });
 
-    return cotizacion as unknown as CotizacionConDetalles | null;
+    return cotizacion;
   }
 
   async findByFolio(folio: string): Promise<CotizacionConDetalles | null> {
@@ -158,14 +182,22 @@ export class PrismaCotizacionesRepository implements ICotizacionesRepository {
       include: this.includeRelations,
     });
 
-    return cotizacion as unknown as CotizacionConDetalles | null;
+    return cotizacion;
   }
 
   async update(
     id: string,
-    data: UpdateCotizacionDto & { subtotal?: number; total?: number }
+    data: UpdateCotizacionDto & { subtotal?: number; total?: number },
   ): Promise<CotizacionConDetalles> {
-    const { clienteId, observaciones, descuento, estado, subtotal, total, detalles } = data;
+    const {
+      clienteId,
+      observaciones,
+      descuento,
+      estado,
+      subtotal,
+      total,
+      detalles,
+    } = data;
 
     // Si vienen detalles, eliminamos los anteriores y creamos los nuevos
     if (detalles) {
@@ -199,15 +231,18 @@ export class PrismaCotizacionesRepository implements ICotizacionesRepository {
         }),
       },
       include: this.includeRelations,
-    }) as unknown as CotizacionConDetalles;
+    });
   }
 
-  async changeEstado(id: string, estado: CotizacionEstado): Promise<CotizacionConDetalles> {
+  async changeEstado(
+    id: string,
+    estado: CotizacionEstado,
+  ): Promise<CotizacionConDetalles> {
     return this.prisma.cotizacion.update({
       where: { id },
       data: { estado },
       include: this.includeRelations,
-    }) as unknown as CotizacionConDetalles;
+    });
   }
 
   async delete(id: string): Promise<CotizacionConDetalles> {
@@ -215,7 +250,7 @@ export class PrismaCotizacionesRepository implements ICotizacionesRepository {
       where: { id },
       data: { deletedAt: new Date() },
       include: this.includeRelations,
-    }) as unknown as CotizacionConDetalles;
+    });
   }
 
   async restore(id: string): Promise<CotizacionConDetalles> {
@@ -223,6 +258,6 @@ export class PrismaCotizacionesRepository implements ICotizacionesRepository {
       where: { id },
       data: { deletedAt: null },
       include: this.includeRelations,
-    }) as unknown as CotizacionConDetalles;
+    });
   }
 }

@@ -22,7 +22,8 @@ let UpdateCategoriaUseCase = class UpdateCategoriaUseCase {
         if (!existing) {
             throw new common_1.NotFoundException(`Categoría con ID "${id}" no encontrada`);
         }
-        if (dto.nombre && dto.nombre.toLowerCase() !== existing.nombre.toLowerCase()) {
+        if (dto.nombre &&
+            dto.nombre.toLowerCase() !== existing.nombre.toLowerCase()) {
             const duplicate = await this.categoriasRepository.findByNombre(dto.nombre);
             if (duplicate) {
                 throw new common_1.ConflictException(`Ya existe una categoría registrada con el nombre "${dto.nombre}"`);

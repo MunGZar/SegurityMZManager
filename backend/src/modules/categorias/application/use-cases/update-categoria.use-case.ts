@@ -1,4 +1,8 @@
-import { Injectable, NotFoundException, ConflictException } from '@nestjs/common';
+import {
+  Injectable,
+  NotFoundException,
+  ConflictException,
+} from '@nestjs/common';
 import { ICategoriasRepository } from '../../domain/categorias.repository.interface';
 import { UpdateCategoriaDto } from '../dtos/update-categoria.dto';
 
@@ -12,10 +16,17 @@ export class UpdateCategoriaUseCase {
       throw new NotFoundException(`Categoría con ID "${id}" no encontrada`);
     }
 
-    if (dto.nombre && dto.nombre.toLowerCase() !== existing.nombre.toLowerCase()) {
-      const duplicate = await this.categoriasRepository.findByNombre(dto.nombre);
+    if (
+      dto.nombre &&
+      dto.nombre.toLowerCase() !== existing.nombre.toLowerCase()
+    ) {
+      const duplicate = await this.categoriasRepository.findByNombre(
+        dto.nombre,
+      );
       if (duplicate) {
-        throw new ConflictException(`Ya existe una categoría registrada con el nombre "${dto.nombre}"`);
+        throw new ConflictException(
+          `Ya existe una categoría registrada con el nombre "${dto.nombre}"`,
+        );
       }
     }
 

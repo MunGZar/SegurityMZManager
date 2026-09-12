@@ -11,27 +11,39 @@ import {
 import { OrdenTrabajoEstado, OrdenTrabajoPrioridad } from '@prisma/client';
 
 export class CreateOrdenTrabajoDto {
-  @ApiProperty({ description: 'ID de la Cotización Aprobada que origina la orden' })
+  @ApiProperty({
+    description: 'ID de la Cotización Aprobada que origina la orden',
+  })
   @IsString()
   @IsNotEmpty()
   cotizacionId: string;
 
-  @ApiPropertyOptional({ description: 'Fecha programada para la instalación (YYYY-MM-DD)' })
+  @ApiPropertyOptional({
+    description: 'Fecha programada para la instalación (YYYY-MM-DD)',
+  })
   @IsOptional()
   @IsDateString()
   fechaProgramada?: string;
 
-  @ApiPropertyOptional({ description: 'Hora programada (ej: 09:30 AM o 14:00)' })
+  @ApiPropertyOptional({
+    description: 'Hora programada (ej: 09:30 AM o 14:00)',
+  })
   @IsOptional()
   @IsString()
   horaProgramada?: string;
 
-  @ApiPropertyOptional({ enum: OrdenTrabajoEstado, default: OrdenTrabajoEstado.PENDIENTE })
+  @ApiPropertyOptional({
+    enum: OrdenTrabajoEstado,
+    default: OrdenTrabajoEstado.PENDIENTE,
+  })
   @IsOptional()
   @IsEnum(OrdenTrabajoEstado)
   estado?: OrdenTrabajoEstado;
 
-  @ApiPropertyOptional({ enum: OrdenTrabajoPrioridad, default: OrdenTrabajoPrioridad.MEDIA })
+  @ApiPropertyOptional({
+    enum: OrdenTrabajoPrioridad,
+    default: OrdenTrabajoPrioridad.MEDIA,
+  })
   @IsOptional()
   @IsEnum(OrdenTrabajoPrioridad)
   prioridad?: OrdenTrabajoPrioridad;
@@ -41,7 +53,9 @@ export class CreateOrdenTrabajoDto {
   @IsString()
   observaciones?: string;
 
-  @ApiPropertyOptional({ description: 'Dirección específica de la instalación' })
+  @ApiPropertyOptional({
+    description: 'Dirección específica de la instalación',
+  })
   @IsOptional()
   @IsString()
   direccion?: string;
@@ -78,7 +92,9 @@ export class CreateOrdenTrabajoDto {
   @Min(0)
   garantiaMeses?: number;
 
-  @ApiPropertyOptional({ description: 'Fecha de entrega del trabajo (YYYY-MM-DD)' })
+  @ApiPropertyOptional({
+    description: 'Fecha de entrega del trabajo (YYYY-MM-DD)',
+  })
   @IsOptional()
   @IsDateString()
   fechaEntrega?: string;

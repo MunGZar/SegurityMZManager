@@ -1,15 +1,22 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { ICotizacionesRepository, CotizacionConDetalles } from '../../domain/cotizaciones.repository.interface';
+import {
+  ICotizacionesRepository,
+  CotizacionConDetalles,
+} from '../../domain/cotizaciones.repository.interface';
 import { CotizacionEstado } from '@prisma/client';
 
 @Injectable()
 export class DuplicateCotizacionUseCase {
-  constructor(private readonly cotizacionesRepository: ICotizacionesRepository) {}
+  constructor(
+    private readonly cotizacionesRepository: ICotizacionesRepository,
+  ) {}
 
   async execute(id: string): Promise<CotizacionConDetalles> {
     const original = await this.cotizacionesRepository.findById(id);
     if (!original) {
-      throw new NotFoundException(`Cotización origen con ID '${id}' no encontrada`);
+      throw new NotFoundException(
+        `Cotización origen con ID '${id}' no encontrada`,
+      );
     }
 
     const folio = await this.cotizacionesRepository.generateNextFolio();
@@ -26,7 +33,9 @@ export class DuplicateCotizacionUseCase {
 
     return this.cotizacionesRepository.create({
       clienteId: original.clienteId,
-      observaciones: original.observaciones ? `Duplicado de ${original.folio}. ${original.observaciones}` : `Duplicado de ${original.folio}`,
+      observaciones: original.observaciones
+        ? `Duplicado de ${original.folio}. ${original.observaciones}`
+        : `Duplicado de ${original.folio}`,
       descuento: Number(original.descuento),
       estado: CotizacionEstado.BORRADOR,
       folio,

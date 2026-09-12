@@ -10,7 +10,9 @@ export class GetAllClientesUseCase {
     private readonly clientesRepository: IClientesRepository,
   ) {}
 
-  async execute(query: GetClientesQueryDto): Promise<{ data: Cliente[]; total: number }> {
+  async execute(
+    query: GetClientesQueryDto,
+  ): Promise<{ data: Cliente[]; total: number }> {
     return this.clientesRepository.findAll({
       search: query.search,
       page: query.page,

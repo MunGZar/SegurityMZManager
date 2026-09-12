@@ -1,4 +1,10 @@
-import { IsString, IsNotEmpty, IsOptional, IsEmail, IsEnum } from 'class-validator';
+import {
+  IsString,
+  IsNotEmpty,
+  IsOptional,
+  IsEmail,
+  IsEnum,
+} from 'class-validator';
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 
 export enum ClienteStatusDto {
@@ -61,7 +67,9 @@ export class CreateClienteDto {
     enum: ClienteStatusDto,
     default: ClienteStatusDto.PROSPECTO,
   })
-  @IsEnum(ClienteStatusDto, { message: 'El estado del cliente debe ser PROSPECTO, ACTIVO o INACTIVO' })
+  @IsEnum(ClienteStatusDto, {
+    message: 'El estado del cliente debe ser PROSPECTO, ACTIVO o INACTIVO',
+  })
   @IsOptional()
   status?: ClienteStatusDto;
 }

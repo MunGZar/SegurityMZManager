@@ -19,7 +19,10 @@ export class RefreshTokenUseCase {
       throw new UnauthorizedException('Acceso denegado');
     }
 
-    const isRefreshTokenValid = await bcrypt.compare(refreshToken, user.refreshToken);
+    const isRefreshTokenValid = await bcrypt.compare(
+      refreshToken,
+      user.refreshToken,
+    );
     if (!isRefreshTokenValid) {
       // Revocar inmediatamente en caso de sospecha de robo o reutilización
       await this.authRepository.updateRefreshToken(user.id, null);

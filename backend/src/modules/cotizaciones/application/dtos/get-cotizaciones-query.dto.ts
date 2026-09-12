@@ -1,5 +1,12 @@
 import { ApiPropertyOptional } from '@nestjs/swagger';
-import { IsOptional, IsString, IsInt, Min, IsEnum, IsBoolean } from 'class-validator';
+import {
+  IsOptional,
+  IsString,
+  IsInt,
+  Min,
+  IsEnum,
+  IsBoolean,
+} from 'class-validator';
 import { Type, Transform } from 'class-transformer';
 import { CotizacionEstado } from '@prisma/client';
 
@@ -28,7 +35,10 @@ export class GetCotizacionesQueryDto {
   @IsOptional()
   clienteId?: string;
 
-  @ApiPropertyOptional({ enum: CotizacionEstado, description: 'Filtrar por estado' })
+  @ApiPropertyOptional({
+    enum: CotizacionEstado,
+    description: 'Filtrar por estado',
+  })
   @IsEnum(CotizacionEstado)
   @IsOptional()
   estado?: CotizacionEstado;

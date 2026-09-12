@@ -26,7 +26,7 @@ export class LoginUseCase {
     }
 
     const payload = { sub: user.id, email: user.email, nombre: user.nombre };
-    
+
     const accessToken = this.jwtService.sign(payload, {
       secret: this.configService.get<string>('JWT_ACCESS_SECRET'),
       expiresIn: '15m',

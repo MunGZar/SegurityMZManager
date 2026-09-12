@@ -3,7 +3,10 @@ import { PrismaClient } from '@prisma/client';
 import { PrismaMariaDb } from '@prisma/adapter-mariadb';
 
 @Injectable()
-export class PrismaService extends PrismaClient implements OnModuleInit, OnModuleDestroy {
+export class PrismaService
+  extends PrismaClient
+  implements OnModuleInit, OnModuleDestroy
+{
   constructor() {
     const databaseUrl = process.env.DATABASE_URL;
     if (!databaseUrl) {
@@ -22,7 +25,9 @@ export class PrismaService extends PrismaClient implements OnModuleInit, OnModul
 
       super({ adapter });
     } catch (error) {
-      throw new Error(`Failed to parse DATABASE_URL: ${(error as Error).message}`);
+      throw new Error(
+        `Failed to parse DATABASE_URL: ${(error as Error).message}`,
+      );
     }
   }
 

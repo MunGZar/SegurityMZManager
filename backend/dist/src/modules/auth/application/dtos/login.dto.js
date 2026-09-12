@@ -18,7 +18,10 @@ class LoginDto {
 }
 exports.LoginDto = LoginDto;
 __decorate([
-    (0, swagger_1.ApiProperty)({ example: 'admin@seguritymz.com', description: 'Correo electrónico del usuario' }),
+    (0, swagger_1.ApiProperty)({
+        example: 'admin@seguritymz.com',
+        description: 'Correo electrónico del usuario',
+    }),
     (0, class_validator_1.IsEmail)({}, { message: 'El correo electrónico no es válido' }),
     (0, class_validator_1.IsNotEmpty)({ message: 'El correo electrónico es obligatorio' }),
     __metadata("design:type", String)

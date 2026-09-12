@@ -34,7 +34,7 @@ let CreateProductoUseCase = class CreateProductoUseCase {
         }
         const precioCompraNum = Number(dto.precioCompra);
         const margenNum = Number(dto.margenPorcentaje);
-        const precioVenta = Number((precioCompraNum + (precioCompraNum * (margenNum / 100))).toFixed(2));
+        const precioVenta = Number((precioCompraNum + precioCompraNum * (margenNum / 100)).toFixed(2));
         return this.productosRepository.create({
             ...dto,
             precioVenta,

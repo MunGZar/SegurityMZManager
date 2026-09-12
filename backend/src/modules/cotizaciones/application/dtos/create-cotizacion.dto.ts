@@ -1,10 +1,21 @@
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
-import { IsNotEmpty, IsString, IsOptional, IsNumber, Min, IsArray, ValidateNested, IsEnum } from 'class-validator';
+import {
+  IsNotEmpty,
+  IsString,
+  IsOptional,
+  IsNumber,
+  Min,
+  IsArray,
+  ValidateNested,
+  IsEnum,
+} from 'class-validator';
 import { Type } from 'class-transformer';
 import { CotizacionDetalleTipo, CotizacionEstado } from '@prisma/client';
 
 export class CreateCotizacionDetalleDto {
-  @ApiPropertyOptional({ description: 'ID del producto asociado si pertenece al catálogo' })
+  @ApiPropertyOptional({
+    description: 'ID del producto asociado si pertenece al catálogo',
+  })
   @IsString()
   @IsOptional()
   productoId?: string;
@@ -29,7 +40,10 @@ export class CreateCotizacionDetalleDto {
   @Min(1, { message: 'La cantidad debe ser al menos 1' })
   cantidad: number;
 
-  @ApiPropertyOptional({ description: 'Orden o posición visual del ítem', default: 0 })
+  @ApiPropertyOptional({
+    description: 'Orden o posición visual del ítem',
+    default: 0,
+  })
   @Type(() => Number)
   @IsNumber()
   @IsOptional()
@@ -48,24 +62,35 @@ export class CreateCotizacionDto {
   @IsNotEmpty({ message: 'El cliente es obligatorio' })
   clienteId: string;
 
-  @ApiPropertyOptional({ description: 'Observaciones o condiciones comerciales' })
+  @ApiPropertyOptional({
+    description: 'Observaciones o condiciones comerciales',
+  })
   @IsString()
   @IsOptional()
   observaciones?: string;
 
-  @ApiPropertyOptional({ description: 'Descuento global aplicado a la cotización', default: 0 })
+  @ApiPropertyOptional({
+    description: 'Descuento global aplicado a la cotización',
+    default: 0,
+  })
   @Type(() => Number)
   @IsNumber()
   @Min(0, { message: 'El descuento no puede ser negativo' })
   @IsOptional()
   descuento?: number = 0;
 
-  @ApiPropertyOptional({ enum: CotizacionEstado, default: CotizacionEstado.BORRADOR })
+  @ApiPropertyOptional({
+    enum: CotizacionEstado,
+    default: CotizacionEstado.BORRADOR,
+  })
   @IsEnum(CotizacionEstado)
   @IsOptional()
   estado?: CotizacionEstado = CotizacionEstado.BORRADOR;
 
-  @ApiProperty({ type: [CreateCotizacionDetalleDto], description: 'Líneas o ítems de la cotización' })
+  @ApiProperty({
+    type: [CreateCotizacionDetalleDto],
+    description: 'Líneas o ítems de la cotización',
+  })
   @IsArray()
   @ValidateNested({ each: true })
   @Type(() => CreateCotizacionDetalleDto)

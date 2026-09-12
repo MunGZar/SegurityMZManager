@@ -60,7 +60,10 @@ export class PrismaProveedoresRepository implements IProveedoresRepository {
     };
   }
 
-  async findById(id: string, includeDeleted = false): Promise<Proveedor | null> {
+  async findById(
+    id: string,
+    includeDeleted = false,
+  ): Promise<Proveedor | null> {
     const where: Prisma.ProveedorWhereUniqueInput = { id };
     const result = await this.prisma.proveedor.findUnique({ where });
 

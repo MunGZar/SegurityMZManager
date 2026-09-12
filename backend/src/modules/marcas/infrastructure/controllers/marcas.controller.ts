@@ -1,15 +1,20 @@
-import { 
-  Controller, 
-  Get, 
-  Post, 
-  Body, 
-  Patch, 
-  Param, 
-  Delete, 
-  Query, 
-  UseGuards 
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+  Query,
+  UseGuards,
 } from '@nestjs/common';
-import { ApiTags, ApiOperation, ApiResponse, ApiBearerAuth } from '@nestjs/swagger';
+import {
+  ApiTags,
+  ApiOperation,
+  ApiResponse,
+  ApiBearerAuth,
+} from '@nestjs/swagger';
 import { JwtAuthGuard } from '../../../auth/infrastructure/guards/jwt-auth.guard';
 import { CreateMarcaDto } from '../../application/dtos/create-marca.dto';
 import { UpdateMarcaDto } from '../../application/dtos/update-marca.dto';
@@ -38,7 +43,10 @@ export class MarcasController {
   @Post()
   @ApiOperation({ summary: 'Crear una nueva marca' })
   @ApiResponse({ status: 21, description: 'Marca creada exitosamente' })
-  @ApiResponse({ status: 409, description: 'Ya existe una marca con el mismo nombre' })
+  @ApiResponse({
+    status: 409,
+    description: 'Ya existe una marca con el mismo nombre',
+  })
   create(@Body() createMarcaDto: CreateMarcaDto) {
     return this.createMarcaUseCase.execute(createMarcaDto);
   }
@@ -69,7 +77,10 @@ export class MarcasController {
 
   @Delete(':id')
   @ApiOperation({ summary: 'Eliminar una marca (Soft Delete)' })
-  @ApiResponse({ status: 200, description: 'Marca desactivada y eliminada lógicamente' })
+  @ApiResponse({
+    status: 200,
+    description: 'Marca desactivada y eliminada lógicamente',
+  })
   @ApiResponse({ status: 404, description: 'Marca no encontrada' })
   remove(@Param('id') id: string) {
     return this.deleteMarcaUseCase.execute(id);
@@ -79,7 +90,10 @@ export class MarcasController {
   @ApiOperation({ summary: 'Restaurar una marca eliminada lógicamente' })
   @ApiResponse({ status: 200, description: 'Marca restaurada exitosamente' })
   @ApiResponse({ status: 404, description: 'Marca no encontrada' })
-  @ApiResponse({ status: 409, description: 'La marca ya está activa o conflicto de nombre' })
+  @ApiResponse({
+    status: 409,
+    description: 'La marca ya está activa o conflicto de nombre',
+  })
   restore(@Param('id') id: string) {
     return this.restoreMarcaUseCase.execute(id);
   }

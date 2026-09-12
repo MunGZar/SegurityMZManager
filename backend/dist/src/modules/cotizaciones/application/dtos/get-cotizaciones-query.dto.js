@@ -54,7 +54,10 @@ __decorate([
     __metadata("design:type", String)
 ], GetCotizacionesQueryDto.prototype, "clienteId", void 0);
 __decorate([
-    (0, swagger_1.ApiPropertyOptional)({ enum: client_1.CotizacionEstado, description: 'Filtrar por estado' }),
+    (0, swagger_1.ApiPropertyOptional)({
+        enum: client_1.CotizacionEstado,
+        description: 'Filtrar por estado',
+    }),
     (0, class_validator_1.IsEnum)(client_1.CotizacionEstado),
     (0, class_validator_1.IsOptional)(),
     __metadata("design:type", String)

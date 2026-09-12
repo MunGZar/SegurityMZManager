@@ -82,7 +82,9 @@ __decorate([
         description: 'Estado actual del cliente',
         enum: create_cliente_dto_1.ClienteStatusDto,
     }),
-    (0, class_validator_1.IsEnum)(create_cliente_dto_1.ClienteStatusDto, { message: 'El estado del cliente debe ser PROSPECTO, ACTIVO o INACTIVO' }),
+    (0, class_validator_1.IsEnum)(create_cliente_dto_1.ClienteStatusDto, {
+        message: 'El estado del cliente debe ser PROSPECTO, ACTIVO o INACTIVO',
+    }),
     (0, class_validator_1.IsOptional)(),
     __metadata("design:type", String)
 ], UpdateClienteDto.prototype, "status", void 0);

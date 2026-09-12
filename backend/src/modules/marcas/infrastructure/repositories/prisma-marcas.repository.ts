@@ -1,6 +1,9 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../../../../prisma/prisma.service';
-import { IMarcasRepository, PaginatedMarcas } from '../../domain/marcas.repository.interface';
+import {
+  IMarcasRepository,
+  PaginatedMarcas,
+} from '../../domain/marcas.repository.interface';
 import { CreateMarcaDto } from '../../application/dtos/create-marca.dto';
 import { UpdateMarcaDto } from '../../application/dtos/update-marca.dto';
 import { GetMarcasQueryDto } from '../../application/dtos/get-marcas-query.dto';
@@ -21,7 +24,14 @@ export class PrismaMarcasRepository implements IMarcasRepository {
   }
 
   async findAll(query: GetMarcasQueryDto): Promise<PaginatedMarcas> {
-    const { search, page = 1, limit = 10, sortBy = 'nombre', sortOrder = 'asc', includeDeleted = false } = query;
+    const {
+      search,
+      page = 1,
+      limit = 10,
+      sortBy = 'nombre',
+      sortOrder = 'asc',
+      includeDeleted = false,
+    } = query;
 
     const where: Prisma.MarcaWhereInput = {
       ...(includeDeleted ? {} : { deletedAt: null }),

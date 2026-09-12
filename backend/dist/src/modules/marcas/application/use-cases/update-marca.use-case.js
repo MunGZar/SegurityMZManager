@@ -22,7 +22,8 @@ let UpdateMarcaUseCase = class UpdateMarcaUseCase {
         if (!existing) {
             throw new common_1.NotFoundException(`Marca con ID "${id}" no encontrada`);
         }
-        if (dto.nombre && dto.nombre.toLowerCase() !== existing.nombre.toLowerCase()) {
+        if (dto.nombre &&
+            dto.nombre.toLowerCase() !== existing.nombre.toLowerCase()) {
             const duplicate = await this.marcasRepository.findByNombre(dto.nombre);
             if (duplicate) {
                 throw new common_1.ConflictException(`Ya existe una marca registrada con el nombre "${dto.nombre}"`);

@@ -1,5 +1,7 @@
 # SegurityMZ Manager
 
+[![CI/CD Pipeline](https://github.com/MunGZar/SegurityMZManager/actions/workflows/ci-cd.yml/badge.svg)](https://github.com/MunGZar/SegurityMZManager/actions/workflows/ci-cd.yml)
+
 Sistema privado y personal para la administración de venta e instalación de cámaras de seguridad.
 
 ---
@@ -67,3 +69,23 @@ La aplicación web estará disponible en `http://localhost:3000`.
 7. **Compras**: Adquisición de inventario con proveedores.
 8. **Instalaciones**: Órdenes de servicio y estados técnicos.
 9. **Finanzas**: Control de flujo de caja (ingresos/egresos).
+
+---
+
+## Integración y Despliegue Continuo (CI/CD)
+
+El proyecto cuenta con una canalización automatizada mediante **GitHub Actions** (`.github/workflows/ci-cd.yml`) diseñada para ser rápida, ligera y fiable:
+
+* **Disparadores**:
+  * Se ejecuta automáticamente en cada `push` o `pull request` hacia la rama `main`.
+  * También se puede lanzar manualmente desde la pestaña **Actions** en GitHub (`workflow_dispatch`).
+* **Backend Job**:
+  * Configuración de Node.js 20 con caché de npm.
+  * Generación del cliente de Prisma (`npx prisma generate`).
+  * Ejecución de pruebas unitarias Jest (`npm run test`).
+  * Compilación de la aplicación NestJS (`npm run build`).
+* **Frontend Job**:
+  * Configuración de Node.js 20 con caché de npm y caché incremental de Next.js (`.next/cache`).
+  * Verificación de tipado y compilación de producción con Turbopack (`npm run build`).
+* **Variables configurables (opcionales)**:
+  * En GitHub Settings > Secrets and variables > Actions > Variables, puedes definir `NEXT_PUBLIC_API_URL` si deseas que la compilación apunte a un dominio específico en producción.

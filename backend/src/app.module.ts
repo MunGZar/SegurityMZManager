@@ -28,8 +28,6 @@ import { OrdenesTrabajoModule } from './modules/ordenes-trabajo/infrastructure/o
     OrdenesTrabajoModule,
   ],
   controllers: [AppController],
-  providers: [
-    AppService,
-  ],
+  providers: [AppService],
 })
 export class AppModule {}

@@ -35,7 +35,9 @@ let DuplicateCotizacionUseCase = class DuplicateCotizacionUseCase {
         }));
         return this.cotizacionesRepository.create({
             clienteId: original.clienteId,
-            observaciones: original.observaciones ? `Duplicado de ${original.folio}. ${original.observaciones}` : `Duplicado de ${original.folio}`,
+            observaciones: original.observaciones
+                ? `Duplicado de ${original.folio}. ${original.observaciones}`
+                : `Duplicado de ${original.folio}`,
             descuento: Number(original.descuento),
             estado: client_1.CotizacionEstado.BORRADOR,
             folio,

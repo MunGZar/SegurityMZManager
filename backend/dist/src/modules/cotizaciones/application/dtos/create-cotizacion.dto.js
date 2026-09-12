@@ -25,7 +25,9 @@ class CreateCotizacionDetalleDto {
 }
 exports.CreateCotizacionDetalleDto = CreateCotizacionDetalleDto;
 __decorate([
-    (0, swagger_1.ApiPropertyOptional)({ description: 'ID del producto asociado si pertenece al catálogo' }),
+    (0, swagger_1.ApiPropertyOptional)({
+        description: 'ID del producto asociado si pertenece al catálogo',
+    }),
     (0, class_validator_1.IsString)(),
     (0, class_validator_1.IsOptional)(),
     __metadata("design:type", String)
@@ -55,7 +57,10 @@ __decorate([
     __metadata("design:type", Number)
 ], CreateCotizacionDetalleDto.prototype, "cantidad", void 0);
 __decorate([
-    (0, swagger_1.ApiPropertyOptional)({ description: 'Orden o posición visual del ítem', default: 0 }),
+    (0, swagger_1.ApiPropertyOptional)({
+        description: 'Orden o posición visual del ítem',
+        default: 0,
+    }),
     (0, class_transformer_1.Type)(() => Number),
     (0, class_validator_1.IsNumber)(),
     (0, class_validator_1.IsOptional)(),
@@ -83,13 +88,18 @@ __decorate([
     __metadata("design:type", String)
 ], CreateCotizacionDto.prototype, "clienteId", void 0);
 __decorate([
-    (0, swagger_1.ApiPropertyOptional)({ description: 'Observaciones o condiciones comerciales' }),
+    (0, swagger_1.ApiPropertyOptional)({
+        description: 'Observaciones o condiciones comerciales',
+    }),
     (0, class_validator_1.IsString)(),
     (0, class_validator_1.IsOptional)(),
     __metadata("design:type", String)
 ], CreateCotizacionDto.prototype, "observaciones", void 0);
 __decorate([
-    (0, swagger_1.ApiPropertyOptional)({ description: 'Descuento global aplicado a la cotización', default: 0 }),
+    (0, swagger_1.ApiPropertyOptional)({
+        description: 'Descuento global aplicado a la cotización',
+        default: 0,
+    }),
     (0, class_transformer_1.Type)(() => Number),
     (0, class_validator_1.IsNumber)(),
     (0, class_validator_1.Min)(0, { message: 'El descuento no puede ser negativo' }),
@@ -97,13 +107,19 @@ __decorate([
     __metadata("design:type", Number)
 ], CreateCotizacionDto.prototype, "descuento", void 0);
 __decorate([
-    (0, swagger_1.ApiPropertyOptional)({ enum: client_1.CotizacionEstado, default: client_1.CotizacionEstado.BORRADOR }),
+    (0, swagger_1.ApiPropertyOptional)({
+        enum: client_1.CotizacionEstado,
+        default: client_1.CotizacionEstado.BORRADOR,
+    }),
     (0, class_validator_1.IsEnum)(client_1.CotizacionEstado),
     (0, class_validator_1.IsOptional)(),
     __metadata("design:type", String)
 ], CreateCotizacionDto.prototype, "estado", void 0);
 __decorate([
-    (0, swagger_1.ApiProperty)({ type: [CreateCotizacionDetalleDto], description: 'Líneas o ítems de la cotización' }),
+    (0, swagger_1.ApiProperty)({
+        type: [CreateCotizacionDetalleDto],
+        description: 'Líneas o ítems de la cotización',
+    }),
     (0, class_validator_1.IsArray)(),
     (0, class_validator_1.ValidateNested)({ each: true }),
     (0, class_transformer_1.Type)(() => CreateCotizacionDetalleDto),

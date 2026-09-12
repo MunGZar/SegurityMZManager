@@ -1,14 +1,21 @@
 import { Injectable, BadRequestException } from '@nestjs/common';
-import { ICotizacionesRepository, CotizacionConDetalles } from '../../domain/cotizaciones.repository.interface';
+import {
+  ICotizacionesRepository,
+  CotizacionConDetalles,
+} from '../../domain/cotizaciones.repository.interface';
 import { CreateCotizacionDto } from '../dtos/create-cotizacion.dto';
 
 @Injectable()
 export class CreateCotizacionUseCase {
-  constructor(private readonly cotizacionesRepository: ICotizacionesRepository) {}
+  constructor(
+    private readonly cotizacionesRepository: ICotizacionesRepository,
+  ) {}
 
   async execute(dto: CreateCotizacionDto): Promise<CotizacionConDetalles> {
     if (!dto.detalles || dto.detalles.length === 0) {
-      throw new BadRequestException('La cotización debe incluir al menos un ítem o servicio');
+      throw new BadRequestException(
+        'La cotización debe incluir al menos un ítem o servicio',
+      );
     }
 
     // 1. Generar Folio automático (ej: COT-2026-0001)

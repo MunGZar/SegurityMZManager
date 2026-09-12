@@ -7,12 +7,18 @@ export class CreateMarcaDto {
   @IsNotEmpty({ message: 'El nombre es obligatorio' })
   nombre: string;
 
-  @ApiPropertyOptional({ description: 'Descripción opcional de la marca', example: 'Fabricante de sistemas de videovigilancia' })
+  @ApiPropertyOptional({
+    description: 'Descripción opcional de la marca',
+    example: 'Fabricante de sistemas de videovigilancia',
+  })
   @IsString()
   @IsOptional()
   descripcion?: string;
 
-  @ApiPropertyOptional({ description: 'Estado activo de la marca', default: true })
+  @ApiPropertyOptional({
+    description: 'Estado activo de la marca',
+    default: true,
+  })
   @IsBoolean()
   @IsOptional()
   activo?: boolean;

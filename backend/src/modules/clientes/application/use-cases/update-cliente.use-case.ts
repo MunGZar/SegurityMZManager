@@ -1,4 +1,9 @@
-import { Inject, Injectable, NotFoundException, BadRequestException } from '@nestjs/common';
+import {
+  Inject,
+  Injectable,
+  NotFoundException,
+  BadRequestException,
+} from '@nestjs/common';
 import { IClientesRepository } from '../../domain/clientes.repository.interface';
 import { UpdateClienteDto } from '../dtos/update-cliente.dto';
 import { Cliente } from '../../domain/cliente.entity';
@@ -17,20 +22,25 @@ export class UpdateClienteUseCase {
     }
 
     if (dto.identificacion && dto.identificacion !== existing.identificacion) {
-      const match = await this.clientesRepository.findByIdentificacion(dto.identificacion);
+      const match = await this.clientesRepository.findByIdentificacion(
+        dto.identificacion,
+      );
       if (match) {
-        throw new BadRequestException(`Ya existe otro cliente con la identificación '${dto.identificacion}'`);
+        throw new BadRequestException(
+          `Ya existe otro cliente con la identificación '${dto.identificacion}'`,
+        );
       }
     }
 
     return this.clientesRepository.update(id, {
       nombre: dto.nombre,
-      identificacion: dto.identificacion !== undefined ? dto.identificacion : undefined,
+      identificacion:
+        dto.identificacion !== undefined ? dto.identificacion : undefined,
       telefono: dto.telefono !== undefined ? dto.telefono : undefined,
       email: dto.email !== undefined ? dto.email : undefined,
       direccion: dto.direccion !== undefined ? dto.direccion : undefined,
       notas: dto.notas !== undefined ? dto.notas : undefined,
-      status: dto.status as any,
+      status: dto.status,
     });
   }
 }

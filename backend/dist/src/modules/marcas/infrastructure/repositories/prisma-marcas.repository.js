@@ -27,7 +27,7 @@ let PrismaMarcasRepository = class PrismaMarcasRepository {
         });
     }
     async findAll(query) {
-        const { search, page = 1, limit = 10, sortBy = 'nombre', sortOrder = 'asc', includeDeleted = false } = query;
+        const { search, page = 1, limit = 10, sortBy = 'nombre', sortOrder = 'asc', includeDeleted = false, } = query;
         const where = {
             ...(includeDeleted ? {} : { deletedAt: null }),
             ...(search
