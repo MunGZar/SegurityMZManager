@@ -27,12 +27,12 @@ jobs:
 
     steps:
       - name: Checkout del repositorio
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
-      - name: Configurar Node.js 20
-        uses: actions/setup-node@v4
+      - name: Configurar Node.js 22
+        uses: actions/setup-node@v7
         with:
-          node-version: 20
+          node-version: 22
           cache: 'npm'
           cache-dependency-path: backend/package-lock.json
 
@@ -50,10 +50,6 @@ jobs:
       - name: Compilar aplicación (NestJS)
         run: npm run build
 
-      - name: Linter (Informativo)
-        run: npm run lint
-        continue-on-error: true
-
   # -------------------------------------------------------------
   # paso 2: Verificación y compilación del Frontend (Next.js)
   # -------------------------------------------------------------
@@ -66,17 +62,17 @@ jobs:
 
     steps:
       - name: Checkout del repositorio
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
-      - name: Configurar Node.js 20
-        uses: actions/setup-node@v4
+      - name: Configurar Node.js 22
+        uses: actions/setup-node@v7
         with:
-          node-version: 20
+          node-version: 22
           cache: 'npm'
           cache-dependency-path: frontend/package-lock.json
 
       - name: Restaurar caché de compilación de Next.js
-        uses: actions/cache@v4
+        uses: actions/cache@v6
         with:
           path: ${{ github.workspace }}/frontend/.next/cache
           key: ${{ runner.os }}-nextjs-${{ hashFiles('frontend/package-lock.json') }}-${{ hashFiles('frontend/src/**') }}
@@ -90,10 +86,6 @@ jobs:
         env:
           NEXT_PUBLIC_API_URL: ${{ vars.NEXT_PUBLIC_API_URL || 'http://localhost:3001/api' }}
         run: npm run build
-
-      - name: Linter (Informativo)
-        run: npm run lint
-        continue-on-error: true
 
   # -------------------------------------------------------------
   # paso 3: Estado de Entrega Continua (CD) al fusionar en main
