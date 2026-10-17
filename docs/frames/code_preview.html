@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap');
+  body {
+    background: #090d16;
+    color: #e2e8f0;
+    font-family: 'Inter', sans-serif;
+    padding: 24px;
+    margin: 0;
+  }
+  .header {
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #1e293b;
+    padding-bottom: 12px;
+  }
+  .title {
+    font-size: 18px;
+    font-weight: 800;
+    color: #38bdf8;
+  }
+  .badge {
+    background: #0284c7;
+    color: white;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 4px 10px;
+    border-radius: 6px;
+  }
+  .grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+  .card {
+    background: #0f172a;
+    border: 1px solid #1e293b;
+    border-radius: 10px;
+    padding: 16px;
+  }
+  .card-title {
+    font-size: 13px;
+    font-weight: 700;
+    color: #94a3b8;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  pre {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    line-height: 1.45;
+    background: #020617;
+    padding: 12px;
+    border-radius: 6px;
+    border: 1px solid #1e293b;
+    color: #cbd5e1;
+    overflow-x: auto;
+  }
+  .keyword { color: #f43f5e; }
+  .string { color: #34d399; }
+  .fn { color: #38bdf8; }
+  .comment { color: #64748b; }
+</style>
+</head>
+<body>
+  <div class="header">
+    <div class="title">SegurityMZ Manager — Evidencia de Implementación Técnica TBD</div>
+    <div class="badge">CI/CD & Feature Flags Activos</div>
+  </div>
+  <div class="grid">
+    <div class="card">
+      <div class="card-title">📄 frontend/src/lib/feature-flags.ts</div>
+      <pre><code><span class="keyword">export interface</span> FeatureFlags {
+  comprasModule: <span class="keyword">boolean</span>;
+  finanzasModule: <span class="keyword">boolean</span>;
+  ordenesTrabajoV2: <span class="keyword">boolean</span>;
+}
+
+<span class="keyword">export function</span> <span class="fn">isFeatureEnabled</span>(flag: <span class="keyword">keyof</span> FeatureFlags): <span class="keyword">boolean</span> {
+  <span class="keyword">const</span> override = localStorage.getItem(<span class="string">`ff_${flag}`</span>);
+  <span class="keyword">if</span> (override !== <span class="keyword">null</span>) <span class="keyword">return</span> override === <span class="string">'true'</span>;
+  <span class="keyword">return</span> defaultFlags[flag] ?? <span class="keyword">false</span>;
+}</code></pre>
+    </div>
+
+    <div class="card">
+      <div class="card-title">📄 frontend/src/components/Sidebar.tsx</div>
+      <pre><code><span class="comment">// Navegación filtrada por estado de Feature Flag</span>
+&lt;nav className=<span class="string">"flex-1 space-y-1 px-4 py-6"</span>&gt;
+  {menuItems
+    .<span class="fn">filter</span>((item) =&gt; !item.flag || <span class="fn">isFeatureEnabled</span>(item.flag))
+    .<span class="fn">map</span>((item) =&gt; (
+      &lt;Link key={item.name} href={item.href}&gt;
+        &lt;item.icon /&gt; {item.name}
+      &lt;/Link&gt;
+    ))}
+&lt;/nav&gt;</code></pre>
+    </div>
+
+    <div class="card">
+      <div class="card-title">📋 .github/pull_request_template.md</div>
+      <pre><code><span class="comment">## Checklist de Trunk-Based Development (TBD)</span>
+- [x] **Batch Size:** PR &lt; 300 líneas y revisión &lt; 15 min.
+- [x] **Short-Lived Branch:** Rama viva &lt; 24 horas.
+- [x] **Deploy ≠ Release:** Funcionalidad oculta tras Feature Flag.
+- [x] **Prisma:** Migración compatible hacia atrás.
+- [x] **CI Verde:** NestJS Jest y Next.js Turbopack OK.</code></pre>
+    </div>
+
+    <div class="card">
+      <div class="card-title">🚀 .github/workflows/ci-cd.yml & Build Status</div>
+      <pre><code><span class="comment"># Verificación exitosa de compilación en local y CI</span>
+▲ Next.js 16.3.0 (Turbopack)
+✓ Compiled successfully in 4.0s
+✓ Finished TypeScript in 5.6s
+✓ Generating static pages (12/12)
+
+PASS src/app.controller.spec.ts
+✓ should return "Hello World!" (24 ms)
+[Nest] 48648 - 10/17/2026 Nest application successfully started</code></pre>
+    </div>
+  </div>
+</body>
+</html>
