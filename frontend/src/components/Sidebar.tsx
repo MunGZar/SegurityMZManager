@@ -17,8 +17,16 @@ import {
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { useAuth } from '@/context/AuthContext';
+import { isFeatureEnabled, FeatureFlags } from '@/lib/feature-flags';
 
-const menuItems = [
+interface MenuItem {
+  name: string;
+  href: string;
+  icon: React.ComponentType<{ className?: string }>;
+  flag?: keyof FeatureFlags;
+}
+
+const menuItems: MenuItem[] = [
   { name: 'Dashboard', href: '/', icon: LayoutDashboard },
   { name: 'Clientes', href: '/clientes', icon: Users },
   { name: 'Proveedores', href: '/proveedores', icon: Truck },
@@ -27,8 +35,8 @@ const menuItems = [
   { name: 'Productos', href: '/productos', icon: Package },
   { name: 'Cotizaciones', href: '/cotizaciones', icon: FileText },
   { name: 'Órdenes de Trabajo', href: '/ordenes-trabajo', icon: Wrench },
-  { name: 'Compras', href: '/compras', icon: ShoppingBag },
-  { name: 'Finanzas', href: '/finanzas', icon: DollarSign },
+  { name: 'Compras', href: '/compras', icon: ShoppingBag, flag: 'comprasModule' },
+  { name: 'Finanzas', href: '/finanzas', icon: DollarSign, flag: 'finanzasModule' },
 ];
 
 export function Sidebar() {
@@ -48,7 +56,9 @@ export function Sidebar() {
       </div>
       
       <nav className="flex-1 space-y-1 px-4 py-6 overflow-y-auto">
-        {menuItems.map((item) => {
+        {menuItems
+          .filter((item) => !item.flag || isFeatureEnabled(item.flag))
+          .map((item) => {
           const isActive = pathname === item.href;
           return (
             <Link

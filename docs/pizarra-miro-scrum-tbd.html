@@ -1,0 +1,810 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pizarra Miro: Adaptación Scrum a TBD y CD - SegurityMZ Manager</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap');
+
+    :root {
+      --bg-canvas: #f4f5f7;
+      --grid-dot: #d1d5db;
+      --miro-yellow: #ffd02f;
+      --miro-blue: #050038;
+      --postit-yellow: #fef08a;
+      --postit-green: #bbf7d0;
+      --postit-red: #fecaca;
+      --postit-blue: #bfdbfe;
+      --postit-purple: #e9d5ff;
+      --postit-orange: #fed7aa;
+      --frame-border: #cbd5e1;
+      --text-dark: #1e293b;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: var(--bg-canvas);
+      background-image: radial-gradient(var(--grid-dot) 1.5px, transparent 1.5px);
+      background-size: 24px 24px;
+      color: var(--text-dark);
+      overflow-x: auto;
+      min-width: 2500px;
+      padding-bottom: 100px;
+    }
+
+    /* Top Navigation Bar - Miro Style */
+    header {
+      position: sticky;
+      top: 0;
+      left: 0;
+      z-index: 1000;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid #e2e8f0;
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 24px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    }
+
+    .brand-section {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .miro-logo {
+      background: var(--miro-yellow);
+      color: var(--miro-blue);
+      font-weight: 900;
+      font-size: 20px;
+      padding: 6px 14px;
+      border-radius: 8px;
+      letter-spacing: -0.5px;
+      box-shadow: 0 2px 4px rgba(255, 208, 47, 0.4);
+    }
+
+    .board-title {
+      font-size: 16px;
+      font-weight: 700;
+      color: #0f172a;
+    }
+
+    .board-badge {
+      font-size: 11px;
+      background: #e0e7ff;
+      color: #4338ca;
+      font-weight: 600;
+      padding: 3px 8px;
+      border-radius: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .timer-pill {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: #fee2e2;
+      border: 1px solid #fecaca;
+      color: #b91c1c;
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-weight: 700;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 14px;
+    }
+
+    .pulse {
+      width: 8px;
+      height: 8px;
+      background: #ef4444;
+      border-radius: 50%;
+      animation: pulse-anim 1.5s infinite;
+    }
+
+    @keyframes pulse-anim {
+      0% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.4; transform: scale(1.3); }
+      100% { opacity: 1; transform: scale(1); }
+    }
+
+    .collaborators {
+      display: flex;
+      align-items: center;
+    }
+
+    .avatar {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      border: 2px solid white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: 700;
+      color: white;
+      margin-left: -8px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    }
+
+    .av-po { background: #8b5cf6; margin-left: 0; }
+    .av-dev1 { background: #3b82f6; }
+    .av-dev2 { background: #10b981; }
+    .av-sm { background: #f59e0b; }
+
+    /* Canvas Layout */
+    .canvas-container {
+      padding: 40px;
+      display: grid;
+      grid-template-columns: repeat(2, 1180px);
+      gap: 50px;
+      justify-content: center;
+    }
+
+    /* Miro Frame */
+    .miro-frame {
+      background: #ffffff;
+      border: 2px solid var(--frame-border);
+      border-radius: 16px;
+      padding: 32px;
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.01);
+      position: relative;
+    }
+
+    .frame-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 24px;
+      border-bottom: 2px dashed #f1f5f9;
+      padding-bottom: 16px;
+    }
+
+    .frame-tag {
+      font-size: 12px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      color: #64748b;
+      margin-bottom: 4px;
+    }
+
+    .frame-title {
+      font-size: 22px;
+      font-weight: 800;
+      color: #0f172a;
+    }
+
+    .frame-timer {
+      font-size: 13px;
+      font-weight: 700;
+      background: #f1f5f9;
+      color: #475569;
+      padding: 6px 12px;
+      border-radius: 8px;
+    }
+
+    /* Sticky Notes (Post-its) */
+    .post-it {
+      padding: 16px;
+      border-radius: 4px;
+      box-shadow: 2px 4px 10px rgba(0,0,0,0.08), 0 1px 2px rgba(0,0,0,0.06);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      position: relative;
+    }
+
+    .post-it:hover {
+      transform: translateY(-4px) rotate(0.5deg);
+      box-shadow: 4px 10px 18px rgba(0,0,0,0.12);
+      z-index: 10;
+    }
+
+    .post-it.yellow { background: var(--postit-yellow); border-left: 4px solid #eab308; }
+    .post-it.green  { background: var(--postit-green);  border-left: 4px solid #22c55e; }
+    .post-it.red    { background: var(--postit-red);    border-left: 4px solid #ef4444; }
+    .post-it.blue   { background: var(--postit-blue);   border-left: 4px solid #3b82f6; }
+    .post-it.purple { background: var(--postit-purple); border-left: 4px solid #a855f7; }
+    .post-it.orange { background: var(--postit-orange); border-left: 4px solid #f97316; }
+
+    .post-it-title {
+      font-size: 13px;
+      font-weight: 700;
+      margin-bottom: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+      color: #0f172a;
+    }
+
+    .post-it-text {
+      font-family: 'Inter', sans-serif;
+      font-size: 13px;
+      line-height: 1.45;
+      color: #1e293b;
+    }
+
+    .post-it-author {
+      margin-top: 10px;
+      font-size: 11px;
+      font-weight: 600;
+      color: #64748b;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    /* Frame 1: Diagnostic Value Stream */
+    .stream-pipeline {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 28px;
+      overflow-x: auto;
+      padding: 12px 6px;
+    }
+
+    .stream-node {
+      background: #0f172a;
+      color: white;
+      padding: 12px 16px;
+      border-radius: 10px;
+      font-weight: 700;
+      font-size: 12px;
+      white-space: nowrap;
+      text-align: center;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+      position: relative;
+    }
+
+    .stream-node.highlight {
+      background: #4f46e5;
+      box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.3);
+    }
+
+    .stream-arrow {
+      color: #94a3b8;
+      font-weight: 800;
+      font-size: 18px;
+    }
+
+    .traffic-lights {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    .traffic-col {
+      background: #f8fafc;
+      border-radius: 12px;
+      padding: 16px;
+      border: 1px solid #e2e8f0;
+    }
+
+    .traffic-header {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 14px;
+      font-weight: 800;
+      margin-bottom: 14px;
+    }
+
+    /* Frame 2: Roles Grid */
+    .roles-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .role-card {
+      background: #f8fafc;
+      border-radius: 12px;
+      border: 1px solid #e2e8f0;
+      padding: 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .role-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 13px;
+      font-weight: 800;
+      padding: 4px 10px;
+      border-radius: 6px;
+      color: white;
+      width: fit-content;
+    }
+
+    .bg-po { background: #8b5cf6; }
+    .bg-dev { background: #0284c7; }
+    .bg-sm { background: #d97706; }
+
+    .role-desc {
+      font-size: 12px;
+      color: #475569;
+      line-height: 1.4;
+    }
+
+    /* Frame 3: Stories & Slices */
+    .stories-container {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-top: 14px;
+    }
+
+    .story-card {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 16px;
+    }
+
+    .story-header {
+      font-weight: 800;
+      font-size: 14px;
+      color: #0f172a;
+      margin-bottom: 8px;
+    }
+
+    .story-flag {
+      display: inline-block;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      background: #fef3c7;
+      color: #92400e;
+      padding: 2px 6px;
+      border-radius: 4px;
+      margin-bottom: 12px;
+      border: 1px solid #fde68a;
+    }
+
+    .slices-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .slice-item {
+      background: white;
+      border: 1px solid #e2e8f0;
+      border-left: 4px solid #4f46e5;
+      padding: 8px 10px;
+      border-radius: 6px;
+      font-size: 12px;
+      line-height: 1.35;
+    }
+
+    .slice-time {
+      font-weight: 700;
+      color: #4f46e5;
+      font-size: 10px;
+      text-transform: uppercase;
+    }
+
+    /* Frame 4: Playbook Agreements */
+    .playbook-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+    }
+
+    .agreement-box {
+      background: #f8fafc;
+      border-radius: 12px;
+      border: 1px solid #e2e8f0;
+      padding: 18px;
+    }
+
+    .agreement-title {
+      font-size: 15px;
+      font-weight: 800;
+      color: #0f172a;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .rules-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .rules-list li {
+      font-size: 12px;
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      line-height: 1.4;
+    }
+
+    .check-icon {
+      color: #10b981;
+      font-weight: 900;
+    }
+
+    .code-badge {
+      font-family: 'JetBrains Mono', monospace;
+      background: #0f172a;
+      color: #38bdf8;
+      padding: 1px 5px;
+      border-radius: 4px;
+      font-size: 11px;
+    }
+
+    .stamp-approved {
+      position: absolute;
+      bottom: 24px;
+      right: 28px;
+      border: 3px solid #10b981;
+      color: #10b981;
+      font-weight: 900;
+      font-size: 16px;
+      padding: 6px 14px;
+      border-radius: 8px;
+      text-transform: uppercase;
+      transform: rotate(-8deg);
+      letter-spacing: 1px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Topbar -->
+  <header>
+    <div class="brand-section">
+      <div class="miro-logo">miro</div>
+      <div>
+        <div style="display: flex; align-items: center; gap: 8px;">
+          <span class="board-title">SegurityMZ Manager — Scrum + TBD Playbook Workshop</span>
+          <span class="board-badge">Repo Activo: MunGZar/SegurityMZManager</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="header-actions">
+      <div class="timer-pill">
+        <div class="pulse"></div>
+        <span>SESSION TIMER: 01:15:00</span>
+      </div>
+      <div class="collaborators">
+        <div class="avatar av-po" title="Product Owner (Jose)">PO</div>
+        <div class="avatar av-dev1" title="Lead Fullstack (MunGZar)">TL</div>
+        <div class="avatar av-dev2" title="Frontend Dev">DEV</div>
+        <div class="avatar av-sm" title="Scrum Master">SM</div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Canvas -->
+  <div class="canvas-container">
+
+    <!-- FRAME 1: DIAGNÓSTICO DEL FLUJO ACTUAL -->
+    <div class="miro-frame" id="frame-1">
+      <div class="frame-header">
+        <div>
+          <div class="frame-tag">Bloque 1 • 20 Minutos</div>
+          <h2 class="frame-title">Diagnóstico del Flujo Actual (Value Stream)</h2>
+        </div>
+        <div class="frame-timer">⏱️ 20:00</div>
+      </div>
+
+      <!-- Pipeline Real -->
+      <div class="stream-pipeline">
+        <div class="stream-node">1. Commit Local</div>
+        <div class="stream-arrow">→</div>
+        <div class="stream-node">2. Rama feacture/...</div>
+        <div class="stream-arrow">→</div>
+        <div class="stream-node">3. Push & PR</div>
+        <div class="stream-arrow">→</div>
+        <div class="stream-node highlight">4. CI: NestJS + Next.js</div>
+        <div class="stream-arrow">→</div>
+        <div class="stream-node">5. Code Review</div>
+        <div class="stream-arrow">→</div>
+        <div class="stream-node highlight">6. Merge a main</div>
+        <div class="stream-arrow">→</div>
+        <div class="stream-node">7. Docker GHCR</div>
+        <div class="stream-arrow">→</div>
+        <div class="stream-node" style="background: #e11d48;">8. ¿Deploy Prod?</div>
+      </div>
+
+      <!-- Semáforo con Post-its Reales -->
+      <div class="traffic-lights">
+        
+        <!-- Verde -->
+        <div class="traffic-col">
+          <div class="traffic-header" style="color: #15803d;">
+            <span>🟢</span> Lo que ya funciona bien
+          </div>
+          <div style="display: flex; flex-direction: column; gap: 12px;">
+            <div class="post-it green">
+              <div class="post-it-title">Pipeline GitHub Actions</div>
+              <div class="post-it-text">CI en paralelo rápido (< 2 min) compila NestJS y Next.js con Turbopack y cache.</div>
+              <div class="post-it-author">👤 Dev Lead</div>
+            </div>
+            <div class="post-it green">
+              <div class="post-it-title">Generación Prisma Automática</div>
+              <div class="post-it-text">Prisma Client se genera en cada ejecución sin depender de la base de datos real.</div>
+              <div class="post-it-author">👤 Fullstack</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Amarillo -->
+        <div class="traffic-col">
+          <div class="traffic-header" style="color: #b45309;">
+            <span>🟡</span> Lo que genera fricción
+          </div>
+          <div style="display: flex; flex-direction: column; gap: 12px;">
+            <div class="post-it yellow">
+              <div class="post-it-title">Ramas de Larga Duración</div>
+              <div class="post-it-text">Ramas como feacture/actualizar-front duraron días y causan desincronización de main.</div>
+              <div class="post-it-author">👤 Scrum Master</div>
+            </div>
+            <div class="post-it yellow">
+              <div class="post-it-title">Baja Cobertura de Tests</div>
+              <div class="post-it-text">npm run test usa --passWithNoTests; no detectamos regresiones en lógica comercial.</div>
+              <div class="post-it-author">👤 Dev Lead</div>
+            </div>
+            <div class="post-it yellow">
+              <div class="post-it-title">Rutas Rotas en Sidebar</div>
+              <div class="post-it-text">Enlaces a /compras y /finanzas mostraban 404 porque no estaban terminados.</div>
+              <div class="post-it-author">👤 PO</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Rojo -->
+        <div class="traffic-col">
+          <div class="traffic-header" style="color: #b91c1c;">
+            <span>🔴</span> Rompe el flujo / Genera miedo
+          </div>
+          <div style="display: flex; flex-direction: column; gap: 12px;">
+            <div class="post-it red">
+              <div class="post-it-title">Deploy = Release</div>
+              <div class="post-it-text">Si integramos a main, el cliente ve los botones sin terminar. Miedo a romper producción.</div>
+              <div class="post-it-author">👤 Product Owner</div>
+            </div>
+            <div class="post-it red">
+              <div class="post-it-title">Commits Acumulativos Gigantes</div>
+              <div class="post-it-text">Commits como "modulos de hasta cotizacion" (12 archivos) imposibles de revisar en PR.</div>
+              <div class="post-it-author">👤 Peer Reviewer</div>
+            </div>
+            <div class="post-it red">
+              <div class="post-it-title">Falta Branch Protection</div>
+              <div class="post-it-text">Cualquiera puede hacer push directo a main si no configuramos reglas de protección.</div>
+              <div class="post-it-author">👤 Tech Lead</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- FRAME 2: ROLES ADAPTADOS -->
+    <div class="miro-frame" id="frame-2">
+      <div class="frame-header">
+        <div>
+          <div class="frame-tag">Bloque 2 • 15 Minutos</div>
+          <h2 class="frame-title">Roles Adaptados a TBD + Despliegue Continuo</h2>
+        </div>
+        <div class="frame-timer">⏱️ 15:00</div>
+      </div>
+
+      <div class="roles-grid">
+        
+        <!-- Product Owner -->
+        <div class="role-card">
+          <div class="role-badge bg-po">Product Owner</div>
+          <p class="role-desc">Prioriza por valor y riesgo de despliegue. Diseña el slicing vertical y gestiona el encendido de Feature Toggles.</p>
+          <div class="post-it purple" style="margin-top: 10px;">
+            <div class="post-it-title">Post-it de Mañana</div>
+            <div class="post-it-text">"Aceptaré historias de 1 solo día con código que entre a main oculto tras un Feature Toggle, sin esperar 2 semanas."</div>
+            <div class="post-it-author">📌 Jose (PO)</div>
+          </div>
+        </div>
+
+        <!-- Developers -->
+        <div class="role-card">
+          <div class="role-badge bg-dev">Developers / Tech Lead</div>
+          <p class="role-desc">Responsables de mantener main siempre verde y releasable. Aplican Branch by Abstraction y cambios menores a 300 LOC.</p>
+          <div class="post-it blue" style="margin-top: 10px;">
+            <div class="post-it-title">Post-it de Mañana</div>
+            <div class="post-it-text">"Nunca dejaré una rama viva más de 24 horas. Integraré con Squash & Merge y revisaré PRs de compañeros en < 2h."</div>
+            <div class="post-it-author">📌 MunGZar (Tech Lead)</div>
+          </div>
+        </div>
+
+        <!-- Scrum Master -->
+        <div class="role-card">
+          <div class="role-badge bg-sm">Scrum Master</div>
+          <p class="role-desc">Facilita la disciplina de integración diaria y elimina el miedo a romper main. Vela por la salud de las métricas DORA.</p>
+          <div class="post-it orange" style="margin-top: 10px;">
+            <div class="post-it-title">Post-it de Mañana</div>
+            <div class="post-it-text">"En la Daily preguntaré '¿qué integramos hoy a main?' y protegeré tiempo técnico para automatizar tests en CI."</div>
+            <div class="post-it-author">📌 Scrum Master</div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Nota destacada de andon cord -->
+      <div style="margin-top: 24px; background: #fff7ed; border-left: 4px solid #ea580c; padding: 14px 18px; border-radius: 6px;">
+        <strong style="color: #9a3412; font-size: 13px;">Regla del Andon Cord en SegurityMZ Manager:</strong>
+        <p style="font-size: 12px; color: #7c2d12; margin-top: 4px;">Si el build en <code>main</code> se rompe en GitHub Actions, se detiene todo desarrollo nuevo hasta restaurarlo. Nada entra a main si el pipeline está en rojo.</p>
+      </div>
+    </div>
+
+    <!-- FRAME 3: SLICING REAL DE HISTORIAS -->
+    <div class="miro-frame" id="frame-3">
+      <div class="frame-header">
+        <div>
+          <div class="frame-tag">Bloque 3 • 28 Minutos</div>
+          <h2 class="frame-title">Actividad "Traduce tu Realidad": Slicing de 3 Historias</h2>
+        </div>
+        <div class="frame-timer">⏱️ 20:00</div>
+      </div>
+
+      <div class="stories-container">
+
+        <!-- Historia 1 -->
+        <div class="story-card">
+          <div class="story-header">📦 Historia A: Módulo Compras</div>
+          <span class="story-flag">Flag: flags.comprasModule</span>
+          <p style="font-size: 12px; color: #64748b; margin-bottom: 12px;">Ingreso de facturas y adquisición de cámaras Dahua / Imou.</p>
+          
+          <div class="slices-list">
+            <div class="slice-item">
+              <span class="slice-time">Slice 1 • 1 día</span><br>
+              <strong>Backend & Prisma:</strong> Endpoint POST /compras con validación DTO y tests Jest.
+            </div>
+            <div class="slice-item">
+              <span class="slice-time">Slice 2 • 0.5 días</span><br>
+              <strong>Dark Launch UI:</strong> Ruta /compras oculta en Sidebar mediante Feature Flag.
+            </div>
+            <div class="slice-item">
+              <span class="slice-time">Slice 3 • 1 día</span><br>
+              <strong>Formulario & Stock:</strong> Registro de compra con cálculo y selector de proveedor.
+            </div>
+            <div class="slice-item" style="border-left-color: #10b981;">
+              <span class="slice-time" style="color: #10b981;">Slice 4 • Release</span><br>
+              <strong>Encendido General:</strong> PO activa el flag en producción para todos los usuarios.
+            </div>
+          </div>
+        </div>
+
+        <!-- Historia 2 -->
+        <div class="story-card">
+          <div class="story-header">🔧 Historia B: Órdenes de Trabajo</div>
+          <span class="story-flag">Flag: flags.ordenesTrabajoV2</span>
+          <p style="font-size: 12px; color: #64748b; margin-bottom: 12px;">Generación de OT técnica desde Cotizaciones Aprobadas.</p>
+          
+          <div class="slices-list">
+            <div class="slice-item">
+              <span class="slice-time">Slice 1 • 0.5 días</span><br>
+              <strong>Transición de Estado:</strong> Endpoint POST /cotizaciones/:id/generar-ot.
+            </div>
+            <div class="slice-item">
+              <span class="slice-time">Slice 2 • 0.5 días</span><br>
+              <strong>Botón Condicionado:</strong> Botón en modal visible solo si cotización = APROBADA y flag ON.
+            </div>
+            <div class="slice-item">
+              <span class="slice-time">Slice 3 • 1 día</span><br>
+              <strong>Visualización Técnica:</strong> Tabla de asignación de instalación con filtros de técnicos.
+            </div>
+            <div class="slice-item" style="border-left-color: #10b981;">
+              <span class="slice-time" style="color: #10b981;">Slice 4 • Release</span><br>
+              <strong>Validación en Vivo:</strong> Técnicos prueban en tablets sin afectar cotizaciones.
+            </div>
+          </div>
+        </div>
+
+        <!-- Historia 3 -->
+        <div class="story-card">
+          <div class="story-header">💰 Historia C: Dashboard Finanzas</div>
+          <span class="story-flag">Flag: flags.finanzasModule</span>
+          <p style="font-size: 12px; color: #64748b; margin-bottom: 12px;">Métricas en tiempo real de ingresos vs egresos.</p>
+          
+          <div class="slices-list">
+            <div class="slice-item">
+              <span class="slice-time">Slice 1 • 0.5 días</span><br>
+              <strong>Query Agregado:</strong> Endpoint /finanzas/kpis optimizado en MySQL.
+            </div>
+            <div class="slice-item">
+              <span class="slice-time">Slice 2 • 0.5 días</span><br>
+              <strong>Widget con Fallback:</strong> Tarjeta en Dashboard envuelta en ErrorBoundary y Toggle.
+            </div>
+            <div class="slice-item">
+              <span class="slice-time">Slice 3 • 0.5 días</span><br>
+              <strong>Gráfico de Barras:</strong> Gráfico de ingresos mensuales comparativo.
+            </div>
+            <div class="slice-item" style="border-left-color: #10b981;">
+              <span class="slice-time" style="color: #10b981;">Slice 4 • Release</span><br>
+              <strong>Habilitación Rol:</strong> Solo visible para Administrador general.
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- FRAME 4: PLAYBOOK Y ACUERDOS -->
+    <div class="miro-frame" id="frame-4">
+      <div class="frame-header">
+        <div>
+          <div class="frame-tag">Bloque 4 • 17 Minutos</div>
+          <h2 class="frame-title">Scrum + TBD Playbook: Acuerdos de Trabajo</h2>
+        </div>
+        <div class="frame-timer">⏱️ 17:00</div>
+      </div>
+
+      <div class="playbook-grid">
+        
+        <!-- Reglas de Oro -->
+        <div class="agreement-box">
+          <div class="agreement-title">
+            <span>🛡️</span> Reglas de Oro de main
+          </div>
+          <ul class="rules-list">
+            <li><span class="check-icon">✓</span> <strong>Vida de ramas:</strong> Máximo 24 horas. Prohibidas ramas épicas.</li>
+            <li><span class="check-icon">✓</span> <strong>Batch Size:</strong> Entre 100 y 300 líneas de código por PR.</li>
+            <li><span class="check-icon">✓</span> <strong>Merge Strategy:</strong> <span class="code-badge">Squash & Merge</span> en GitHub.</li>
+            <li><span class="check-icon">✓</span> <strong>Desacoplamiento:</strong> Deploy continuo; Release con Feature Flag.</li>
+            <li><span class="check-icon">✓</span> <strong>Database:</strong> Migraciones Prisma retrocompatibles (Expand & Contract).</li>
+          </ul>
+        </div>
+
+        <!-- Definition of Done -->
+        <div class="agreement-box">
+          <div class="agreement-title">
+            <span>📋</span> Definition of Done (DoD)
+          </div>
+          <ul class="rules-list">
+            <li><span class="check-icon">✓</span> Compila sin fallos: NestJS y Next.js Turbopack.</li>
+            <li><span class="check-icon">✓</span> Tests de Jest pasando en GitHub Actions.</li>
+            <li><span class="check-icon">✓</span> PR checklist completado (<span class="code-badge">pull_request_template.md</span>).</li>
+            <li><span class="check-icon">✓</span> Si está incompleto, protegido tras Feature Flag.</li>
+            <li><span class="check-icon">✓</span> Verificado en producción con flag activo por el PO.</li>
+          </ul>
+        </div>
+
+      </div>
+
+      <!-- Decisiones Pendientes -->
+      <div style="margin-top: 20px; background: #f1f5f9; border-radius: 8px; padding: 14px 18px;">
+        <strong style="font-size: 13px; color: #334155;">Decisiones de Arquitectura Pendientes:</strong>
+        <div style="display: flex; gap: 20px; margin-top: 8px; font-size: 12px; color: #475569;">
+          <div>• <strong>Feature Flags:</strong> In-repo util (<span class="code-badge">feature-flags.ts</span>) ya operativo; evaluar ConfigCat en Q1.</div>
+          <div>• <strong>Métricas DORA:</strong> Seguimiento semanal de Lead Time y Deployment Frequency.</div>
+        </div>
+      </div>
+
+      <div class="stamp-approved">ACUERDO FIRMADO</div>
+    </div>
+
+  </div>
+
+</body>
+</html>

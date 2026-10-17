@@ -1,0 +1,35 @@
+Texto del Post-it,Color Miro,Bloque / Frame,Rol / Autor
+"🟢 Pipeline CI Rápido: Compilación paralela de NestJS y Next.js con Turbopack y caché en < 2 min",Verde,Bloque 1: Diagnóstico,Dev Lead
+"🟢 Generación Automática Prisma: Prisma Client se genera en cada ejecución sin base de datos activa",Verde,Bloque 1: Diagnóstico,Fullstack
+"🟡 Ramas Largas: Ramas como feacture/actualizar-front duraron días y desincronizan main",Amarillo,Bloque 1: Diagnóstico,Scrum Master
+"🟡 Baja Cobertura Tests: npm run test usa --passWithNoTests; faltan pruebas de negocio",Amarillo,Bloque 1: Diagnóstico,Dev Lead
+"🟡 Rutas Rotas en Sidebar: Enlaces a /compras y /finanzas mostraban 404 por no estar terminados",Amarillo,Bloque 1: Diagnóstico,Product Owner
+"🔴 Deploy = Release: Miedo a romper producción si integramos a main sin Feature Flags",Rojo,Bloque 1: Diagnóstico,Product Owner
+"🔴 Commits Gigantes: Commits acumulativos como 'modulos de hasta cotizacion' difíciles de revisar",Rojo,Bloque 1: Diagnóstico,Peer Reviewer
+"🔴 Falta Branch Protection: Posibilidad de push directo sin CI obligatorio ni aprobación",Rojo,Bloque 1: Diagnóstico,Tech Lead
+"📌 PO Mañana: Aceptaré historias de 1 día con código que entre a main oculto tras un Feature Toggle",Morado,Bloque 2: Roles,Product Owner (Jose)
+"📌 Dev Mañana: Nunca dejaré una rama viva más de 24h. Integraré con Squash & Merge y revisaré PRs en < 2h",Azul,Bloque 2: Roles,MunGZar (Tech Lead)
+"📌 SM Mañana: En la Daily preguntaré '¿qué integramos hoy a main?' y protegeré tiempo para CI",Naranja,Bloque 2: Roles,Scrum Master
+"🚨 Regla Andon Cord: Si el CI falla en main, se detiene todo desarrollo hasta restaurar el build en verde",Rojo,Bloque 2: Roles,Equipo
+"📦 Historia A: Módulo Compras (Cámaras Dahua/Imou) - Flag: flags.comprasModule",Azul,Bloque 3: Slicing,Equipo Compras
+"Slice 1 (1d): Backend POST /compras con validación DTO y tests Jest",Azul,Bloque 3: Slicing,Backend
+"Slice 2 (0.5d): Ruta Next.js /compras oculta en Sidebar mediante Feature Flag",Azul,Bloque 3: Slicing,Frontend
+"Slice 3 (1d): Formulario de registro de compra y cálculo de precios de costo",Azul,Bloque 3: Slicing,Fullstack
+"Slice 4 (Release): Activación general del flag por el PO en producción",Verde,Bloque 3: Slicing,Product Owner
+"🔧 Historia B: Órdenes de Trabajo desde Cotización - Flag: flags.ordenesTrabajoV2",Naranja,Bloque 3: Slicing,Equipo Operaciones
+"Slice 1 (0.5d): Endpoint POST /cotizaciones/:id/generar-ot con validación de estado",Naranja,Bloque 3: Slicing,Backend
+"Slice 2 (0.5d): Botón 'Generar OT' en modal visible solo si cotización = APROBADA y flag ON",Naranja,Bloque 3: Slicing,Frontend
+"Slice 3 (1d): Tabla técnica de instalaciones y asignación de técnicos",Naranja,Bloque 3: Slicing,Fullstack
+"Slice 4 (Release): Pruebas en campo con técnicos antes de liberación masiva",Verde,Bloque 3: Slicing,Product Owner
+"💰 Historia C: Dashboard de Finanzas y Flujo - Flag: flags.finanzasModule",Amarillo,Bloque 3: Slicing,Equipo Finanzas
+"Slice 1 (0.5d): Query agregado y endpoint GET /finanzas/kpis",Amarillo,Bloque 3: Slicing,Backend
+"Slice 2 (0.5d): Widget en Dashboard envuelto en ErrorBoundary y Feature Flag",Amarillo,Bloque 3: Slicing,Frontend
+"Slice 3 (0.5d): Gráfico comparativo de ingresos vs gastos",Amarillo,Bloque 3: Slicing,Frontend
+"Slice 4 (Release): Encendido por rol para el Administrador",Verde,Bloque 3: Slicing,Product Owner
+"🛡️ Regla de Oro 1: Vida de ramas menor a 24 horas (Short-lived branches)",Verde,Bloque 4: Playbook,Acuerdo de Equipo
+"🛡️ Regla de Oro 2: Batch size de 100 a 300 líneas de código por PR",Verde,Bloque 4: Playbook,Acuerdo de Equipo
+"🛡️ Regla de Oro 3: Squash & Merge obligatorio en GitHub",Verde,Bloque 4: Playbook,Acuerdo de Equipo
+"🛡️ Regla de Oro 4: Desacoplar Despliegue de Liberación con Feature Flags",Verde,Bloque 4: Playbook,Acuerdo de Equipo
+"🛡️ Regla de Oro 5: Migraciones Prisma compatibles hacia atrás (Expand & Contract)",Verde,Bloque 4: Playbook,Acuerdo de Equipo
+"📋 DoD Técnico: Build NestJS/Next.js OK + Tests Jest OK + PR Template OK",Verde,Bloque 4: Playbook,Definition of Done
+"📋 DoD Negocio: Criterios de aceptación verificados + Feature Toggle gestionado",Verde,Bloque 4: Playbook,Definition of Done

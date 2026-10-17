@@ -9,11 +9,13 @@ on:
       - main
   workflow_dispatch:
 
+
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
+
   backend:
     name: Backend (Test & Build)
     runs-on: ubuntu-latest
@@ -45,6 +47,7 @@ jobs:
 
       - name: Compilar aplicación (NestJS)
         run: npm run build
+
 
   frontend:
     name: Frontend (Build & Types)
@@ -80,61 +83,19 @@ jobs:
           NEXT_PUBLIC_API_URL: ${{ vars.NEXT_PUBLIC_API_URL || 'http://localhost:3001/api' }}
         run: npm run build
 
-  publish-packages:
-    name: Publicar Packages en GitHub (GHCR)
+
+
+  delivery-status:
+    name: Delivery Ready Check
     needs: [backend, frontend]
     runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/main' && (github.event_name == 'push' || github.event_name == 'workflow_dispatch')
-    permissions:
-      contents: read
-      packages: write
-
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
     steps:
-      - name: Checkout del repositorio
-        uses: actions/checkout@v7
-
-      - name: Configurar Docker Buildx
-        uses: docker/setup-buildx-action@v4
-
-      - name: Iniciar sesión en GitHub Container Registry
-        uses: docker/login-action@v4
-        with:
-          registry: ghcr.io
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Preparar nombre en minúsculas del repositorio
-        run: |
-          echo "IMAGE_REPO=${GITHUB_REPOSITORY,,}" >> $GITHUB_ENV
-
-      - name: Construir y publicar paquete Backend
-        uses: docker/build-push-action@v7
-        with:
-          context: ./backend
-          file: ./backend/Dockerfile
-          push: true
-          tags: |
-            ghcr.io/${{ env.IMAGE_REPO }}/backend:latest
-            ghcr.io/${{ env.IMAGE_REPO }}/backend:${{ github.sha }}
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
-
-      - name: Construir y publicar paquete Frontend
-        uses: docker/build-push-action@v7
-        with:
-          context: ./frontend
-          file: ./frontend/Dockerfile
-          push: true
-          tags: |
-            ghcr.io/${{ env.IMAGE_REPO }}/frontend:latest
-            ghcr.io/${{ env.IMAGE_REPO }}/frontend:${{ github.sha }}
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
-
-      - name: Resumen de Packages publicados
+      - name: Resumen de Entrega
         run: |
           echo "=========================================="
-          echo "Packages publicados exitosamente en GitHub Container Registry:"
-          echo "Backend:  ghcr.io/${{ env.IMAGE_REPO }}/backend:latest"
-          echo "Frontend: ghcr.io/${{ env.IMAGE_REPO }}/frontend:latest"
+          echo "Integración Continua completada con éxito."
+          echo "Backend y Frontend compilados y listos para producción."
+          echo "Commit: ${{ github.sha }}"
+          echo "Rama: ${{ github.ref_name }}"
           echo "=========================================="
